@@ -1,0 +1,30 @@
+# .github/workflows/ci.yml
+name: C Project CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: |
+          pip install uv
+          uv sync
+          source ./venv/bin/activate
+      - run: |
+          norminette *.c *.h || exit 1
+      - run: |
+          make
+          if [ $? -ne 0 ]; then
+            echo "Compilation failed"
+            exit 1
+          fi
+      - run: make fclean
