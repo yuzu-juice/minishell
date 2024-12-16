@@ -20,7 +20,8 @@ jobs:
           uv sync
           source ./.venv/bin/activate
       - run: |
-          python -m norminette || exit 1
+          echo "export PATH=\$PATH:$HOME/.venv/bin" >> $HOME/.${SHELL##/bin/}rc
+          norminette || exit 1
       - run: |
           make
           if [ $? -ne 0 ]; then
