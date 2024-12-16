@@ -1,5 +1,4 @@
-# .github/workflows/ci.yml
-name: C Project CI
+name: minishell CI
 
 on:
   push:
@@ -9,7 +8,7 @@ on:
 
 jobs:
   check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
