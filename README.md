@@ -27,3 +27,22 @@ $ pre-commit -V
 ```
 $ pre-commit install
 ```
+
+# pre-commit
+
+commit 時に以下のコマンドが自動実行されます。
+
+通らないと、commit できない仕様になっています。
+
+- `norminette`
+
+# GitHub Actions
+
+## CI
+
+全てのブランチへの push 時および、main ブランチへの merge 時に CI が走ります。
+
+CI では、以下のコマンドが自動実行され、テストを実施されます。
+
+- `norminette`
+- `make`
