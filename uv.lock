@@ -1,0 +1,34 @@
+version = 1
+requires-python = ">=3.13"
+
+[[package]]
+name = "argparse"
+version = "1.4.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/18/dd/e617cfc3f6210ae183374cd9f6a26b20514bbb5a792af97949c5aacddf0f/argparse-1.4.0.tar.gz", hash = "sha256:62b089a55be1d8949cd2bc7e0df0bddb9e028faefc8c32038cc84862aefdd6e4", size = 70508 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f2/94/3af39d34be01a24a6e65433d19e107099374224905f1e0cc6bbe1fd22a2f/argparse-1.4.0-py2.py3-none-any.whl", hash = "sha256:c31647edb69fd3d465a847ea3157d37bed1f95f19760b11a47aa91c04b666314", size = 23000 },
+]
+
+[[package]]
+name = "minishell"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "norminette" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "norminette", specifier = ">=3.3.55" }]
+
+[[package]]
+name = "norminette"
+version = "3.3.55"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "argparse" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/32/7d/a7bd0a9eab47b0e23874996d62bc9af39328b7e9e939f29340330d56f4c5/norminette-3.3.55.tar.gz", hash = "sha256:66356de519fdd361043ea1473ea5317b6087ce60c9f1f2fb172aaf3f7fcfe98c", size = 46361 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f8/3c/668d4102d9b0d4d19e872f7e5b44bb7056ebb423a5dff142aaa71a508012/norminette-3.3.55-py3-none-any.whl", hash = "sha256:df33d36860047c12e1a663497fa508999fb34e45ba4ccec3999edf35af114a11", size = 77428 },
+]
