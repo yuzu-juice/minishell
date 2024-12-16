@@ -18,9 +18,8 @@ jobs:
       - run: |
           pip install uv
           uv sync
-          source ./.venv/bin/activate
       - run: |
-          echo "export PATH=\$PATH:$HOME/.venv/bin" >> $HOME/.${SHELL##/bin/}rc
+          source ./.venv/bin/activate
           norminette || exit 1
       - run: |
           make
