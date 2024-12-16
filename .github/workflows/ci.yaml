@@ -20,7 +20,7 @@ jobs:
           uv sync
           source ./.venv/bin/activate
       - run: |
-          norminette *.c *.h || exit 1
+          python -m norminette || exit 1
       - run: |
           make
           if [ $? -ne 0 ]; then
