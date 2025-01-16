@@ -29,5 +29,6 @@ jobs:
             exit 1
           fi
       - run: |
+          sudo apt install valgrind
           valgrind --leak-check=full --show-leak-kinds=all --error-exitcode=1 ./minishell
       - run: make fclean
