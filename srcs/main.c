@@ -12,6 +12,7 @@
 
 #include "../includes/minishell.h"
 
+// something test
 int	main(void)
 {
 	printf("Hello, world!!\n");
