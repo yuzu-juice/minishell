@@ -6,4 +6,4 @@ repos:
         entry: norminette
         language: system
         types: [file]
-        files: \.(c|h)$
+        files: ^(srcs/|includes/).*\.(c|h)$
