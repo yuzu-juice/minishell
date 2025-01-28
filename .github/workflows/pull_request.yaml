@@ -1,0 +1,33 @@
+name: Assign Reviewers
+
+on:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  assign-reviewer:
+    name: Assign Reviewer
+    if: endsWith(github.actor, '[bot]') == false && github.event.pull_request.assignee == null
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      repository-projects: read
+    steps:
+      - name: Add reviewer to the PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          # PR作成者を取得
+          PR_CREATOR=${{ github.actor }}
+
+          # チームの他のメンバー（PR作成者以外）をレビュワーとして指定
+          if [ "$PR_CREATOR" == "yuzu-juice" ]; then
+            REVIEWER="yuzu-juice"
+          else
+            REVIEWER="yohatana42"
+          fi
+
+          # PRにレビュワーを追加
+          gh pr edit ${{ github.event.number }} --add-reviewer $REVIEWER
