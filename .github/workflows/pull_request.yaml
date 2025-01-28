@@ -24,15 +24,13 @@ jobs:
         run: |
           # PR作成者を取得
           PR_CREATOR=${{ github.actor }}
-          echo "PR Creator: $PR_CREATOR"  # デバッグ用に表示
 
           # チームの他のメンバー（PR作成者以外）をレビュワーとして指定
           if [ "$PR_CREATOR" == "yuzu-juice" ]; then
-            REVIEWER="yuzu-juice"
-          else
             REVIEWER="yohatana42"
+          else
+            REVIEWER="yuzu-juice"
           fi
-          echo "Reviewer: $REVIEWER"  # デバッグ用に表示
 
           # PRにレビュワーを追加
           gh pr edit ${{ github.event.number }} --add-reviewer $REVIEWER
