@@ -6,5 +6,4 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "norminette>=3.3.55",
-    "pre-commit>=4.0.1",
 ]
