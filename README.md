@@ -12,7 +12,7 @@
 
    ```
    $ uv sync
-   $ source ./venv/bin/activate
+   $ source .venv/bin/activate
    ```
 
 3. ライブラリのインストール確認
