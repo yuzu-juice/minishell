@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/02/28 16:36:29 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:59:47 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,6 @@ int	main(int argc, char **argv, char **envp)
 		line = readline("minishell> ");
 		if (ft_strlen(line) != 0)
 		{
-			// レキサー
-			// パイプする
-			// 子プロセス作る
-				// リダイレクトの処理
 			exec_cmd(envp, line);
 			free(line);
 		}
