@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:01:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/02/25 15:34:24 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:59:35 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	**get_env_path(char **envp)
 		i++;
 	}
 	if (envp[i] == NULL)
-		perror("env path can not get");
+		return (NULL);
 	temp = ft_strtrim(envp[i], PATH);
 	if (!temp)
 		return (NULL);
@@ -75,15 +75,3 @@ static void	free_path(char **path)
 	free(path);
 }
 
-void	free_env_path(char **env_path)
-{
-	int	i;
-
-	i = 0;
-	while (env_path[i])
-	{
-		free(env_path[i]);
-		i++;
-	}
-	free(env_path);
-}

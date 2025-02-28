@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:49:14 by yohatana          #+#    #+#             */
-/*   Updated: 2025/02/25 17:29:19 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/02/28 14:34:41 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ static char	*add_slash(char *path)
 	post_path = ft_strjoin(path, "/");
 	if (!post_path)
 		return (NULL);
-	return (path);
+	return (post_path);
 }
