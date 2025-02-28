@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:20:30 by yohatana          #+#    #+#             */
-/*   Updated: 2025/02/28 16:38:15 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:53:17 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,11 @@ static void	free_path(char **env_path);
 char	*create_cmd_path(char **envp, char *cmd)
 {
 	char	*full_path;
-	char	*dir_path;
-	char	*cmd_only;
 	char	**env_path;
 
 	full_path = NULL;
-	if (cmd[0] == '/')
+	if (cmd[0] == '/' || cmd[0] == '.')
 		return (ft_strdup(cmd));
-	else if (cmd[0] == '.')
-	{
-		dir_path = get_env_pwd(envp);
-		cmd_only = ft_strtrim(cmd, "./");
-		full_path = ft_strjoin(dir_path, cmd_only);
-		free(dir_path);
-		free(cmd_only);
-		return (full_path);
-	}
 	env_path = get_env_path(envp);
 	full_path = serch_exec_cmd_path(env_path, cmd);
 	free_path(env_path);

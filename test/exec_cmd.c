@@ -13,7 +13,10 @@ int	main(int argc, char **argv, char **envp)
 	// exec_cmd(envp, "ls -l");
 	// exec_cmd(envp, "ls");
 	// exec_cmd(envp, "top");
-	exec_cmd(envp, "echo aaa sss ddd");
+	// exec_cmd(envp, "echo aaa sss ddd");
+
+	// 展開不要でした
+	// execve("./test.out", NULL, NULL);
 
 
 	// ビルトインコマンドも実行できる？
