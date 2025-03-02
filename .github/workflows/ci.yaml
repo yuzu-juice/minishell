@@ -18,7 +18,7 @@ jobs:
           uv sync
       - run: |
           source ./.venv/bin/activate
-          norminette srcs includes || exit 1
+          make norm || exit 1
       - run: |
           make
           if [ $? -ne 0 ]; then
