@@ -35,6 +35,9 @@ fclean: clean
 	make -C $(LIBFT) fclean
 	rm -f $(NAME)
 
+norm:
+	norminette srcs includes
+
 re: fclean all
 
 .PHONY: all clean fclean re
