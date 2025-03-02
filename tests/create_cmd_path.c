@@ -7,14 +7,20 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	char	*path;
 
+	// actual command
 	path = create_cmd_path(envp, "ls");
 	printf("path : %s\n", path);
+
+	// absolute path
 	path = create_cmd_path(envp, "/usr/bin/ls");
 	printf("path : %s\n", path);
+
+	// not exist command
 	path = create_cmd_path(envp, "ca");
 	printf("path : %s\n", path);
 
 	// execve()が勝手に補完してくれるので展開不要
+	// start with "."
 	path = create_cmd_path(envp, "./test.out");
 	printf("path : %s\n", path);
 	path = create_cmd_path(envp, "../../test.out");
