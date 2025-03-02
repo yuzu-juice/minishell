@@ -1,43 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_env_pwd.c                                      :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/25 15:49:14 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/02 19:09:16 by yohatana         ###   ########.fr       */
+/*   Created: 2024/05/01 11:09:34 by yohatana          #+#    #+#             */
+/*   Updated: 2025/02/23 15:24:23 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include"libft.h"
 
-static char	*add_slash(char *path);
-
-char	*get_env_pwd(void)
+void	*ft_calloc(size_t count, size_t size)
 {
-	char	*path;
-	int		i;
-	char	*env_pwd;
+	void	*result;
 
-	i = 0;
-	path = getenv("PWD");
-	if (path == NULL)
+	if ((count != 0 && SIZE_MAX / count < size)
+		|| (size != 0 && SIZE_MAX / size < count))
 		return (NULL);
-	env_pwd = add_slash(path);
-	if (!env_pwd)
+	if (count == 0 || size == 0)
+	{
+		result = malloc(1);
+		if (result == NULL)
+			return (NULL);
+		return (result);
+	}
+	result = malloc(size * count);
+	if (result == NULL)
 		return (NULL);
-	return (env_pwd);
-}
-
-static char	*add_slash(char *path)
-{
-	int		i;
-	char	*post_path;
-
-	i = 0;
-	post_path = ft_strjoin(path, "/");
-	if (!post_path)
-		return (NULL);
-	return (post_path);
+	ft_bzero(result, size * count);
+	return (result);
 }

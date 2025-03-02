@@ -6,16 +6,15 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:01:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/02 15:00:22 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/02 19:09:13 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 static char	**add_slash(char **path);
-static void	free_path(char **path);
 
-char	**get_env_path(char **envp)
+char	**get_env_path(void)
 {
 	char	**path;
 	char	*temp;
@@ -23,24 +22,15 @@ char	**get_env_path(char **envp)
 	char	**env_path;
 
 	i = 0;
-	while (envp[i])
-	{
-		if (ft_strncmp(envp[i], PATH, 5) == 0)
-			break ;
-		i++;
-	}
-	if (envp[i] == NULL)
-		return (NULL);
-	temp = ft_strtrim(envp[i], PATH);
+	temp = getenv("PATH");
 	if (!temp)
 		return (NULL);
 	path = ft_split(temp, ':');
-	free(temp);
 	if (!path)
 		return (NULL);
 	env_path = add_slash(path);
 	if (!env_path)
-		free_path(path);
+		free_string_double_array(path);
 	return (env_path);
 }
 
@@ -60,17 +50,4 @@ static char	**add_slash(char **path)
 		i++;
 	}
 	return (path);
-}
-
-static void	free_path(char **path)
-{
-	int	i;
-
-	i = 0;
-	while (path[i])
-	{
-		free(path[i]);
-		i++;
-	}
-	free(path);
 }

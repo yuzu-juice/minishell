@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_string_array.c                                :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/02 14:54:52 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/02 18:11:26 by yohatana         ###   ########.fr       */
+/*   Created: 2024/05/09 15:43:36 by yohatana          #+#    #+#             */
+/*   Updated: 2024/05/09 15:53:41 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include"libft.h"
 
-void	free_string_double_array(char **str)
+void	ft_putendl_fd(char *s, int fd)
 {
 	int	i;
 
-	i = 0;
-	if (str == NULL)
+	if (s == NULL)
 		return ;
-	while (str[i])
+	i = 0;
+	while (s[i] != 0)
 	{
-		free(str[i]);
+		write(fd, &s[i], 1);
 		i++;
 	}
-	free (str);
+	write(fd, "\n", 1);
 }

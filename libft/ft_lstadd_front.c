@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_string_array.c                                :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/02 14:54:52 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/02 18:11:26 by yohatana         ###   ########.fr       */
+/*   Created: 2024/05/19 15:16:39 by yohatana          #+#    #+#             */
+/*   Updated: 2024/05/22 12:56:49 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include"libft.h"
 
-void	free_string_double_array(char **str)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	int	i;
-
-	i = 0;
-	if (str == NULL)
+	if (lst == NULL || new == NULL)
 		return ;
-	while (str[i])
-	{
-		free(str[i]);
-		i++;
-	}
-	free (str);
+	new->next = *lst;
+	*lst = new;
 }

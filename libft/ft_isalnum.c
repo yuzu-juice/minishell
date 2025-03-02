@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_string_array.c                                :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/02 14:54:52 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/02 18:11:26 by yohatana         ###   ########.fr       */
+/*   Created: 2024/04/17 13:53:17 by yohatana          #+#    #+#             */
+/*   Updated: 2024/04/23 16:45:28 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-void	free_string_double_array(char **str)
+int	ft_isalnum(int c)
 {
-	int	i;
-
-	i = 0;
-	if (str == NULL)
-		return ;
-	while (str[i])
+	if (ft_isalpha(c) != 0)
 	{
-		free(str[i]);
-		i++;
+		return (1);
 	}
-	free (str);
+	if (ft_isdigit(c) != 0)
+	{
+		return (1);
+	}
+	return (0);
 }

@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_string_array.c                                :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/02 14:54:52 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/02 18:11:26 by yohatana         ###   ########.fr       */
+/*   Created: 2024/01/29 14:45:38 by yohatana          #+#    #+#             */
+/*   Updated: 2024/05/17 14:11:42 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include"libft.h"
 
-void	free_string_double_array(char **str)
+char	*ft_strdup(const char *src)
 {
-	int	i;
+	char	*dest;
+	size_t	len;
+	size_t	i;
 
 	i = 0;
-	if (str == NULL)
-		return ;
-	while (str[i])
+	len = ft_strlen(src);
+	dest = (char *)malloc(len + 1);
+	if (dest == NULL)
 	{
-		free(str[i]);
+		return (NULL);
+	}
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
 		i++;
 	}
-	free (str);
+	dest[i] = '\0';
+	return (dest);
 }

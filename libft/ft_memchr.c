@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_string_array.c                                :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/02 14:54:52 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/02 18:11:26 by yohatana         ###   ########.fr       */
+/*   Created: 2024/04/28 18:01:28 by yohatana          #+#    #+#             */
+/*   Updated: 2024/05/22 18:45:19 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include"libft.h"
 
-void	free_string_double_array(char **str)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	int	i;
+	unsigned char	*str;
+	size_t			i;
 
+	str = (unsigned char *)s;
 	i = 0;
-	if (str == NULL)
-		return ;
-	while (str[i])
+	while (i < n)
 	{
-		free(str[i]);
+		if (str[i] == (unsigned char)c)
+		{
+			return (str + i);
+		}
 		i++;
 	}
-	free (str);
+	return (NULL);
 }

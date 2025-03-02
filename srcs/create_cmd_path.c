@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:20:30 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/02 14:58:57 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/02 19:07:48 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 static char	*serch_exec_cmd_path(char **env_path, char *cmd);
 static char	*get_cmd_only(char *cmd);
 
-// TODO :serch_exec_cmd_path()
-// 	when 'return cmd_only',
-// 	error message shoud be "command not found"
-char	*create_cmd_path(char **envp, char *cmd)
+char	*create_cmd_path(char *cmd)
 {
 	char	*full_path;
 	char	**env_path;
@@ -26,9 +23,9 @@ char	*create_cmd_path(char **envp, char *cmd)
 	full_path = NULL;
 	if (cmd[0] == '/' || cmd[0] == '.')
 		return (ft_strdup(cmd));
-	env_path = get_env_path(envp);
+	env_path = get_env_path();
 	full_path = serch_exec_cmd_path(env_path, cmd);
-	free_string_doble_array(env_path);
+	free_string_double_array(env_path);
 	return (full_path);
 }
 
@@ -76,6 +73,6 @@ static char	*get_cmd_only(char *cmd)
 	result = ft_strdup(temp[0]);
 	if (!result)
 		return (NULL);
-	free_string_doble_array(temp);
+	free_string_double_array(temp);
 	return (result);
 }

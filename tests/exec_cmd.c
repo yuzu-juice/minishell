@@ -2,7 +2,16 @@
 
 #include"../includes/minishell.h"
 
-// test
+/*
+	allow command and command args
+	ex)
+	exec_cmd(envp, "ls -l"); -> OK
+	exec_cmd(envp, "./a.out"); -> OK
+	exec_cmd(envp, "/usr/bin/ls"); -> OK
+	exec_cmd(envp, "ls -l home/yohatana/work/minishell"); -> OK
+	exec_cmd(envp, "echo "echos args string""); -> OK
+	exec_cmd(envp, "ls -l > outfile"); -> NG
+*/
 int	main(int argc, char **argv, char **envp)
 {
 	(void)argc;

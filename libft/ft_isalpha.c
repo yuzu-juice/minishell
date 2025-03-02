@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_string_array.c                                :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/02 14:54:52 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/02 18:11:26 by yohatana         ###   ########.fr       */
+/*   Created: 2024/04/16 16:13:22 by yohatana          #+#    #+#             */
+/*   Updated: 2024/05/22 18:46:25 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include"libft.h"
 
-void	free_string_double_array(char **str)
+int	ft_isalpha(int c)
 {
-	int	i;
-
-	i = 0;
-	if (str == NULL)
-		return ;
-	while (str[i])
+	if ((c < 'A' || 'Z' < c) && (c < 'a' || 'z' < c))
 	{
-		free(str[i]);
-		i++;
+		return (0);
 	}
-	free (str);
+	return (1);
 }
