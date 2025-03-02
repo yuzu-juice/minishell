@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/02/28 16:00:14 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/02 15:00:10 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,3 @@ static char	**create_cmd_args(char *cmd)
 	cmd_args = ft_split(cmd, ' ');
 	return (cmd_args);
 }
-

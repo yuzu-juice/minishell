@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:01:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/02/28 15:59:35 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/02 15:00:22 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,3 @@ static void	free_path(char **path)
 	}
 	free(path);
 }
-

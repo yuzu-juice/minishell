@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 22:27:24 by takitaga          #+#    #+#             */
-/*   Updated: 2025/02/28 15:42:53 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/02 14:57:31 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 # include "core_features.h"
+# include "utils.h"
 
 # include <stdio.h>
 # include <readline/readline.h>

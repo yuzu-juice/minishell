@@ -1,10 +1,11 @@
 NAME	= minishell
 SRCS	= \
-		srcs/main.c\
-		srcs/exec_cmd.c\
-		srcs/get_env_path.c\
-		srcs/get_env_pwd.c\
-		srcs/create_cmd_path.c
+	srcs/main.c\
+	srcs/exec_cmd.c\
+	srcs/get_env_path.c\
+	srcs/get_env_pwd.c\
+	srcs/create_cmd_path.c\
+	srcs/utils/free_string_array.c
 OBJS	= $(SRCS:.c=.o)
 
 CC	= cc
@@ -17,7 +18,7 @@ all: $(NAME)
 # libft
 LIBFT = libft
 $(LIBFT)/libft.a:
-		make -C $(LIBFT)
+	make -C $(LIBFT)
 
 $(NAME): $(OBJS) $(LIBFT)/libft.a
 	$(CC) $(CFLAG) -o $(NAME) $(OBJS) -L$(LIBFT) -lft -lreadline
