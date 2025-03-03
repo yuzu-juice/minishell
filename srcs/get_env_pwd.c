@@ -32,10 +32,8 @@ char	*get_env_pwd(void)
 
 static char	*add_slash(char *path)
 {
-	int		i;
 	char	*post_path;
 
-	i = 0;
 	post_path = ft_strjoin(path, "/");
 	if (!post_path)
 		return (NULL);
