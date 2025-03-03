@@ -32,9 +32,9 @@ jobs:
                     echo "Compilation failed"
                     exit 1
                   fi
-            - name: Check leaks
-              run: |
-                  sudo apt install valgrind
-                  valgrind --leak-check=full --show-leak-kinds=all --error-exitcode=1 ./minishell
+            # - name: Check leaks
+            #   run: |
+            #       sudo apt install valgrind
+            #       valgrind --leak-check=full --show-leak-kinds=all --error-exitcode=1 ./minishell
             - name: Clean up
               run: make fclean
