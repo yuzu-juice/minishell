@@ -18,10 +18,8 @@ char	**get_env_path(void)
 {
 	char	**path;
 	char	*temp;
-	int		i;
 	char	**env_path;
 
-	i = 0;
 	temp = getenv("PATH");
 	if (!temp)
 		return (NULL);

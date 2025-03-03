@@ -17,10 +17,8 @@ static char	*add_slash(char *path);
 char	*get_env_pwd(void)
 {
 	char	*path;
-	int		i;
 	char	*env_pwd;
 
-	i = 0;
 	path = getenv("PWD");
 	if (path == NULL)
 		return (NULL);
