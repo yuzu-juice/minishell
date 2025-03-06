@@ -1,33 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/02 15:01:12 by yohatana         ###   ########.fr       */
+/*   Created: 2025/03/02 14:57:03 by yohatana          #+#    #+#             */
+/*   Updated: 2025/03/02 18:11:38 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#ifndef UTILS_H
+# define UTILS_H
 
-int	main(int argc, char **argv, char **envp)
-{
-	char	*line;
+void	free_string_double_array(char **str);
 
-	(void)argv;
-	if (argc != 1)
-		return (0);
-	line = NULL;
-	while (1)
-	{
-		line = readline("minishell> ");
-		if (ft_strlen(line) != 0)
-		{
-			exec_cmd(envp, line);
-			free(line);
-		}
-	}
-	return (0);
-}
+#endif

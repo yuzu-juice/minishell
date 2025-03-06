@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/02 15:01:12 by yohatana         ###   ########.fr       */
+/*   Created: 2024/05/19 15:31:56 by yohatana          #+#    #+#             */
+/*   Updated: 2024/05/19 16:53:58 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include"libft.h"
 
-int	main(int argc, char **argv, char **envp)
+int	ft_lstsize(t_list *lst)
 {
-	char	*line;
+	int	lst_len;
 
-	(void)argv;
-	if (argc != 1)
+	if (lst == NULL)
 		return (0);
-	line = NULL;
-	while (1)
+	lst_len = 1;
+	while (lst->next != NULL)
 	{
-		line = readline("minishell> ");
-		if (ft_strlen(line) != 0)
-		{
-			exec_cmd(envp, line);
-			free(line);
-		}
+		lst_len++;
+		lst = lst->next;
 	}
-	return (0);
+	return (lst_len);
 }

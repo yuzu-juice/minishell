@@ -1,9 +1,0 @@
-repos:
-  - repo: local
-    hooks:
-      - id: norminette
-        name: norminette
-        entry: norminette
-        language: system
-        types: [file]
-        files: ^(srcs/|includes/).*\.(c|h)$

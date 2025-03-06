@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_string_array.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/02 15:01:12 by yohatana         ###   ########.fr       */
+/*   Created: 2025/03/02 14:54:52 by yohatana          #+#    #+#             */
+/*   Updated: 2025/03/02 18:11:26 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+void	free_string_double_array(char **str)
 {
-	char	*line;
+	int	i;
 
-	(void)argv;
-	if (argc != 1)
-		return (0);
-	line = NULL;
-	while (1)
+	i = 0;
+	if (str == NULL)
+		return ;
+	while (str[i])
 	{
-		line = readline("minishell> ");
-		if (ft_strlen(line) != 0)
-		{
-			exec_cmd(envp, line);
-			free(line);
-		}
+		free(str[i]);
+		i++;
 	}
-	return (0);
+	free (str);
 }

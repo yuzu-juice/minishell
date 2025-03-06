@@ -19,13 +19,6 @@
 
    ```
    $ norminette -v
-   $ pre-commit -V
-   ```
-
-4. pre-commit の設定
-
-   ```
-   $ pre-commit install
    ```
 
 ここまで実行が完了すれば、開発を始めることができます！

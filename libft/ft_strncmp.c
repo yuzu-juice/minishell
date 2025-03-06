@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/02 15:01:12 by yohatana         ###   ########.fr       */
+/*   Created: 2024/01/21 19:21:00 by yohatana          #+#    #+#             */
+/*   Updated: 2024/05/15 13:05:05 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include"libft.h"
 
-int	main(int argc, char **argv, char **envp)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	char	*line;
+	size_t	i;
 
-	(void)argv;
-	if (argc != 1)
+	i = 0;
+	if (n == 0)
 		return (0);
-	line = NULL;
-	while (1)
+	while ((s1[i] != '\0' || s2[i] != '\0') && i < n)
 	{
-		line = readline("minishell> ");
-		if (ft_strlen(line) != 0)
-		{
-			exec_cmd(envp, line);
-			free(line);
-		}
+		if (s1[i] == s2[i])
+			i++;
+		else
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 	}
 	return (0);
 }

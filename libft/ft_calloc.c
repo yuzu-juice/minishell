@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/02 15:01:12 by yohatana         ###   ########.fr       */
+/*   Created: 2024/05/01 11:09:34 by yohatana          #+#    #+#             */
+/*   Updated: 2025/02/23 15:24:23 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include"libft.h"
 
-int	main(int argc, char **argv, char **envp)
+void	*ft_calloc(size_t count, size_t size)
 {
-	char	*line;
+	void	*result;
 
-	(void)argv;
-	if (argc != 1)
-		return (0);
-	line = NULL;
-	while (1)
+	if ((count != 0 && SIZE_MAX / count < size)
+		|| (size != 0 && SIZE_MAX / size < count))
+		return (NULL);
+	if (count == 0 || size == 0)
 	{
-		line = readline("minishell> ");
-		if (ft_strlen(line) != 0)
-		{
-			exec_cmd(envp, line);
-			free(line);
-		}
+		result = malloc(1);
+		if (result == NULL)
+			return (NULL);
+		return (result);
 	}
-	return (0);
+	result = malloc(size * count);
+	if (result == NULL)
+		return (NULL);
+	ft_bzero(result, size * count);
+	return (result);
 }

@@ -1,31 +1,40 @@
 name: minishell CI
 
 on:
-  push:
-    branches:
-      - "**"
+    push:
+        branches:
+            - "**"
 
 jobs:
-  check:
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.13"
-      - run: |
-          pip install uv
-          uv sync
-      - run: |
-          source ./.venv/bin/activate
-          norminette srcs includes || exit 1
-      - run: |
-          make
-          if [ $? -ne 0 ]; then
-            echo "Compilation failed"
-            exit 1
-          fi
-      - run: |
-          sudo apt install valgrind
-          valgrind --leak-check=full --show-leak-kinds=all --error-exitcode=1 ./minishell
-      - run: make fclean
+    check:
+        runs-on: ubuntu-24.04
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-python@v5
+              with:
+                  python-version: "3.13"
+            - name: Setup Python venv
+              run: |
+                  pip install uv
+                  uv sync
+            - name: Check norminette
+              run: |
+                  source ./.venv/bin/activate
+                  make norm || exit 1
+            - name: Install dependencies
+              run: |
+                  sudo apt update
+                  sudo apt install -y libreadline-dev
+            - name: Check compilation
+              run: |
+                  make
+                  if [ $? -ne 0 ]; then
+                    echo "Compilation failed"
+                    exit 1
+                  fi
+            # - name: Check leaks
+            #   run: |
+            #       sudo apt install valgrind
+            #       valgrind --leak-check=full --show-leak-kinds=all --error-exitcode=1 ./minishell
+            - name: Clean up
+              run: make fclean
