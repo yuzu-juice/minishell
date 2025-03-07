@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 22:27:24 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/02 18:06:49 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/07 15:02:46 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <unistd.h>
+# include <assert.h>
 
 #endif

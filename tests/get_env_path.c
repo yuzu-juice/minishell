@@ -1,21 +1,41 @@
 
 #include"../includes/minishell.h"
 
+static char **add_slash(char **env);
+
 int	main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
+	(void)envp;
 	char	**path;
+	char	*env;
+	char	**kitaiti;
 
-	path = get_env_path(envp);
+	env = getenv("PATH");
+	kitaiti = ft_split(env, ':');
+	kitaiti = add_slash(kitaiti);
 
-	// envp = NULL
-	// envp[i] = NULL
-	// PWD=""
-
+	path = get_env_path();
 	for (int i = 0; path[i] != NULL; i++)
-		printf("path[i] : %s\n", path[i]);
+		assert(strncmp(path[i], kitaiti[i], strlen(path[i])) == 0);
 	return (0);
 }
 
-// cc -Wall -Wextra -Werror test/get_env_path.c srcs/get_env_path.c libft/*.c
+static char **add_slash(char **env)
+{
+	int i;
+	char *temp;
+
+	i = 0;
+	while (env[i])
+	{
+		temp = ft_strjoin(env[i], "/");
+		free(env[i]);
+		env[i] = temp;
+		i++;
+	}
+	return (env);
+}
+
+// cc -Wall -Wextra -Werror tests/get_env_path.c srcs/get_env_path.c libft/*.c srcs/utils/*.c

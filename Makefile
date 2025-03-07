@@ -40,4 +40,13 @@ norm:
 
 re: fclean all
 
+# test
+integration: all
+
+system: all
+	tests/run_test.sh
+
+unit:
+	tests/unit_test.sh
+
 .PHONY: all clean fclean re
