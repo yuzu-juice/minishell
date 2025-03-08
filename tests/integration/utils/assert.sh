@@ -12,6 +12,7 @@ assert() {
 	else
 		echo "\033[31mFailed: $1\033[0m"
 		echo '\033[31mStdouts are different.\033[0m"'
+		diff "$bash_stdout" "$minishell_stdout"
 		rm -f "$bash_stdout" "$minishell_stdout"
 		exit 1
 	fi
