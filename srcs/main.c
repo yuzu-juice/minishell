@@ -24,7 +24,7 @@ int	main(int argc, char **argv, char **envp)
 	line = NULL;
 	while (1)
 	{
-		line = readline_by_tty(line);
+		line = get_input_line(line);
 		if (ft_strlen(line) != 0)
 		{
 			add_history(line);
