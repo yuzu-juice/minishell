@@ -40,28 +40,28 @@ fclean: clean
 re: fclean all
 
 # test
-UNIT_TESTS = $(wildcard tests/*.test.c)
+UNIT_TESTS = $(wildcard tests/unit/*.test.c)
 
 norm:
 	norminette srcs includes
 
 unit:
 	@echo "Running unit tests..."
-	@mkdir -p tests/bin
+	@mkdir -p tests/unit/bin
 	@for test in $(UNIT_TESTS); do \
 		test_name=$$(basename $${test} .test.c); \
-		out_path=tests/bin/$${test_name}.out; \
+		out_path=tests/unit/bin/$${test_name}.out; \
 		if $(CC) $${test} $(SRCS) -L$(LIBFT) -lft -lreadline -o $${out_path} && \
 				./$${out_path}; then \
 			echo "\033[32mPassed: $${test}\033[0m"; \
 		else \
 			echo "\033[31mFailed: $${test}\033[0m"; \
-			rm -rf tests/bin; \
+			rm -rf tests/unit/bin; \
 			exit 1; \
 		fi; \
 	done
 	@echo "⭐️\033[32mPassed all unit tests!\033[0m⭐️"
-	@rm -rf tests/bin
+	@rm -rf tests/unit/bin
 
 integration: all
 

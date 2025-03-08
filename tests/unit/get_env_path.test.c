@@ -1,5 +1,4 @@
-
-#include"../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static char **add_slash_last(char **env);
 
