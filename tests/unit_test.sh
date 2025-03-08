@@ -8,17 +8,17 @@ LIBFT="libft/*.c"
 UTILS="srcs/utils/*.c"
 
 # get_env_path
-	cc ${CFLAGS} ${TEST}/get_env_path.c ${SRCS}/get_env_path.c ${LIBFT} ${UTILS}
+	cc ${CFLAGS} ${TEST}/get_env_path_test.c ${SRCS}/get_env_path.c ${LIBFT} ${UTILS}
 	./a.out
 	rm a.out
 
 # get_env_pwd
-	cc ${CFLAGS} ${TEST}/get_env_pwd.c ${SRCS}/get_env_pwd.c ${LIBFT} ${UTILS}
+	cc ${CFLAGS} ${TEST}/get_env_pwd_test.c ${SRCS}/get_env_pwd.c ${LIBFT} ${UTILS}
 	./a.out
 	rm a.out
 
 # create_cmd_path
-	cc ${CFLAGS} ${TEST}/create_cmd_path.c ${SRCS}/create_cmd_path.c ${SRCS}/get_env_pwd.c ${SRCS}/get_env_path.c ${LIBFT} ${UTILS}
+	cc ${CFLAGS} ${TEST}/create_cmd_path_test.c ${SRCS}/create_cmd_path.c ${SRCS}/get_env_pwd.c ${SRCS}/get_env_path.c ${LIBFT} ${UTILS}
 	./a.out
 	rm a.out
 
