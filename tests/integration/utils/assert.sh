@@ -1,9 +1,9 @@
 assert() {
 	bash_stdout=/tmp/bash_stdout
 	minishell_stdout=/tmp/minishell_stdout
-	echo "$1" | bash --norc --noprofile > "$bash_stdout"  2>/dev/null
+	echo "$1" | bash --norc --noprofile 1>"$bash_stdout"
 	expected=$?
-	echo "$1" | ./minishell > "$minishell_stdout" 2>/dev/null
+	echo "$1" | ./minishell 1>"$minishell_stdout"
 	actual=$?
 
 	# diff stdout
