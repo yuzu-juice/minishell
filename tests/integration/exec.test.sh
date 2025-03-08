@@ -1,4 +1,4 @@
-source $(dirname $0)/utils/assert.sh
+. $(dirname $0)/utils/assert.sh
 
 assert 'ls'
 assert 'ls -l'
