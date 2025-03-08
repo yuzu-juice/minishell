@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-static char	*readline_by_tty(char *line);
+static char	*get_input_line(char *line);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -35,7 +35,7 @@ int	main(int argc, char **argv, char **envp)
 	return (0);
 }
 
-static char	*readline_by_tty(char *line)
+static char	*get_input_line(char *line)
 {
 	int	stdout_copy;
 	int	dev_null;
@@ -45,7 +45,11 @@ static char	*readline_by_tty(char *line)
 	else
 	{
 		stdout_copy = dup(STDOUT_FILENO);
+		if (stdout_copy == -1)
+			return (NULL);
 		dev_null = open("/dev/null", O_WRONLY);
+		if (dev_null == -1)
+			return (NULL);
 		dup2(dev_null, STDOUT_FILENO);
 		close(dev_null);
 		line = readline("");
