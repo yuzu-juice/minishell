@@ -36,7 +36,7 @@ jobs:
             #   run: |
             #       sudo apt install valgrind
             #       valgrind --leak-check=full --show-leak-kinds=all --error-exitcode=1 ./minishell
-            - name: unit test
+            - name: Unit test
               run: make unit
             - name: Clean up
               run: make fclean
