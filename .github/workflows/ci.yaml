@@ -38,5 +38,7 @@ jobs:
             #       valgrind --leak-check=full --show-leak-kinds=all --error-exitcode=1 ./minishell
             - name: Unit test
               run: make unit
+            - name: Integration test
+              run: make integration
             - name: Clean up
               run: make fclean
