@@ -3,11 +3,8 @@
 
 static char **add_slash(char **env);
 
-int	main(int argc, char **argv, char **envp)
+int	main(void)
 {
-	(void)argc;
-	(void)argv;
-	(void)envp;
 	char	**path;
 	char	*env;
 	char	**kitaiti;

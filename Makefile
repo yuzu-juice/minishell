@@ -5,7 +5,8 @@ SRCS	= \
 	srcs/get_env_path.c\
 	srcs/get_env_pwd.c\
 	srcs/create_cmd_path.c\
-	srcs/utils/free_string_array.c
+	srcs/utils/free_string_array.c\
+	srcs/utils/add_slash.c
 OBJS	= $(SRCS:.c=.o)
 
 CC	= cc

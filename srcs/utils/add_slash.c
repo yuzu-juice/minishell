@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   add_slash.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/16 22:27:24 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/08 14:01:08 by yohatana         ###   ########.fr       */
+/*   Created: 2025/03/08 14:03:46 by yohatana          #+#    #+#             */
+/*   Updated: 2025/03/08 14:04:24 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+# include "../../includes/minishell.h"
 
-# include "../libft/libft.h"
-# include "core_features.h"
-# include "utils.h"
+char	*add_slash(char *path)
+{
+	char	*post_path;
 
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <stddef.h>
-# include <stdint.h>
-# include <stdlib.h>
-# include <limits.h>
-# include <unistd.h>
-# include <assert.h>
-# include <string.h>
-
-#endif
+	post_path = ft_strjoin(path, "/");
+	if (!post_path)
+		return (NULL);
+	return (post_path);
+}
