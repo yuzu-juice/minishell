@@ -1,9 +1,9 @@
 assert() {
 	bash_stdout=/tmp/bash_stdout
 	minishell_stdout=/tmp/minishell_stdout
-	echo "$1" | bash --norc --noprofile 1>"$bash_stdout"
+	echo "$1" | bash --norc --noprofile > "$bash_stdout"
 	expected=$?
-	echo "$1" | ./minishell 1>"$minishell_stdout"
+	echo "$1" | ./minishell > "$minishell_stdout"
 	actual=$?
 
 	# diff stdout
@@ -11,7 +11,7 @@ assert() {
 		:
 	else
 		echo "\033[31mFailed: $1\033[0m"
-		echo '\033[31mStdouts are different.\033[0m"'
+		echo '\033[31mStdouts are different.\033[0m'
 		diff "$bash_stdout" "$minishell_stdout"
 		rm -f "$bash_stdout" "$minishell_stdout"
 		exit 1

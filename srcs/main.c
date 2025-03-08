@@ -22,7 +22,10 @@ int	main(int argc, char **argv, char **envp)
 	line = NULL;
 	while (1)
 	{
-		line = readline("minishell> ");
+		if (isatty(STDIN_FILENO))
+			line = readline("minishell> ");
+		else
+			line = readline("");
 		if (ft_strlen(line) != 0)
 		{
 			add_history(line);
