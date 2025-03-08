@@ -37,19 +37,20 @@ int	main(int argc, char **argv, char **envp)
 
 static char	*readline_by_tty(char *line)
 {
-	int		stdout_copy;
+	int	stdout_copy;
+	int	dev_null;
 
 	if (isatty(STDIN_FILENO))
-			line = readline("minishell> ");
+		line = readline("minishell> ");
 	else
 	{
-			stdout_copy = dup(STDOUT_FILENO);
-			int dev_null = open("/dev/null", O_WRONLY);
-			dup2(dev_null, STDOUT_FILENO);
-			close(dev_null);
-			line = readline("");
-			dup2(stdout_copy, STDOUT_FILENO);
-			close(stdout_copy);
+		stdout_copy = dup(STDOUT_FILENO);
+		dev_null = open("/dev/null", O_WRONLY);
+		dup2(dev_null, STDOUT_FILENO);
+		close(dev_null);
+		line = readline("");
+		dup2(stdout_copy, STDOUT_FILENO);
+		close(stdout_copy);
 	}
 	return (line);
 }
