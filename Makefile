@@ -41,6 +41,7 @@ re: fclean all
 
 # test
 UNIT_TESTS = $(wildcard tests/unit/*.test.c)
+INTEGRATION_TESTS = $(wildcard tests/integration/*.test.sh)
 
 norm:
 	norminette srcs includes
@@ -64,8 +65,15 @@ unit:
 	@rm -rf tests/unit/bin
 
 integration: all
-
-system: all
-	tests/run_test.sh
+	@echo "Running integration tests..."
+	@for test in $(INTEGRATION_TESTS); do \
+		if chmod 755 $${test} && $${test}; then \
+			echo "\033[32mPassed: $${test}\033[0m";\
+		else \
+			echo "\033[31mFailed: $${test}\033[0m"; \
+			exit 1; \
+		fi; \
+	done
+	@echo "⭐️\033[32mPassed all integration tests!\033[0m⭐️"
 
 .PHONY: all clean fclean re norm integration system unit
