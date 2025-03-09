@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_env_pwd.c                                      :+:      :+:    :+:   */
+/*   add_slash.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/25 15:49:14 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/08 14:19:14 by yohatana         ###   ########.fr       */
+/*   Created: 2025/03/08 14:03:46 by yohatana          #+#    #+#             */
+/*   Updated: 2025/03/08 14:41:43 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-char	*get_env_pwd(void)
+char	*add_slash(char *path)
 {
-	char	*path;
-	char	*env_pwd;
+	char	*post_path;
 
-	path = getenv("PWD");
-	if (path == NULL)
+	post_path = ft_strjoin(path, "/");
+	if (!post_path)
 		return (NULL);
-	env_pwd = add_slash(path);
-	if (!env_pwd)
-		return (NULL);
-	return (env_pwd);
+	return (post_path);
 }

@@ -12,6 +12,8 @@
 
 #include "../includes/minishell.h"
 
+static char	*get_input_line(char *line);
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
@@ -22,7 +24,7 @@ int	main(int argc, char **argv, char **envp)
 	line = NULL;
 	while (1)
 	{
-		line = readline("minishell> ");
+		line = get_input_line(line);
 		if (ft_strlen(line) != 0)
 		{
 			add_history(line);
@@ -32,4 +34,28 @@ int	main(int argc, char **argv, char **envp)
 		}
 	}
 	return (0);
+}
+
+static char	*get_input_line(char *line)
+{
+	int	stdout_copy;
+	int	dev_null;
+
+	if (isatty(STDIN_FILENO))
+		line = readline("minishell> ");
+	else
+	{
+		stdout_copy = dup(STDOUT_FILENO);
+		if (stdout_copy == -1)
+			return (NULL);
+		dev_null = open("/dev/null", O_WRONLY);
+		if (dev_null == -1)
+			return (NULL);
+		dup2(dev_null, STDOUT_FILENO);
+		close(dev_null);
+		line = readline("");
+		dup2(stdout_copy, STDOUT_FILENO);
+		close(stdout_copy);
+	}
+	return (line);
 }
