@@ -1,6 +1,4 @@
-
-
-#include"../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 /*
 	allow command and command args

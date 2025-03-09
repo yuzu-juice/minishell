@@ -1,5 +1,4 @@
-
-#include"../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 // TODO :serch_exec_cmd_path()
 // 	when 'return cmd_only',

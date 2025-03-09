@@ -27,5 +27,6 @@
 # include <unistd.h>
 # include <assert.h>
 # include <string.h>
+# include <fcntl.h>
 
 #endif
