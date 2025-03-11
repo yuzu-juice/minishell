@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/11 17:41:15 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/11 19:45:51 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ void		add_token(t_token **head, t_token *new);
 void		syntax_error(void);
 int			validation_quarte(char *line);
 static char	*create_token_word(int start, int end, char *line);
-char	*create_quarte_word(char *word, int start, char *line, int new_flg);
+// char	*create_quarte_word(char *word, int start, char *line, int new_flg, t_token *head);
+int create_quarte_word(char *word, int start, char *line, int new_flg, t_token **head);
+t_token	*get_last_token(t_token **head);
 
 /*
 man bash
@@ -69,11 +71,13 @@ void	parser(char *line)
 	int		len;
 	char	*word;
 	int		space_flg;
+	t_token	*head;
 
 	int	i = 0;
 	int	j = 0;
 	space_flg = 0;
 	len = (int)ft_strlen(line);
+	int	word_len = 0;
 	while (line[i])
 	{
 		if (line[i] == '\t' || line[i] == '\n')
@@ -93,7 +97,7 @@ void	parser(char *line)
 		{
 			new_token_flg = 1;
 			word = ft_strdup("|");
-			printf("word %s\n", word);
+			add_token(&head, create_token_node(word));
 		}
 		else if (line[i] == '>')
 		{
@@ -108,8 +112,8 @@ void	parser(char *line)
 					new_token_flg = 1;
 				else
 					new_token_flg = 0;
-				word = create_quarte_word(word, i, line, new_token_flg);
-				i = i + (int)ft_strlen(word) - 1;
+				word_len = create_quarte_word(word, i, line, new_token_flg, &head);
+				i = i + word_len - 1;
 			}
 			else
 			{
@@ -118,16 +122,32 @@ void	parser(char *line)
 					j++;
 				word = create_token_word(i, j, line);
 				i = j;
+				add_token(&head, create_token_node(word));
 			}
-			printf("word %s\n", word);
 		}
-		// wordが作成されたらノードを作成する
-		t_token	*head;
-		add_token(&head, create_token_node(word));
 		i++;
 	}
 
+	printf("==== token node check ====\n");
+	t_token *temp;
+	temp = head;
+	for (int k = 0;temp !=NULL; k++)
+	{
+		printf("word %s\n", temp->word);
+		temp = temp->next;
+	}
+
 	// token listが出来たらコマンドリストを作る
+}
+
+t_token	*get_last_token(t_token **head)
+{
+	t_token	*temp;
+
+	temp = *head;
+	while (temp->next)
+		temp = temp->next;
+	return (temp);
 }
 
 int	validation_quarte(char *line)
@@ -159,31 +179,42 @@ int	validation_quarte(char *line)
 	return (0);
 }
 
-char	*create_quarte_word(char *word, int start, char *line, int new_flg)
+int	create_quarte_word(char *word, int start, char *line, int new_flg, t_token **head)
 {
 	int		i;
 	char	type;
 	char	*splited;
-	char	*temp;
+	char	*temp = NULL;
+	int		len;
+	(void)word;
+	t_token	*last;
 
 	type = line[start];
 	i = start + 1;
 	while (line[i + start] != type && line[i + start])
 		i++;
 	splited = ft_substr(line, start, i + 1);
-	if (!splited)
-		return (NULL);
+	// if (!splited)
+	// 	return (NULL);
+	len = (int)ft_strlen(splited);
+
 	if (new_flg != 1)
 	{
-		temp = ft_strjoin(word, splited);
-		if (!temp)
-			return (NULL);
-		free(word);
+		last = get_last_token(head);
+		// if (!temp)
+		// 	return (NULL);
+		temp = ft_strjoin(last->word, splited);
+		free(last->word);
 		free(splited);
-		splited = temp;
+		last->word = temp;
 	}
-	return (splited);
+	else
+	{
+		add_token(head, create_token_node(splited));
+	}
+	return (len);
 }
+
 
 // substrでやってみる
 static char	*create_token_word(int start, int end, char *line)
@@ -200,6 +231,8 @@ t_token	*create_token_node(char *word)
 {
 	t_token	*token;
 
+	printf("");
+
 	token = (t_token *)ft_calloc(sizeof(t_token), 1);
 	if (!token)
 		return (NULL); // TODO error
@@ -211,6 +244,7 @@ t_token	*create_token_node(char *word)
 void	add_token(t_token **head, t_token *new)
 {
 	t_token	*temp;
+
 
 	if (*head == NULL)
 	{

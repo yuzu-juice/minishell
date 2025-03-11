@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/09 14:04:34 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/11 12:27:45 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strlen(line) != 0)
 		{
 			add_history(line);
-			parser(argc, argv, line);
+			// parser(argc, argv, line);
+			parser(line);
 			exec_cmd(envp, line);
 			free(line);
 		}
