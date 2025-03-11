@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/10 19:42:32 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:41:15 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,106 +36,163 @@ typedef struct s_token
 
 t_token		*create_token_node(char *word);
 void		add_token(t_token **head, t_token *new);
-static char	*create_token_word(int start, int end, char *line);
 void		syntax_error(void);
+int			validation_quarte(char *line);
+static char	*create_token_word(int start, int end, char *line);
+char	*create_quarte_word(char *word, int start, char *line, int new_flg);
 
-// 空白区切りのみ許容します！！！！！！！
-// ゴミを読み込んでるので初期化すること
-void	parser(int argc, char **envp, char *line)
+/*
+man bash
+DEFINITIONS
+       The following definitions are used throughout the rest  of  this  document.
+       blank  A space or tab.
+       word   A  sequence  of  characters  considered  as a single unit by the
+              shell.  Also known as a token.
+       name   A word consisting only of  alphanumeric  characters  and  underscores,  and beginning with an alphabetic character or an underscore.  Also referred to as an identifier.
+       metacharacter
+              A character that, when unquoted, separates words.   One  of  the
+              following:
+              |  & ; ( ) < > space tab newline
+       control operator
+              A token that performs a control function.  It is one of the fol‐
+              lowing symbols:
+              || & && ; ;; ;& ;;& ( ) | |& <newline>
+*/
+void	parser(char *line)
 {
-	(void)argc;
-	(void)envp;
-	(void)line;
 
-	int		i;
-	int		j;
+	if (validation_quarte(line))
+		syntax_error();
+// ============ OK =========================
+
+	int		new_token_flg = 0;
+	int		len;
 	char	*word;
-	t_token	*token_head;
+	int		space_flg;
 
-	token_head = NULL;
-	i = 0;
-	j = 0;
-	while (i < (int)ft_strlen(line))
+	int	i = 0;
+	int	j = 0;
+	space_flg = 0;
+	len = (int)ft_strlen(line);
+	while (line[i])
 	{
-		if (line[i] != ' ')
+		if (line[i] == '\t' || line[i] == '\n')
 		{
-			if (line[i] == '\'')
+			// 区切りとして認識する
+			// 連続することあるのか？
+		}
+		else if (line[i] == ' ')
+		{
+			// 連続しているときはすっ飛ばす
+			if (space_flg == 1)
+				continue ;
+			space_flg = 1;
+			new_token_flg = 1;
+		}
+		else if (line[i] == '|')
+		{
+			new_token_flg = 1;
+			word = ft_strdup("|");
+			printf("word %s\n", word);
+		}
+		else if (line[i] == '>')
+		{
+			// > <
+			// 後ろが同じか？
+		}
+		else
+		{
+			if (line[i] == '\'' || line[i] == '\"')
 			{
-				j = i + 1;
-				while (line[j] != '\'')
-					j++;
-				if (line[j] == '\'' && j < (int)ft_strlen(line))
-				{
-					word = create_token_word(i, j , line);
-					add_token(&token_head, create_token_node(word));
-					i = j;
-				}
-				if (j == (int)ft_strlen(line))
-					syntax_error();
-			}
-			else if (line[i] == '\"')
-			{
-				j = i + 1;
-				while (line[j] != '\"')
-					j++;
-				if (line[j] == '\"')
-				{
-					word = create_token_word(i, j , line);
-					add_token(&token_head, create_token_node(word));
-					i = j;
-				}
-				if (j == (int)ft_strlen(line))
-					syntax_error();
+				if (i == 0 || line[i - 1] == ' ')
+					new_token_flg = 1;
+				else
+					new_token_flg = 0;
+				word = create_quarte_word(word, i, line, new_token_flg);
+				i = i + (int)ft_strlen(word) - 1;
 			}
 			else
 			{
 				j = i;
-				while ((line[j] != ' ' && line[j] != '|') && line[j] != '\0' )
+				while (line[j] != ' ' && line[j] != '|' && j < len)
 					j++;
 				word = create_token_word(i, j, line);
-				add_token(&token_head, create_token_node(word));
 				i = j;
 			}
+			printf("word %s\n", word);
 		}
-
-		// こっちはあと
-		/*
-		// pipeを先にやる
-		else if (line[i] == '|')
-		{
-			word = create_token_word(i, i , line);
-			add_token(&token_head, create_token_node(word));
-		}
-		*/
+		// wordが作成されたらノードを作成する
+		t_token	*head;
+		add_token(&head, create_token_node(word));
 		i++;
 	}
 
-/* 確認用 */
-	printf("=== token list check ===\n");
-	t_token *test;
-	test = token_head;
-	while (test)
-	{
-		printf("word :%s\n", test->word);
-		test = test->next;
-	}
+	// token listが出来たらコマンドリストを作る
 }
 
+int	validation_quarte(char *line)
+{
+	int		i;
+	int		j;
+	char	type;
+
+	i = 0;
+	j = 0;
+	type = 0;
+	while (line[i])
+	{
+		if (line[i] == '\'' || line[i] == '\"')
+		{
+			if (line[i] == '\'')
+				type = '\'';
+			if (line[i] == '\"')
+				type = '\"';
+			j = i + 1;
+			while (line[j] != type && j < (int)ft_strlen(line))
+				j++;
+			if (j == (int)ft_strlen(line))
+				return (1);
+			i = j;
+		}
+		i++;
+	}
+	return (0);
+}
+
+char	*create_quarte_word(char *word, int start, char *line, int new_flg)
+{
+	int		i;
+	char	type;
+	char	*splited;
+	char	*temp;
+
+	type = line[start];
+	i = start + 1;
+	while (line[i + start] != type && line[i + start])
+		i++;
+	splited = ft_substr(line, start, i + 1);
+	if (!splited)
+		return (NULL);
+	if (new_flg != 1)
+	{
+		temp = ft_strjoin(word, splited);
+		if (!temp)
+			return (NULL);
+		free(word);
+		free(splited);
+		splited = temp;
+	}
+	return (splited);
+}
+
+// substrでやってみる
 static char	*create_token_word(int start, int end, char *line)
 {
 	char	*word;
-	int		i;
 
-	printf("s :%d e :%d\n", start, end);
-	word = (char *)ft_calloc(sizeof(char), end - start + 1);
+	word = ft_substr(line, start, end - start);
 	if (!word)
 		return (NULL);
-	i = 0;
-	while (i + start <= end)
-	{
-		word[i] = line[i + start];
-		i++;
-	}
 	return (word);
 }
 
@@ -176,39 +233,3 @@ void	syntax_error(void)
 	// free token
 	// free cmd
 }
-
-/*
-int	main(void)
-{
-	// 加工なし
-	parser(0, NULL, "echo");
-	parser(0, NULL, "echo hello");
-	parser(0, NULL, "");
-
-	// single quarte
-	parser(0, NULL, "'aaa'"); // aaa
-	parser(0, NULL, "'aaa' 'bbb'"); // aaa bbb
-	parser(0, NULL, "echo 'hello'"); // hello
-	parser(0, NULL, "echo'hello'"); // echohello
-	parser(0, NULL, "echo '$PWD'"); // ＄PWD
-	parser(0, NULL, "'echo $PWD'"); // echo ＄PWD
-	parser(0, NULL, "'echo \"aaa $PWD\"'"); // echo "aaa $PWD"
-
-	// duoble quarte
-	parser(0, NULL, "\"aaa\"");
-	parser(0, NULL, "\"aaa\" \"bbb\"");
-	parser(0, NULL, "echo \"hello\""); // hello
-	parser(0, NULL, "echo\"hello\""); // echohello
-	parser(0, NULL, "echo \"$PWD\""); // work//minishell
-	parser(0, NULL, "\"echo $PWD\""); // work//minishell
-	parser(0, NULL, "echo \"hello 'world'\""); // hello 'world'
-
-	// これがどうなる？
-	parser(0, NULL, echo "hello'world$PWD'$PWD"); //
-
-	// yohatana@c3r5s1:~/work/minishell$ echo hello'world''$PWD'"$PWD"
-	// helloworld$PWD/home/yohatana/work/minishell
-
-	return (0);
-}
-*/
