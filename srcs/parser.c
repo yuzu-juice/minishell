@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/13 13:47:10 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:53:41 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,33 +39,21 @@ void		add_token(t_token **head, t_token *new);
 void		syntax_error(void);
 int			validation_quarte(char *line);
 static char	*create_token_word(int start, int end, char *line);
-// char	*create_quarte_word(char *word, int start, char *line, int new_flg, t_token *head);
-int create_quarte_word(char *word, int start, char *line, int new_flg, t_token **head);
-t_token	*get_last_token(t_token **head);
+int			create_quarte_word(int start, char *line, int new_flg, t_token **head);
+t_token		*get_last_token(t_token **head);
 
-/*
-man bash
-DEFINITIONS
-       The following definitions are used throughout the rest  of  this  document.
-       blank  A space or tab.
-       word   A  sequence  of  characters  considered  as a single unit by the
-              shell.  Also known as a token.
-       name   A word consisting only of  alphanumeric  characters  and  underscores,  and beginning with an alphabetic character or an underscore.  Also referred to as an identifier.
-       metacharacter
-              A character that, when unquoted, separates words.   One  of  the
-              following:
-              |  & ; ( ) < > space tab newline
-       control operator
-              A token that performs a control function.  It is one of the fol‐
-              lowing symbols:
-              || & && ; ;; ;& ;;& ( ) | |& <newline>
-*/
 void	parser(char *line)
 {
 
 	if (validation_quarte(line))
 		syntax_error();
 // ============ OK =========================
+
+	// creat_token_list()
+	// expansion()
+	// quarte_trim()
+	// create_cmds()
+	// free_token_list()
 
 	int		new_token_flg = 0;
 	int		len;
@@ -129,7 +117,7 @@ void	parser(char *line)
 					new_token_flg = 1;
 				else
 					new_token_flg = 0;
-				word_len = create_quarte_word(word, i, line, new_token_flg, &head);
+				word_len = create_quarte_word(i, line, new_token_flg, &head);
 				i = i + word_len - 1;
 			}
 			else
@@ -184,8 +172,19 @@ t_token	*get_last_token(t_token **head)
 
 void	free_token_list(t_token **head)
 {
+	t_token	*curr;
+	t_token	*temp;
+
 	if (head == NULL)
 		return ;
+	curr = *head;
+	while (curr)
+	{
+		temp = curr->next;
+		free(curr->word);
+		free(curr);
+		curr = temp;
+	}
 }
 
 int	validation_quarte(char *line)
@@ -217,14 +216,13 @@ int	validation_quarte(char *line)
 	return (0);
 }
 
-int	create_quarte_word(char *word, int start, char *line, int new_flg, t_token **head)
+int	create_quarte_word(int start, char *line, int new_flg, t_token **head)
 {
 	int		i;
 	char	type;
 	char	*splited;
 	char	*temp = NULL;
 	int		len;
-	(void)word;
 	t_token	*last;
 
 	type = line[start];
