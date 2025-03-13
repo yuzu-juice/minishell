@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/11 19:45:51 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/13 12:33:23 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,12 @@ void	parser(char *line)
 	space_flg = 0;
 	len = (int)ft_strlen(line);
 	int	word_len = 0;
+	// 最初のスペースはスキップする
+	if (line[0] == ' ')
+	{
+		while (line[i] == ' ')
+			i++;
+	}
 	while (line[i])
 	{
 		if (line[i] == '\t' || line[i] == '\n')
@@ -87,11 +93,11 @@ void	parser(char *line)
 		}
 		else if (line[i] == ' ')
 		{
-			// 連続しているときはすっ飛ばす
-			if (space_flg == 1)
-				continue ;
-			space_flg = 1;
-			new_token_flg = 1;
+			if (space_flg != 1)
+			{
+				space_flg = 1;
+				new_token_flg = 1;
+			}
 		}
 		else if (line[i] == '|')
 		{
@@ -108,7 +114,7 @@ void	parser(char *line)
 		{
 			if (line[i] == '\'' || line[i] == '\"')
 			{
-				if (i == 0 || line[i - 1] == ' ')
+				if (i == 0 || line[i - 1] == ' ' || line[i - 1] == '|')
 					new_token_flg = 1;
 				else
 					new_token_flg = 0;
@@ -121,7 +127,7 @@ void	parser(char *line)
 				while (line[j] != ' ' && line[j] != '|' && j < len)
 					j++;
 				word = create_token_word(i, j, line);
-				i = j;
+				i = j - 1;
 				add_token(&head, create_token_node(word));
 			}
 		}
@@ -190,9 +196,11 @@ int	create_quarte_word(char *word, int start, char *line, int new_flg, t_token *
 	t_token	*last;
 
 	type = line[start];
-	i = start + 1;
+	i = 1;
 	while (line[i + start] != type && line[i + start])
+	{
 		i++;
+	}
 	splited = ft_substr(line, start, i + 1);
 	// if (!splited)
 	// 	return (NULL);
@@ -215,8 +223,6 @@ int	create_quarte_word(char *word, int start, char *line, int new_flg, t_token *
 	return (len);
 }
 
-
-// substrでやってみる
 static char	*create_token_word(int start, int end, char *line)
 {
 	char	*word;
@@ -244,7 +250,6 @@ t_token	*create_token_node(char *word)
 void	add_token(t_token **head, t_token *new)
 {
 	t_token	*temp;
-
 
 	if (*head == NULL)
 	{
