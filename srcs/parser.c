@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/13 12:33:23 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:47:10 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,15 @@ void	parser(char *line)
 	char	*word;
 	int		space_flg;
 	t_token	*head;
+	char *temp_word;
+	char	type;
+
 
 	int	i = 0;
 	int	j = 0;
 	space_flg = 0;
 	len = (int)ft_strlen(line);
 	int	word_len = 0;
-	// 最初のスペースはスキップする
 	if (line[0] == ' ')
 	{
 		while (line[i] == ' ')
@@ -86,12 +88,7 @@ void	parser(char *line)
 	}
 	while (line[i])
 	{
-		if (line[i] == '\t' || line[i] == '\n')
-		{
-			// 区切りとして認識する
-			// 連続することあるのか？
-		}
-		else if (line[i] == ' ')
+		if (line[i] == '\t' || line[i] == '\n' || line[i] == ' ')
 		{
 			if (space_flg != 1)
 			{
@@ -105,16 +102,30 @@ void	parser(char *line)
 			word = ft_strdup("|");
 			add_token(&head, create_token_node(word));
 		}
-		else if (line[i] == '>')
+		else if (line[i] == '>' || line[i] == '<')
 		{
-			// > <
-			// 後ろが同じか？
+			type = line[i];
+			new_token_flg = 1;
+			if (line[i] == '>')
+				word = ft_strdup(">");
+			else
+				word = ft_strdup("<");
+			if (line[i + 1] == type)
+			{
+				temp_word = ft_strjoin(word, word);
+				free(word);
+				word = temp_word;
+				i++;
+			}
+			add_token(&head, create_token_node(word));
 		}
 		else
 		{
 			if (line[i] == '\'' || line[i] == '\"')
 			{
-				if (i == 0 || line[i - 1] == ' ' || line[i - 1] == '|')
+				if (i == 0 || line[i - 1] == ' ' || line[i - 1] == '|' \
+					|| line[i - 1] == '\t' || line[i - 1] == '\n'\
+					|| line[i - 1] == '>' || line[i - 1] == '<')
 					new_token_flg = 1;
 				else
 					new_token_flg = 0;
@@ -124,11 +135,26 @@ void	parser(char *line)
 			else
 			{
 				j = i;
-				while (line[j] != ' ' && line[j] != '|' && j < len)
+				if (i != 0 && (line[i - 1] == '\'' || line[i - 1] == '\"'))
+					new_token_flg = 0;
+				else
+					new_token_flg = 1;
+				while (line[j] != ' ' && line[j] != '|' \
+				&& line[j] != '\t' && line[j] != '\n' \
+				&& line[j] != '<' && line[j] != '>' \
+				&& line[j] != '\'' && line[j] != '\"' && j < len)
 					j++;
 				word = create_token_word(i, j, line);
 				i = j - 1;
-				add_token(&head, create_token_node(word));
+				if (new_token_flg == 0)
+				{
+					temp_word = ft_strjoin(get_last_token(&head)->word, word);
+					free(get_last_token(&head)->word);
+					free(word);
+					get_last_token(&head)->word = temp_word;
+				}
+				else
+					add_token(&head, create_token_node(word));
 			}
 		}
 		i++;
@@ -154,6 +180,12 @@ t_token	*get_last_token(t_token **head)
 	while (temp->next)
 		temp = temp->next;
 	return (temp);
+}
+
+void	free_token_list(t_token **head)
+{
+	if (head == NULL)
+		return ;
 }
 
 int	validation_quarte(char *line)
@@ -236,8 +268,6 @@ static char	*create_token_word(int start, int end, char *line)
 t_token	*create_token_node(char *word)
 {
 	t_token	*token;
-
-	printf("");
 
 	token = (t_token *)ft_calloc(sizeof(t_token), 1);
 	if (!token)
