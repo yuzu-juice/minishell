@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:48:17 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/14 16:12:38 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/14 17:50:46 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,32 +19,16 @@ void	create_normal_token(char *line, int *i, t_token **head);
 
 void	create_token_list(char *line, t_token **head)
 {
-	int		new_token_flg = 0;
-	int		len;
 	char	*word;
-	char	*temp_word;
 	int		i;
-	int		j;
-	// int	word_len;
 
 	i = 0;
-	j = 0;
-	// word_len = 0;
-	len = (int)ft_strlen(line);
-	if (line[0] == ' ')
-	{
-		while (line[i] == ' ')
-			i++;
-	}
 	while (line[i])
 	{
 		if (is_split_char(line[i]))
 		{
-			// if (line[i] == '\t' || line[i] == '\n' || line[i] == ' ')
-			// 	new_token_flg = 1;
 			if (line[i] == '|')
 			{
-				new_token_flg = 1;
 				word = ft_strdup("|");
 				add_token(head, create_token_node(word));
 			}
@@ -54,37 +38,6 @@ void	create_token_list(char *line, t_token **head)
 		else
 		{
 			create_normal_token(line, &i, head);
-			// if (is_quart(line[i]))
-			// {
-			// 	if (i == 0 || is_split_char(line[i - 1]))
-			// 		new_token_flg = 1;
-			// 	else
-			// 		new_token_flg = 0;
-			// 	word_len = create_quart_word(i, line, new_token_flg, head);
-			// 	i = i + word_len - 1;
-			// }
-			// else
-			// {
-				j = i;
-				if (i != 0 && (line[i - 1] == '\'' || line[i - 1] == '\"'))
-					new_token_flg = 0;
-				else
-					new_token_flg = 1;
-				while (!is_split_char(line[j]) && !is_quart(line[j]) && j < len)
-					j++;
-				word = create_token_word(i, j, line);
-				i = j - 1;
-				if (new_token_flg == 0)
-				{
-					// quartのところと共通化できそう
-					temp_word = ft_strjoin(get_last_token(head)->word, word);
-					free(get_last_token(head)->word);
-					free(word);
-					get_last_token(head)->word = temp_word;
-				}
-				else
-					add_token(head, create_token_node(word));
-			// }
 		}
 		i++;
 	}
@@ -113,7 +66,7 @@ static bool	is_quart(char c)
 	return (false);
 }
 
-int	create_quart_word(int start, char *line, int new_flg, t_token **head)
+int	create_quart_word(int *start, char *line, int new_flg, t_token **head)
 {
 	int		i;
 	char	type;
@@ -122,13 +75,11 @@ int	create_quart_word(int start, char *line, int new_flg, t_token **head)
 	int		len;
 	t_token	*last;
 
-	type = line[start];
+	type = line[*start];
 	i = 1;
-	while (line[i + start] != type)
-	{
+	while (line[i + *start] != type)
 		i++;
-	}
-	splited = ft_substr(line, start, i + 1);
+	splited = ft_substr(line, *start, i + 1);
 	if (!splited)
 		return (0);
 	len = (int)ft_strlen(splited);
@@ -144,56 +95,55 @@ int	create_quart_word(int start, char *line, int new_flg, t_token **head)
 	}
 	else
 		add_token(head, create_token_node(splited));
+	*start = *start + i;
 	return (len);
 }
 
 void	create_normal_token(char *line, int *i, t_token **head)
 {
-	// char	*word;
+	char	*word;
 	int		new_token_flg;
 	int		word_len;
 	int		len;
-	// char	*temp_word;
-	// int		j;
+	char	*temp_word;
+	int		j;
 
 	new_token_flg = 0;
 	word_len = 0;
-	// j = 0;
-	len = 0;
-	// インデックスのポインタが終わりになっているよーん＾＾
-	printf("*i %d line[*i] %c\n", *i, line[*i]);
+	j = 0;
+	len = (int)ft_strlen(line);
 	if (is_quart(line[*i]))
 	{
+
+		// create_quart_wordに入れる
 		if (*i == 0 || is_split_char(line[*i - 1]))
 			new_token_flg = 1;
 		else
 			new_token_flg = 0;
-		word_len = create_quart_word(*i, line, new_token_flg, head);
-		*i = *i + word_len - 1;
+		word_len = create_quart_word(i, line, new_token_flg, head);
 	}
-	// else
-	// {
-	// 	j = *i;
-	// 	if (*i != 0 && (line[*i - 1] == '\'' || line[*i - 1] == '\"'))
-	// 		new_token_flg = 0;
-	// 	else
-	// 		new_token_flg = 1;
-	// 	while (!is_split_char(line[j]) && !is_quart(line[j]) && j < len)
-	// 		j++;
-	// 	word = create_token_word(*i, j, line);
-	// 	printf("word %s\n", word);
-	// 	*i = j - 1;
-	// 	if (new_token_flg == 0)
-	// 	{
-	// 		// quartのところと共通化できそう
-	// 		temp_word = ft_strjoin(get_last_token(head)->word, word);
-	// 		free(get_last_token(head)->word);
-	// 		free(word);
-	// 		get_last_token(head)->word = temp_word;
-	// 	}
-	// 	else
-	// 		add_token(head, create_token_node(word));
-	// }
+	else
+	{
+		// これはもう一度分ける
+		j = *i + 1;
+		if (*i != 0 && (line[*i - 1] == '\'' || line[*i - 1] == '\"'))
+			new_token_flg = 0;
+		else
+			new_token_flg = 1;
+		while (!is_split_char(line[j]) && !is_quart(line[j]) && j < len)
+			j++;
+		word = create_token_word(*i, j, line);
+		*i = j - 1;
+		if (new_token_flg == 0)
+		{
+			temp_word = ft_strjoin(get_last_token(head)->word, word);
+			free(get_last_token(head)->word);
+			free(word);
+			get_last_token(head)->word = temp_word;
+		}
+		else
+			add_token(head, create_token_node(word));
+	}
 }
 
 // return 0 is success

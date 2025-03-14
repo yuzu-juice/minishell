@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:10:32 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/14 15:43:52 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/14 17:40:05 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*create_token_word(int start, int end, char *line)
 	char	*word;
 
 	word = ft_substr(line, start, end - start);
+	printf("%s\n", word);
 	if (!word)
 		return (NULL);
 	return (word);
