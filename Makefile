@@ -6,6 +6,8 @@ SRCS	= \
 	srcs/get_env_pwd.c\
 	srcs/create_cmd_path.c\
 	srcs/parser.c\
+	srcs/create_token_list.c\
+	srcs/create_token_util.c\
 	srcs/utils/free_string_array.c\
 	srcs/utils/add_slash.c
 MAIN_OBJ = $(MAIN:.c=.o)
