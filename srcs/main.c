@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/15 13:52:06 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/15 14:03:07 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,42 @@
 
 volatile sig_atomic_t	g_sig_flag;
 
+static void minishell(char **envp);
 static char	*get_input_line(void);
 
-int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **envp)
+{
+	g_sig_flag = 0;
+	if (argc != 1)
+		return (0);
+	minishell(envp);
+	return (0);
+}
+
+static void	minishell(char **envp)
 {
 	char	*line;
 
-	(void)argv;
-	g_sig_flag = 0;
 	if (signal(SIGINT, handle_sigint) == SIG_ERR)
 	{
-		perror("signal");
-		return (1);
+		perror(NULL);
+		exit(EXIT_FAILURE);
 	}
-	if (argc != 1)
-		return (0);
 	while (1)
 	{
 		line = get_input_line();
+		if (!line)
+		{
+			write(STDOUT_FILENO, "exit\n", 5);
+			exit(EXIT_SUCCESS);
+		}
 		if (ft_strlen(line) != 0)
 		{
 			add_history(line);
 			exec_cmd(envp, line);
+			free(line);
 		}
-		free(line);
 	}
-	return (0);
 }
 
 static char	*get_input_line(void)
