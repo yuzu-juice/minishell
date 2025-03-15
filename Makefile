@@ -6,7 +6,13 @@ SRCS	= \
 	srcs/get_env_pwd.c\
 	srcs/create_cmd_path.c\
 	srcs/utils/free_string_array.c\
-	srcs/utils/add_slash.c
+	srcs/utils/add_slash.c\
+	srcs/signal_handler.c
+HEADERS	= \
+	includes/minishell.h\
+	includes/core_feature.h\
+	includes/signal_handlings.h\
+	includes/utils.h
 MAIN_OBJ = $(MAIN:.c=.o)
 OBJS	= $(SRCS:.c=.o)
 

@@ -16,6 +16,7 @@
 # include "../libft/libft.h"
 # include "core_features.h"
 # include "utils.h"
+# include "signal_handlings.h"
 
 # include <stdio.h>
 # include <readline/readline.h>
@@ -28,5 +29,7 @@
 # include <assert.h>
 # include <string.h>
 # include <fcntl.h>
+
+extern volatile sig_atomic_t	sig_flag;
 
 #endif
