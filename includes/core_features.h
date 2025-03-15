@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/14 17:33:22 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/14 18:43:17 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,12 @@ void		syntax_error(void);
 bool		validation_quart(char *line);
 int			create_quart_word(int *start, \
 								char *line, \
-								int new_flg, \
 								t_token **head);
 t_token		*get_last_token(t_token **head);
-char	*create_token_word(int start, int end, char *line);;
+// char	*create_token_word(int start, int end, char *line);;
 void		create_token_list(char *line, t_token **head);
+char	*create_token_word(int *start, char *line, t_token **head);
+bool	is_split_char(char c);
+bool	is_quart(char c);
 
 #endif
