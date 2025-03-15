@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/14 15:45:30 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/15 15:32:05 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 typedef struct s_cmd
 {
-	char	*cmd;
-	char	**args;
+	char	*cmd; // いらない
+	char	**args; // tokenを突っ込む　ls, > , in , 
 	char	*cmd_abs_path;
 	int		status;
 } t_cmd;
@@ -35,7 +35,10 @@ void	parser(char *line)
 	if (validation_quart(line))
 		syntax_error();
 // ============ OK =========================
-	create_token_list(line, &head);
+
+//
+	// create_token_list(line, &head);
+	head = create_token_list(line);
 	// expansion()
 	// quart_trim()
 	// create_cmds()

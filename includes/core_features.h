@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/14 18:43:17 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/15 15:58:57 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,21 @@ char		**get_env_path(void);
 // create cmd
 char		*create_cmd_path(char *cmd);
 
+// parser
 void		parser(char *line);
-void		create_token_list(char *line, t_token **head);
-t_token		*create_token_node(char *word);
-void		add_token(t_token **head, t_token *new);
+t_token		*create_token_list(char *line);
 void		syntax_error(void);
 bool		validation_quart(char *line);
-int			create_quart_word(int *start, \
-								char *line, \
-								t_token **head);
+
+// tokeniser
+// int			create_quart_word(int *start, \
+// 								char *line, \
+// 								t_token **head);
 t_token		*get_last_token(t_token **head);
-// char	*create_token_word(int start, int end, char *line);;
-void		create_token_list(char *line, t_token **head);
-char	*create_token_word(int *start, char *line, t_token **head);
+t_token		*create_token_node(char *word);
+char		*create_token_word(int *start, char *line, t_token **head);
+void		add_token(t_token **head, t_token *new);
+
 bool	is_split_char(char c);
 bool	is_quart(char c);
 
