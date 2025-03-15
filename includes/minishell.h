@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 22:27:24 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/08 14:01:08 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/15 13:25:06 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@
 # include <string.h>
 # include <fcntl.h>
 
-extern volatile sig_atomic_t	sig_flag;
+extern volatile sig_atomic_t	g_sig_flag;
 
 #endif

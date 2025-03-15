@@ -6,13 +6,13 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/15 13:19:51 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/15 13:25:31 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-volatile sig_atomic_t	sig_flag;
+volatile sig_atomic_t	g_sig_flag;
 
 static char	*get_input_line(char *line);
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 
 	(void)argv;
-	sig_flag = 0;
+	g_sig_flag = 0;
 	if (signal(SIGINT, handle_sigint) == SIG_ERR)
 	{
 		perror("signal");
