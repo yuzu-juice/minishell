@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/16 12:21:03 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/16 12:29:08 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ static char	**create_cmd_args(char *cmd)
 	return (cmd_args);
 }
 
-static t_builtin resolve_builtin_cmd(char *cmd)
+static t_builtin	resolve_builtin_cmd(char *cmd)
 {
 	if (ft_strncmp(cmd, "echo", 4) == 0)
 		return (ECHO);
 	return (NOT_A_BUILTIN_COMMAND);
 }
 
-static void exec_builtin(char **cmd_args, t_builtin builtin_cmd)
+static void	exec_builtin(char **cmd_args, t_builtin builtin_cmd)
 {
 	int	i;
 
