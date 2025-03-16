@@ -7,6 +7,7 @@ SRCS	= \
 	srcs/create_cmd_path.c\
 	srcs/utils/free_string_array.c\
 	srcs/utils/add_slash.c\
+	srcs/utils/remove_quotes.c\
 	srcs/signal_handler.c\
 	srcs/builtin_commands/echo.c
 HEADERS	= \

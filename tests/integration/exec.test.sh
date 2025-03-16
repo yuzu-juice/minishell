@@ -1,7 +1,10 @@
 . $(dirname $0)/utils/assert.sh
 
-assert 'ls'
-assert 'ls -l'
-assert '/usr/bin/ls'
+assert 'ls -t'
+assert '/usr/bin/ls -t'
 assert 'cat Makefile'
-assert 'echo aaa sss ddd'
+assert 'echo'
+assert 'echo aaa'
+assert 'echo "aaa"sss "ddd"'
+assert 'echo \'aaa\' \'sss\' \'ddd\''
+assert 'echo aaa sss        ddd'
