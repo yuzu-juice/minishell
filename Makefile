@@ -7,12 +7,14 @@ SRCS	= \
 	srcs/create_cmd_path.c\
 	srcs/utils/free_string_array.c\
 	srcs/utils/add_slash.c\
-	srcs/signal_handler.c
+	srcs/signal_handler.c\
+	srcs/builtin_commands/echo.c
 HEADERS	= \
 	includes/minishell.h\
 	includes/core_feature.h\
 	includes/signal_handlings.h\
-	includes/utils.h
+	includes/utils.h\
+	includds/builtin_commands.h
 MAIN_OBJ = $(MAIN:.c=.o)
 OBJS	= $(SRCS:.c=.o)
 

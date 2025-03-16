@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   core_features.h                                    :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/16 10:52:10 by takitaga         ###   ########.fr       */
+/*   Created: 2025/03/16 10:45:06 by takitaga          #+#    #+#             */
+/*   Updated: 2025/03/16 11:31:46 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CORE_FEATURES_H
-# define CORE_FEATURES_H
+#include "../../includes/minishell.h"
 
-void	exec_cmd(char **envp, char *str);
+void    echo(int argc, char **argv)
+{
+    int  i;
 
-// from envp
-char	*get_env_pwd(void);
-char	**get_env_path(void);
+    i = 1;
+    if (argc == 1)
+        write(1, "\n", 1);
+    while (i < argc - 1)
+    {
+        write(1, argv[i], ft_strlen(argv[i]));
+        i++;
+    }
+}
 
-// create cmd
-char	*create_cmd_path(char *cmd);
-
-#endif
+// int main(int argc, char **argv)
+// {
+//     echo(argc, argv);
+//     return (0);
+// }

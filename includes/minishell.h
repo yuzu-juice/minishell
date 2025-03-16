@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 22:27:24 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/15 13:25:06 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/16 11:08:40 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "core_features.h"
 # include "utils.h"
 # include "signal_handlings.h"
+# include "builtin_commands.h"
 
 # include <stdio.h>
 # include <readline/readline.h>
@@ -29,6 +30,7 @@
 # include <assert.h>
 # include <string.h>
 # include <fcntl.h>
+# include <stdbool.h>
 
 extern volatile sig_atomic_t	g_sig_flag;
 
