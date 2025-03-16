@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:10:32 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/14 18:55:40 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/16 09:54:02 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	add_token(t_token **head, t_token *new)
 {
 	t_token	*temp;
 
+	if (new == NULL)
+		return ; // TODO: error
 	if (head == NULL || *head == NULL)
 	{
 		*head = new;

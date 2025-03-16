@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/15 15:58:57 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/15 16:27:57 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ bool		validation_quart(char *line);
 // int			create_quart_word(int *start, \
 // 								char *line, \
 // 								t_token **head);
+bool	create_split_token(char *line, int *index, t_token **head);
 t_token		*get_last_token(t_token **head);
 t_token		*create_token_node(char *word);
 char		*create_token_word(int *start, char *line, t_token **head);
