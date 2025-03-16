@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 16:26:35 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/16 09:54:17 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/16 11:52:22 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static bool	create_redirect_token(char *line, int *i, t_token **head)
 	err_flg = create_double_redirect(line, i, &word);
 	add_token(head, create_token_node(word));
 	*i = *i + 1;
-	printf("i %d\n", *i);
 	return (err_flg);
 }
 

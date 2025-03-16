@@ -6,20 +6,20 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:10:32 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/16 09:54:02 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/16 12:53:42 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../includes/minishell.h"
 
-char	*create_token_word(int *start, char *line, t_token **head)
+bool	create_token_word(int *start, char *line, t_token **head)
 {
 	char	*word;
-	int		new_token_flg;
 	int		j;
 	int		len;
-	char	*temp_word;
+	bool	err_flg;
 
+	err_flg = false;
 	len = (int)ft_strlen(line);
 	j = *start + 1;
 	while (!is_split_char(line[j]) && !is_quart(line[j]) && j < len)
@@ -27,23 +27,12 @@ char	*create_token_word(int *start, char *line, t_token **head)
 	word = ft_substr(line, *start, j - *start);
 	if (!word)
 		return (NULL);
-	*start = j - 1;
-	if (*start != 0 && is_quart(line[*start - 1]))
-		new_token_flg = 0;
+	if (*start == 0 || is_split_char(line[*start - 1]))
+		err_flg = add_token(head, create_token_node(word));
 	else
-		new_token_flg = 1;
-
-	if (new_token_flg == 0)
-	{
-		temp_word = ft_strjoin(get_last_token(head)->word, word);
-		free(get_last_token(head)->word);
-		free(word);
-		get_last_token(head)->word = temp_word;
-	}
-	else
-		add_token(head, create_token_node(word));
-
-	return (word);
+	err_flg = add_current_token(word, head);
+	*start = j;
+	return (err_flg);
 }
 
 t_token	*create_token_node(char *word)
@@ -52,31 +41,30 @@ t_token	*create_token_node(char *word)
 
 	token = (t_token *)ft_calloc(sizeof(t_token), 1);
 	if (!token)
-		return (NULL); // TODO error
+		return (NULL);
 	token->word = word;
 	token->next = NULL;
 	return (token);
 }
 
-void	add_token(t_token **head, t_token *new)
+bool	add_token(t_token **head, t_token *new)
 {
 	t_token	*temp;
+	bool	err_flg;
 
-	if (new == NULL)
-		return ; // TODO: error
-	if (head == NULL || *head == NULL)
-	{
+	err_flg = false;
+	if (new == NULL || head == NULL)
+		return (true);
+	if (*head == NULL)
 		*head = new;
-	}
 	else
 	{
 		temp = *head;
 		while (temp->next)
-		{
 			temp = temp->next;
-		}
 		temp->next = new;
 	}
+	return (err_flg);
 }
 
 bool	is_split_char(char c)

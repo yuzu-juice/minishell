@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/15 15:32:05 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/16 14:54:47 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 typedef struct s_cmd
 {
 	char	*cmd; // いらない
-	char	**args; // tokenを突っ込む　ls, > , in , 
+	char	**args; // tokenを突っ込む　ls, > , in ,
 	char	*cmd_abs_path;
 	int		status;
 } t_cmd;
@@ -43,8 +43,6 @@ void	parser(char *line)
 	// quart_trim()
 	// create_cmds()
 	// free_token_list()
-
-	// token listが出来たらコマンドリストを作る
 }
 
 t_token	*get_last_token(t_token **head)

@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/15 16:27:57 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/16 14:55:33 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdbool.h>
 
-typedef struct s_token t_token;
+typedef struct s_token	t_token;
 
 typedef struct s_token
 {
@@ -38,17 +38,15 @@ t_token		*create_token_list(char *line);
 void		syntax_error(void);
 bool		validation_quart(char *line);
 
-// tokeniser
-// int			create_quart_word(int *start, \
-// 								char *line, \
-// 								t_token **head);
-bool	create_split_token(char *line, int *index, t_token **head);
+bool		create_split_token(char *line, int *index, t_token **head);
 t_token		*get_last_token(t_token **head);
 t_token		*create_token_node(char *word);
-char		*create_token_word(int *start, char *line, t_token **head);
-void		add_token(t_token **head, t_token *new);
+bool		create_token_word(int *start, char *line, t_token **head);
+bool		add_token(t_token **head, t_token *new);
+bool		add_current_token(char *word, t_token **head);
+void		free_token_list(t_token **head);
 
-bool	is_split_char(char c);
-bool	is_quart(char c);
+bool		is_split_char(char c);
+bool		is_quart(char c);
 
 #endif
