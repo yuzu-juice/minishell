@@ -22,16 +22,12 @@
    ```
 
 ## 自分のPCでのセットアップ
-1. uv のインストール
-
-   ```
-   $ pip install uv
-   ```
+1. Dev Containerの立ち上げ
+VSCodeを起動したら、右下に Rebuild and Reopen in Container みたいなのが出てくるので、それをクリック
 
 2. python の仮想環境構築
 
    ```
-   $ uv sync
    $ source .venv/bin/activate
    ```
 
