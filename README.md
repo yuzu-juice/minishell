@@ -31,7 +31,23 @@
 2. python の仮想環境構築
 
    ```
-   $ uv sync
+   $ python3 -m uv sync
+   $ source .venv/bin/activate
+   ```
+
+3. ライブラリのインストール確認
+
+   ```
+   $ norminette -v
+   ```
+
+## 自分のPCでのセットアップ
+1. Dev Containerの立ち上げ
+VSCodeを起動したら、右下に Rebuild and Reopen in Container みたいなのが出てくるので、それをクリック
+
+2. python の仮想環境構築
+
+   ```
    $ source .venv/bin/activate
    ```
 

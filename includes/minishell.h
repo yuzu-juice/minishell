@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 22:27:24 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/14 15:43:55 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/16 10:50:58 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../libft/libft.h"
 # include "core_features.h"
 # include "utils.h"
+# include "signal_handlings.h"
 
 # include <stdio.h>
 # include <readline/readline.h>
@@ -28,5 +29,8 @@
 # include <assert.h>
 # include <string.h>
 # include <fcntl.h>
+# include <stdbool.h>
+
+extern volatile sig_atomic_t	g_sig_flag;
 
 #endif

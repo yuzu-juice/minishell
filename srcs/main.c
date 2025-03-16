@@ -6,25 +6,43 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/11 12:27:45 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/16 10:48:56 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static char	*get_input_line(char *line);
+volatile sig_atomic_t	g_sig_flag;
 
-int	main(int argc, char **argv, char **envp)
+static void	minishell(char **envp);
+static char	*get_input_line(void);
+
+int	main(int argc, char **envp)
+{
+	g_sig_flag = 0;
+	if (argc != 1)
+		return (0);
+	minishell(envp);
+	return (0);
+}
+
+static void	minishell(char **envp)
 {
 	char	*line;
 
-	(void)argv;
-	if (argc != 1)
-		return (0);
-	line = NULL;
+	if (signal(SIGINT, handle_sigint) == SIG_ERR)
+	{
+		perror(NULL);
+		exit(EXIT_FAILURE);
+	}
 	while (1)
 	{
-		line = get_input_line(line);
+		line = get_input_line();
+		if (!line)
+		{
+			write(STDOUT_FILENO, "exit\n", 5);
+			exit(EXIT_SUCCESS);
+		}
 		if (ft_strlen(line) != 0)
 		{
 			add_history(line);
@@ -34,13 +52,13 @@ int	main(int argc, char **argv, char **envp)
 			free(line);
 		}
 	}
-	return (0);
 }
 
-static char	*get_input_line(char *line)
+static char	*get_input_line(void)
 {
-	int	stdout_copy;
-	int	dev_null;
+	int		stdout_copy;
+	int		dev_null;
+	char	*line;
 
 	if (isatty(STDIN_FILENO))
 		line = readline("minishell> ");
