@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 16:26:35 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/16 11:52:22 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/16 16:19:01 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	create_split_token(char *line, int *index, t_token **head)
 		word = ft_strdup("|");
 		if (!word)
 			err_flg = true;
-		add_token(head, create_token_node(word));
+		err_flg = add_token(head, create_token_node(word));
 		*index = *index + 1;
 	}
 	else if (line[*index] == '<' || line[*index] == '>')
@@ -53,7 +53,9 @@ static bool	create_redirect_token(char *line, int *i, t_token **head)
 	if (err_flg)
 		return (err_flg);
 	err_flg = create_double_redirect(line, i, &word);
-	add_token(head, create_token_node(word));
+	if (err_flg)
+		return (err_flg);
+	err_flg = add_token(head, create_token_node(word));
 	*i = *i + 1;
 	return (err_flg);
 }

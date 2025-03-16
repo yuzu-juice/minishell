@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/16 14:54:47 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/16 16:22:41 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,31 @@ typedef struct s_cmd_list
 	t_cmd	*next;
 }	t_cmd_list;
 
-void	parser(char *line)
+bool	parser(char *line)
 {
 	t_token	*head;
+	bool	err_flg;
+
+	err_flg = false;
 	// lineが長すぎる場合はここでエラー返す
 
 	head = NULL;
 	if (validation_quart(line))
-		syntax_error();
+	{
+		syntax_error(&head);
+		return (true);
+	}
 // ============ OK =========================
 
 //
 	// create_token_list(line, &head);
 	head = create_token_list(line);
-	// expansion()
-	// quart_trim()
+	if (!head)
+		return (true);
+	expansion(&head);
 	// create_cmds()
 	// free_token_list()
+	return (false);
 }
 
 t_token	*get_last_token(t_token **head)
@@ -101,9 +109,8 @@ bool	validation_quart(char *line)
 	return (false);
 }
 
-void	syntax_error(void)
+void	syntax_error(t_token **head)
 {
-	perror("syntax_error");
-	// free token
-	// free cmd
+	print_msg("syntax_error");
+	free_token_list(head);
 }

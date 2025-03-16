@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:10:32 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/16 12:53:42 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/16 15:58:25 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ bool	create_token_word(int *start, char *line, t_token **head)
 		j++;
 	word = ft_substr(line, *start, j - *start);
 	if (!word)
-		return (NULL);
+		return (true);
 	if (*start == 0 || is_split_char(line[*start - 1]))
 		err_flg = add_token(head, create_token_node(word));
 	else
-	err_flg = add_current_token(word, head);
+		err_flg = add_current_token(word, head);
 	*start = j;
 	return (err_flg);
 }

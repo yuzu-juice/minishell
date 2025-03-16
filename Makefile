@@ -9,6 +9,8 @@ SRCS	= \
 	srcs/create_token_list.c\
 	srcs/create_split_token.c\
 	srcs/create_token_util.c\
+	srcs/print_msg.c\
+	srcs/expansion.c\
 	srcs/utils/free_string_array.c\
 	srcs/utils/add_slash.c\
 	srcs/signal_handler.c

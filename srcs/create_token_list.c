@@ -6,14 +6,11 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:48:17 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/16 13:11:14 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/16 16:07:25 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../includes/minishell.h"
-
-bool	create_normal_token(char *line, int *i, t_token **head);
-bool	create_quart_word(char *line, int *index, t_token **head);
 
 t_token	*create_token_list(char *line)
 {
@@ -33,7 +30,10 @@ t_token	*create_token_list(char *line)
 			break ;
 	}
 	if (err_flg)
-		syntax_error();
+	{
+		syntax_error(&head);
+		return (NULL);
+	}
 	return (head);
 }
 

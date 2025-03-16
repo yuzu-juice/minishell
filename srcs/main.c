@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/16 13:07:07 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/16 16:03:29 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ int	main(int argc, char **envp)
 static void	minishell(char **envp)
 {
 	char	*line;
+	bool	err_flg;
 
+	err_flg = false;
 	if (signal(SIGINT, handle_sigint) == SIG_ERR)
 	{
 		perror(NULL);
@@ -46,7 +48,9 @@ static void	minishell(char **envp)
 		if (ft_strlen(line) != 0)
 		{
 			add_history(line);
-			parser(line);
+			err_flg = parser(line);
+			if (err_flg)
+				continue ;
 			exec_cmd(envp, line);
 			free(line);
 		}
