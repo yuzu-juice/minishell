@@ -27,7 +27,7 @@ void	echo(int argc, char **argv)
 		error();
 		return ;
 	}
-	if (argv[1][0] == '-' &&  argv[1][1] == 'n' && argv[1][2] == '\0')
+	if (argv[1][0] == '-' && argv[1][1] == 'n' && argv[1][2] == '\0')
 		i++;
 	else
 	{
