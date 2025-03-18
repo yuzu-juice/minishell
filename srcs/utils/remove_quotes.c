@@ -24,7 +24,7 @@ char	*remove_quotes(char *token)
 	i = 0;
 	if (remove_char_count == 0)
 		return (token);
-	ret = ft_calloc(remove_char_count, sizeof(char));
+	ret = ft_calloc(ft_strlen(token) - remove_char_count, sizeof(char));
 	if (ret == NULL)
 		return (NULL);
 	i = 0;
