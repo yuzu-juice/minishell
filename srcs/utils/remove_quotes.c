@@ -39,6 +39,7 @@ char	*remove_quotes(char *token)
 		token++;
 		i++;
 	}
+	ret[i] = '\0';
 	return (ret);
 }
 
