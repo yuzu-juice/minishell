@@ -27,7 +27,7 @@ void	echo(int argc, char **argv)
 		error();
 		return ;
 	}
-	if (ft_strncmp(argv[1], "-n", 2) == 0)
+	if (ft_strncmp(argv[1], "-n", ft_strlen(argv[1])) == 0)
 	{
 		i++;
 		if (argc == 2)
