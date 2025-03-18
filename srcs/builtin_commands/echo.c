@@ -27,11 +27,12 @@ void	echo(int argc, char **argv)
 		error();
 		return ;
 	}
-	if (ft_strncmp(argv[1], "-n", ft_strlen(argv[1])) == 0)
-	{
+	if (argv[1][0] == '-' &&  argv[1][1] == 'n' && argv[1][2] == '\0')
 		i++;
-		if (argc == 2)
-			return ;
+	else
+	{
+		error();
+		return ;
 	}
 	while (i < argc)
 	{
