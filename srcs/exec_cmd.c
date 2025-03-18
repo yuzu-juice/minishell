@@ -62,7 +62,6 @@ static void	exec_builtin(char **cmd_args, t_builtin builtin_cmd)
 	int	i;
 
 	i = 0;
-	// count the number of arguments
 	while (cmd_args[i] != NULL)
 		i++;
 	if (builtin_cmd == ECHO)
