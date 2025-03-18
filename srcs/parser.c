@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/18 16:04:41 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/18 21:04:43 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool	parser(char *line)
 	head = create_token_list(line);
 	if (!head)
 		return (true);
-	expansion(&head);
+	expand(&head);
 	// create_cmds()
 	// free_token_list()
 	return (false);

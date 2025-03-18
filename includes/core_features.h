@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/18 16:05:26 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/18 21:04:32 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char		*create_cmd_path(char *cmd);
 
 // parser
 bool		parser(char *line);
-void		expansion(t_token **head);
+void		expand(t_token **head);
 bool		validation_quart(char *line);
 
 // create_token_list
