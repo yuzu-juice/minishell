@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 16:23:04 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/16 17:46:42 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/18 15:49:19 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	expansion(t_token **head)
 					printf("search %s\n", search);
 					// env = getenv(search);
 					// replace
-
+					// とったクォートをつけ直す（意味あるのか？）
 
 				}
 			}

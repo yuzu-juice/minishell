@@ -8,6 +8,7 @@ SRCS	= \
 	srcs/parser.c\
 	srcs/create_token_list.c\
 	srcs/create_split_token.c\
+	srcs/create_normal_token.c\
 	srcs/create_token_util.c\
 	srcs/print_msg.c\
 	srcs/expansion.c\

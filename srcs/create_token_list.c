@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:48:17 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/16 16:07:25 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/18 15:54:17 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,56 +37,29 @@ t_token	*create_token_list(char *line)
 	return (head);
 }
 
-bool	create_normal_token(char *line, int *i, t_token **head)
+t_token	*get_last_token(t_token **head)
 {
-	int		word_len;
-	int		len;
-	bool	err_flg;
+	t_token	*temp;
 
-	err_flg = false;
-	word_len = 0;
-	len = (int)ft_strlen(line);
-	if (is_quart(line[*i]))
-		err_flg = create_quart_word(line, i, head);
-	else
-		err_flg = create_token_word(i, line, head);
-	return (err_flg);
+	temp = *head;
+	while (temp->next)
+		temp = temp->next;
+	return (temp);
 }
 
-bool	create_quart_word(char *line, int *index, t_token **head)
+void	free_token_list(t_token **head)
 {
-	bool	err_flg;
-	int		j;
-	char	type;
-	char	*word;
+	t_token	*curr;
+	t_token	*temp;
 
-	err_flg = false;
-	type = line[*index];
-	j = 1;
-	while (line[*index + j] != type)
-		j++;
-	word = ft_substr(line, *index, j + 1);
-	if (!word)
-		return (true);
-	if (*index == 0 || is_split_char(line[*index - 1]))
-		err_flg = add_token(head, create_token_node(word));
-	else
-		err_flg = add_current_token(word, head);
-	*index = *index + j + 1;
-	return (err_flg);
-}
-
-bool	add_current_token(char *word, t_token **head)
-{
-	char	*temp;
-	bool	err_flg;
-
-	err_flg = false;
-	temp = ft_strjoin(get_last_token(head)->word, word);
-	free(get_last_token(head)->word);
-	free(word);
-	if (!temp)
-		return (true);
-	get_last_token(head)->word = temp;
-	return (err_flg);
+	if (head == NULL)
+		return ;
+	curr = *head;
+	while (curr)
+	{
+		temp = curr->next;
+		free(curr->word);
+		free(curr);
+		curr = temp;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 22:27:24 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/16 10:50:58 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:04:04 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 # include <assert.h>
 # include <string.h>
 # include <fcntl.h>
-# include <stdbool.h>
 
 extern volatile sig_atomic_t	g_sig_flag;
 
