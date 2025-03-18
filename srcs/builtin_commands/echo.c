@@ -12,18 +12,33 @@
 
 #include "../../includes/minishell.h"
 
+static void	error(void)
+{
+	write(2, "Usage: echo -n [string]...\n", 27);
+}
+
 void	echo(int argc, char **argv)
 {
 	int	i;
 
 	i = 1;
 	if (argc == 1)
+	{
+		error();
 		return ;
+	}
+	if (ft_strncmp(argv[1], "-n", 2) == 0)
+	{
+		i++;
+		if (argc == 2)
+			return ;
+	}
 	while (i < argc)
 	{
 		write(1, argv[i], ft_strlen(argv[i]));
-		write(1, " ", 1);
 		i++;
+		if (i < argc)
+			write(1, " ", 1);
 	}
 }
 
