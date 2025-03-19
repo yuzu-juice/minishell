@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/16 12:23:06 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/19 20:09:49 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 volatile sig_atomic_t	g_sig_flag;
 
 static void	minishell(char **envp);
+static void	minishell_loop(char **envp);
 static char	*get_input_line(void);
 
 int	main(int argc, char **envp)
@@ -28,13 +29,18 @@ int	main(int argc, char **envp)
 
 static void	minishell(char **envp)
 {
-	char	*line;
-
 	if (signal(SIGINT, handle_sigint) == SIG_ERR)
 	{
 		perror(NULL);
 		exit(EXIT_FAILURE);
 	}
+	minishell_loop(envp);
+}
+
+static void	minishell_loop(char **envp)
+{
+	char	*line;
+
 	while (1)
 	{
 		line = get_input_line();
@@ -46,6 +52,8 @@ static void	minishell(char **envp)
 		if (ft_strlen(line) != 0)
 		{
 			add_history(line);
+			if (parser(line))
+				continue ;
 			exec_cmd(envp, line);
 			free(line);
 		}

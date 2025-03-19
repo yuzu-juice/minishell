@@ -5,11 +5,17 @@ SRCS	= \
 	srcs/get_env_path.c\
 	srcs/get_env_pwd.c\
 	srcs/create_cmd_path.c\
+	srcs/parser.c\
+	srcs/create_token_list.c\
+	srcs/create_split_token.c\
+	srcs/create_normal_token.c\
+	srcs/create_token_util.c\
+	srcs/signal_handler.c\
 	srcs/utils/free_string_array.c\
 	srcs/utils/add_slash.c\
 	srcs/utils/remove_quotes.c\
-	srcs/signal_handler.c\
-	srcs/builtin_commands/echo.c
+	srcs/builtin_commands/echo.c\
+	srcs/utils/print_msg.c
 HEADERS	= \
 	includes/minishell.h\
 	includes/core_feature.h\
