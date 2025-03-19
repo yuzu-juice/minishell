@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   core_features.h                                    :+:      :+:    :+:   */
+/*   builtin_commands.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/16 10:52:10 by takitaga         ###   ########.fr       */
+/*   Created: 2025/03/16 10:51:45 by takitaga          #+#    #+#             */
+/*   Updated: 2025/03/16 12:27:22 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CORE_FEATURES_H
-# define CORE_FEATURES_H
+#ifndef BUILTIN_COMMANDS_H
+# define BUILTIN_COMMANDS_H
 
-void	exec_cmd(char **envp, char *str);
+# include <unistd.h>
 
-// from envp
-char	*get_env_pwd(void);
-char	**get_env_path(void);
+typedef enum e_builtin
+{
+	NOT_A_BUILTIN_COMMAND,
+	ECHO,
+	CD,
+	PWD,
+	EXPORT,
+	UNSET,
+	ENV,
+	EXIT,
+}	t_builtin;
 
-// create cmd
-char	*create_cmd_path(char *cmd);
+void	echo(int argc, char **argv);
 
 #endif

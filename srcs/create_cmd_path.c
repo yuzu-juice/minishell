@@ -22,7 +22,7 @@ char	*create_cmd_path(char *cmd)
 
 	full_path = NULL;
 	if (cmd[0] == '/' || cmd[0] == '.')
-		return (ft_strdup(cmd));
+		return (get_cmd_only(cmd));
 	env_path = get_env_path();
 	full_path = serch_exec_cmd_path(env_path, cmd);
 	free_string_double_array(env_path);

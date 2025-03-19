@@ -1,7 +1,8 @@
+#!/bin/bash
+
 . $(dirname $0)/utils/assert.sh
 
-assert 'ls'
-assert 'ls -l'
-assert '/usr/bin/ls'
-assert 'cat Makefile'
-assert 'echo aaa sss ddd'
+assert_bash_equivalent 'ls -t'
+assert_bash_equivalent '/usr/bin/ls -t'
+assert_bash_equivalent 'cat Makefile'
+assert_bash_equivalent '/usr/bin/cat Makefile'
