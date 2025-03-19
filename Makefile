@@ -9,13 +9,17 @@ SRCS	= \
 	srcs/utils/add_slash.c\
 	srcs/utils/remove_quotes.c\
 	srcs/signal_handler.c\
-	srcs/builtin_commands/echo.c
+	srcs/builtin_commands/echo.c\
+	srcs/env/env.c\
+	srcs/env/envp_to_list_utils.c\
+	srcs/env/list_to_envp_utils.c
 HEADERS	= \
 	includes/minishell.h\
 	includes/core_feature.h\
 	includes/signal_handlings.h\
 	includes/utils.h\
-	includds/builtin_commands.h
+	includds/builtin_commands.h\
+	includds/env.h
 MAIN_OBJ = $(MAIN:.c=.o)
 OBJS	= $(SRCS:.c=.o)
 

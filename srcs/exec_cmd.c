@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/16 12:41:42 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/19 22:07:05 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char			**create_cmd_args(char *cmd);
 static t_builtin	resolve_builtin_cmd(char *cmd);
 static void			exec_builtin(char **cmd_args, t_builtin cmd);
 
-void	exec_cmd(char **envp, char *cmd)
+void	exec_cmd(t_env *env, char *cmd)
 {
 	char		*cmd_path;
 	char		**cmd_args;
@@ -38,7 +38,7 @@ void	exec_cmd(char **envp, char *cmd)
 	cmd_path = create_cmd_path(cmd);
 	if (cmd_path == NULL)
 		perror(NULL);
-	if (execve(cmd_path, cmd_args, envp) == -1)
+	if (execve(cmd_path, cmd_args, list_to_envp(env)) == -1)
 		perror(NULL);
 }
 

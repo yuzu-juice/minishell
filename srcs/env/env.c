@@ -1,20 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/02 14:57:03 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/19 19:24:28 by takitaga         ###   ########.fr       */
+/*   Created: 2025/03/19 19:55:14 by takitaga          #+#    #+#             */
+/*   Updated: 2025/03/19 22:10:50 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "../../includes/minishell.h"
 
-void	free_string_double_array(char **str);
-char	*add_slash(char *path);
-char	*remove_quotes(char *token);
+t_env   *envp_to_list(char **envp)
+{
+    int     i;
+    t_env   *env;
 
-#endif
+    env = ft_calloc(1, sizeof(t_env));
+    if (env == NULL)
+        return (NULL);
+    i = 0;
+    while (envp[i])
+    {
+        add_env_node(env, envp[i], i);
+        i++;
+    }
+    return (env);
+}
+
+char   **list_to_envp(t_env *env)
+{
+
+    return (NULL);
+}
