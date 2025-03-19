@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:50:42 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/19 14:28:43 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/19 20:22:35 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,9 @@ static bool	create_token_word(int *start, char *line, t_token **head);
 
 bool	create_normal_token(char *line, int *i, t_token **head)
 {
-	int		word_len;
-	int		len;
 	bool	err_flg;
 
 	err_flg = false;
-	word_len = 0;
-	len = (int)ft_strlen(line);
 	if (is_quote(line[*i]))
 		err_flg = create_quote_word(line, i, head);
 	else
