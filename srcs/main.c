@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/19 21:50:38 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:02:30 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 volatile sig_atomic_t	g_sig_flag;
 
-static void	minishell(char **envp);
+static void	minishell(t_env *env);
 static char	*get_input_line(void);
 
 int	main(int argc, char **argv, char **envp)
 {
-	(void)argv;
 	t_env	*env;
 
+	(void)argv;
 	g_sig_flag = 0;
 	if (argc != 1)
 		return (0);

@@ -12,25 +12,24 @@
 
 #include "../../includes/minishell.h"
 
-t_env   *envp_to_list(char **envp)
+t_env	*envp_to_list(char **envp)
 {
-    int     i;
-    t_env   *env;
+	int		i;
+	t_env	*env;
 
-    env = ft_calloc(1, sizeof(t_env));
-    if (env == NULL)
-        return (NULL);
-    i = 0;
-    while (envp[i])
-    {
-        add_env_node(env, envp[i], i);
-        i++;
-    }
-    return (env);
+	env = ft_calloc(1, sizeof(t_env));
+	if (env == NULL)
+		return (NULL);
+	i = 0;
+	while (envp[i])
+	{
+		add_env_node(env, envp[i], i);
+		i++;
+	}
+	return (env);
 }
 
-char   **list_to_envp(t_env *env)
+char	**list_to_envp(t_env *env)
 {
-
-    return (NULL);
+	return (NULL);
 }
