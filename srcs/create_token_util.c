@@ -6,11 +6,11 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:10:32 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/19 14:27:31 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/19 20:16:39 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../includes/minishell.h"
+#include "../includes/minishell.h"
 
 bool	is_split_char(char c)
 {
