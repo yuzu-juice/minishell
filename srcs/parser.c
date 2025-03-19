@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/18 21:04:43 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/19 14:17:14 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 bool	parser(char *line)
 {
 	t_token	*head;
-	bool	err_flg;
 
-	err_flg = false;
 	// TODO: line too long
 
 	head = NULL;
-	if (validation_quart(line))
+	if (validation_quote(line))
 	{
 		syntax_error(&head);
 		return (true);
@@ -35,7 +33,7 @@ bool	parser(char *line)
 	return (false);
 }
 
-bool	validation_quart(char *line)
+bool	validation_quote(char *line)
 {
 	int		i;
 	int		j;

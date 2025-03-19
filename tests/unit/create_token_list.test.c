@@ -61,7 +61,7 @@ int	main(void)
 	}
 	free_token_list(&head);
 
-	// single quart
+	// single quote
 	i = 0;
 	head = create_token_list("\'a\'");
 	temp = head;
@@ -205,7 +205,7 @@ int	main(void)
 	}
 	free_token_list(&head);
 
-	// double quart
+	// double quote
 	i = 0;
 	head = create_token_list("\"a\"");
 	temp = head;

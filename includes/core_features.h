@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/18 21:04:32 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/19 14:27:52 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char		*create_cmd_path(char *cmd);
 // parser
 bool		parser(char *line);
 void		expand(t_token **head);
-bool		validation_quart(char *line);
+bool		validation_quote(char *line);
 
 // create_token_list
 t_token		*create_token_list(char *line);
@@ -63,12 +63,11 @@ bool		create_normal_token(char *line, int *i, t_token **head);
 // token util
 bool		add_current_token(char *word, t_token **head);
 t_token		*create_token_node(char *word);
-bool		add_token(t_token **head, t_token *new);
+bool		add_token_node(t_token **head, t_token *new);
 bool		is_split_char(char c);
-bool		is_quart(char c);
+bool		is_quote(char c);
 
 // error
 void		syntax_error(t_token **head);
-void		print_msg(char *str);
 
 #endif

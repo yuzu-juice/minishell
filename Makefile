@@ -10,11 +10,11 @@ SRCS	= \
 	srcs/create_split_token.c\
 	srcs/create_normal_token.c\
 	srcs/create_token_util.c\
-	srcs/print_msg.c\
 	srcs/expand.c\
+	srcs/signal_handler.c\
 	srcs/utils/free_string_array.c\
 	srcs/utils/add_slash.c\
-	srcs/signal_handler.c
+	srcs/utils/print_msg.c
 HEADERS	= \
 	includes/minishell.h\
 	includes/core_feature.h\

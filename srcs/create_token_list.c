@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:48:17 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/18 15:54:17 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/19 14:28:54 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,36 @@ t_token	*create_token_list(char *line)
 	return (head);
 }
 
-t_token	*get_last_token(t_token **head)
+t_token	*create_token_node(char *word)
+{
+	t_token	*token;
+
+	token = (t_token *)ft_calloc(sizeof(t_token), 1);
+	if (!token)
+		return (NULL);
+	token->word = word;
+	token->next = NULL;
+	return (token);
+}
+
+bool	add_token_node(t_token **head, t_token *new)
 {
 	t_token	*temp;
+	bool	err_flg;
 
-	temp = *head;
-	while (temp->next)
-		temp = temp->next;
-	return (temp);
+	err_flg = false;
+	if (new == NULL || head == NULL)
+		return (true);
+	if (*head == NULL)
+		*head = new;
+	else
+	{
+		temp = *head;
+		while (temp->next)
+			temp = temp->next;
+		temp->next = new;
+	}
+	return (err_flg);
 }
 
 void	free_token_list(t_token **head)

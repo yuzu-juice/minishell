@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/16 16:03:29 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/19 14:22:24 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ static void	minishell(char **envp)
 		if (ft_strlen(line) != 0)
 		{
 			add_history(line);
-			err_flg = parser(line);
-			if (err_flg)
+			if (parser(line))
 				continue ;
 			exec_cmd(envp, line);
 			free(line);
