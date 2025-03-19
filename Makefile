@@ -9,7 +9,8 @@ SRCS	= \
 	srcs/utils/add_slash.c\
 	srcs/utils/remove_quotes.c\
 	srcs/signal_handler.c\
-	srcs/builtin_commands/echo.c
+	srcs/builtin_commands/echo.c\
+	srcs/builtin_commands/pwd.c
 HEADERS	= \
 	includes/minishell.h\
 	includes/core_feature.h\
