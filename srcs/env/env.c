@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 19:55:14 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/19 15:48:02 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:10:33 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**list_to_envp(t_env *env)
 	t_env	*tmp;
 	char	**envp;
 	int		i;
-	
+
 	envp = ft_calloc(get_node_count(env), sizeof(char *));
 	if (envp == NULL)
 		return (NULL);
@@ -45,13 +45,10 @@ char	**list_to_envp(t_env *env)
 		envp[i] = ft_strjoin(tmp->key, "=");
 		if (envp[i] == NULL)
 			return (NULL);
-		envp[i] = ft_strjoin(envp[i], create_values_str(tmp->values));
-		printf("envp[%d]: %s\n", i, envp[i]);
+		envp[i] = ft_strjoin(envp[i], tmp->value);
 		if (envp[i] == NULL)
 			return (NULL);
-		i++;
 		tmp = tmp->next;
 	}
-	envp[i] = NULL;
 	return (envp);
 }

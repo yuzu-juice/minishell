@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/19 15:20:48 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:06:58 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CORE_FEATURES_H
 
 # include "env.h"
+
 void	exec_cmd(t_env *env, char *str);
 
 // from envp
