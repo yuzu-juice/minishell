@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/20 14:34:20 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:38:23 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CORE_FEATURES_H
 
 # include <stdbool.h>
+# include "env.h"
 
 typedef struct s_token	t_token;
 

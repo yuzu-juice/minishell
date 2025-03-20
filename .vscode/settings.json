@@ -10,6 +10,11 @@
     "type_traits": "c",
     "utility": "c",
     "optional": "c",
-    "system_error": "c"
+    "system_error": "c",
+    "env.h": "c",
+    "utils.h": "c",
+    "builtin_commands.h": "c",
+    "core_features.h": "c",
+    "libft.h": "c"
   }
 }
