@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/20 14:44:58 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:54:36 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static char			**create_cmd_args(char *cmd);
 static t_builtin	resolve_builtin_cmd(char *cmd);
-static void			exec_builtin(char **cmd_args, t_builtin cmd, char **envp);
+static void			exec_builtin(char **cmd_args, t_builtin cmd, t_env *envp);
 
 void	exec_cmd(t_env *env, char *cmd)
 {
@@ -34,7 +34,7 @@ void	exec_cmd(t_env *env, char *cmd)
 	}
 	builtin_cmd = resolve_builtin_cmd(cmd_args[0]);
 	if (builtin_cmd != NOT_A_BUILTIN_COMMAND)
-		exec_builtin(cmd_args, builtin_cmd, envp);
+		exec_builtin(cmd_args, builtin_cmd, env);
 	cmd_path = create_cmd_path(cmd);
 	if (cmd_path == NULL)
 		perror(NULL);
@@ -60,17 +60,18 @@ static t_builtin	resolve_builtin_cmd(char *cmd)
 	return (NOT_A_BUILTIN_COMMAND);
 }
 
-static void	exec_builtin(char **cmd_args, t_builtin builtin_cmd, char **envp)
+static void	exec_builtin(char **cmd_args, t_builtin builtin_cmd, t_env *env)
 {
 	int	i;
 
+	(void)env;
 	i = 0;
 	while (cmd_args[i] != NULL)
 		i++;
 	if (builtin_cmd == ECHO)
 		echo(i, cmd_args);
 	else if (builtin_cmd == PWD)
-		pwd(i, envp);
+		pwd(i);
 	free_string_double_array(cmd_args);
 	exit(EXIT_SUCCESS);
 }
