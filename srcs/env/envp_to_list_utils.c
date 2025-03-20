@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:58:23 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/19 15:00:31 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:58:59 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ void	add_env_node(t_env *env, char *str, int i)
 	if (i == 0)
 	{
 		env->key = key_values[0];
-		env->values = values_to_list(key_values[1]);
+		if (key_values[1] == NULL)
+			env->values = values_to_list(ft_strdup(""));
+		else
+			env->values = values_to_list(key_values[1]);
 	}
 	else
 	{
@@ -36,16 +39,22 @@ void	add_env_node(t_env *env, char *str, int i)
 		if (new_node == NULL)
 			return ;
 		new_node->key = key_values[0];
-		new_node->values = values_to_list(key_values[1]);
+		if (key_values[1] == NULL)
+			new_node->values = values_to_list(ft_strdup(""));
+		else
+			new_node->values = values_to_list(key_values[1]);
 		new_node->next = NULL;
 		get_last_env_node(env)->next = new_node;
 	}
+	free(key_values);
 }
 
 static t_value	*get_last_value_node(t_value *value)
 {
 	t_value	*tmp;
 
+	if (value == NULL)
+		return (NULL);
 	tmp = value;
 	while (tmp->next)
 		tmp = tmp->next;
@@ -56,6 +65,8 @@ static t_env	*get_last_env_node(t_env *env)
 {
 	t_env	*tmp;
 
+	if (env == NULL)
+		return (NULL);
 	tmp = env;
 	while (tmp->next)
 		tmp = tmp->next;
@@ -93,12 +104,20 @@ static t_value	*values_to_list(char *str)
 		return (NULL);
 	i = 0;
 	values = ft_split(str, ':');
+	free(str);
 	if (values == NULL)
 		return (NULL);
-	while (values[i])
+	if (values[0] == NULL)
 	{
-		add_value_node(value, values[i], i);
-		i++;
+		value->value = ft_strdup("");
+		value->next = NULL;
 	}
+	else
+		while (values[i])
+		{
+			add_value_node(value, values[i], i);
+			i++;
+		}
+	free(values);
 	return (value);
 }

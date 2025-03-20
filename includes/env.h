@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 19:25:30 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/19 14:59:26 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:19:36 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,7 @@ typedef struct s_env
 t_env	*envp_to_list(char **envp);
 void	add_env_node(t_env *env, char *str, int i);
 char	**list_to_envp(t_env *env);
+int 	get_node_count(t_env *env);
+char	*create_values_str(t_value *values);
 
 #endif
