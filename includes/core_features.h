@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/20 14:30:00 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:34:20 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ typedef struct s_proc_list
 	t_proc	*proc;
 	t_proc	*next;
 }	t_proc_list;
-
-# include "env.h"
 
 void		exec_cmd(t_env *env, char *str);
 
