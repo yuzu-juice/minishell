@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/19 19:03:51 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:44:58 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char			**create_cmd_args(char *cmd);
 static t_builtin	resolve_builtin_cmd(char *cmd);
 static void			exec_builtin(char **cmd_args, t_builtin cmd, char **envp);
 
-void	exec_cmd(char **envp, char *cmd)
+void	exec_cmd(t_env *env, char *cmd)
 {
 	char		*cmd_path;
 	char		**cmd_args;
@@ -38,7 +38,7 @@ void	exec_cmd(char **envp, char *cmd)
 	cmd_path = create_cmd_path(cmd);
 	if (cmd_path == NULL)
 		perror(NULL);
-	if (execve(cmd_path, cmd_args, envp) == -1)
+	if (execve(cmd_path, cmd_args, list_to_envp(env)) == -1)
 		perror(NULL);
 }
 

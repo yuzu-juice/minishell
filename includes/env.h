@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_string_array.c                                :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/02 14:54:52 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/20 14:11:18 by takitaga         ###   ########.fr       */
+/*   Created: 2025/03/19 19:25:30 by takitaga          #+#    #+#             */
+/*   Updated: 2025/03/20 14:40:03 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#ifndef ENV_H
+# define ENV_H
 
-void	free_string_double_array(char **str)
+typedef struct s_env	t_env;
+
+typedef struct s_env
 {
-	int	i;
+	char	*key;
+	char	*value;
+	t_env	*next;
+}	t_env;
 
-	i = 0;
-	if (str == NULL)
-		return ;
-	while (str[i])
-	{
-		free(str[i]);
-		i++;
-	}
-	free (str);
-}
+t_env	*envp_to_list(char **envp);
+void	add_env_node(t_env *env, char *str, int i);
+char	**list_to_envp(t_env *env);
+int		get_node_count(t_env *env);
+
+#endif

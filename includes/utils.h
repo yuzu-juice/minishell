@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 14:57:03 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/16 11:52:03 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/20 04:30:48 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@
 void	free_string_double_array(char **str);
 char	*add_slash(char *path);
 char	*remove_quotes(char *token);
+void	print_msg(char *str);
 
 #endif
