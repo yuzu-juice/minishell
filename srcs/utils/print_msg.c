@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   print_msg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/02 14:57:03 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/20 14:30:32 by takitaga         ###   ########.fr       */
+/*   Created: 2025/03/16 15:41:25 by yohatana          #+#    #+#             */
+/*   Updated: 2025/03/19 14:17:56 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "../../includes/minishell.h"
 
-void	free_string_double_array(char **str);
-char	*add_slash(char *path);
-char	*remove_quotes(char *token);
-void	print_msg(char *str);
-
-#endif
+void	print_msg(char *str)
+{
+	write(2, str, (int)ft_strlen(str));
+	write(2, "\n", 1);
+}
