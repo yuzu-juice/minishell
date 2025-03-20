@@ -14,11 +14,8 @@ SRCS	= \
 	srcs/utils/free_string_array.c\
 	srcs/utils/add_slash.c\
 	srcs/utils/remove_quotes.c\
-	srcs/builtin_commands/echo.c\
-	srcs/utils/print_msg.c\
-	srcs/env/env.c\
-	srcs/env/envp_to_list_utils.c\
-	srcs/env/list_to_envp_utils.c
+	srcs/signal_handler.c\
+	srcs/builtin_commands/echo.c
 HEADERS	= \
 	includes/minishell.h\
 	includes/core_feature.h\
