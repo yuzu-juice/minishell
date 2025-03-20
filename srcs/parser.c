@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/19 19:58:42 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:55:23 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	parser(char *line)
 	t_token	*head;
 
 	head = NULL;
-	if (validation_quote(line))
+	if (has_unclosed_quotes(line))
 	{
 		syntax_error(&head);
 		return (true);
@@ -28,7 +28,7 @@ bool	parser(char *line)
 	return (false);
 }
 
-bool	validation_quote(char *line)
+bool	has_unclosed_quotes(char *line)
 {
 	int		i;
 	int		j;
