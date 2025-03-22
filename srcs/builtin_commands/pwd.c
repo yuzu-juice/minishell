@@ -1,33 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_commands.h                                 :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/16 10:51:45 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/20 14:53:03 by takitaga         ###   ########.fr       */
+/*   Created: 2025/03/19 19:03:10 by takitaga          #+#    #+#             */
+/*   Updated: 2025/03/20 14:57:58 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_COMMANDS_H
-# define BUILTIN_COMMANDS_H
+#include "../../includes/minishell.h"
+#include <stdio.h>
 
-# include <unistd.h>
+static void	error(void);
 
-typedef enum e_builtin
+void	pwd(int argc)
 {
-	NOT_A_BUILTIN_COMMAND,
-	ECHO,
-	CD,
-	PWD,
-	EXPORT,
-	UNSET,
-	ENV,
-	EXIT,
-}	t_builtin;
+	char	*pwd;
 
-void	echo(int argc, char **argv);
-void	pwd(int argc);
+	if (argc != 1)
+	{
+		error();
+		return ;
+	}
+	pwd = getcwd(NULL, 0);
+	write(1, pwd, ft_strlen(pwd));
+	write(1, "\n", 1);
+	free(pwd);
+}
 
-#endif
+static void	error(void)
+{
+	write(2, "Usage: pwd\n", 11);
+}
