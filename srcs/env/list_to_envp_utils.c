@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_msg.c                                        :+:      :+:    :+:   */
+/*   list_to_envp_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/16 15:41:25 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/20 14:40:45 by takitaga         ###   ########.fr       */
+/*   Created: 2025/03/19 22:05:45 by takitaga          #+#    #+#             */
+/*   Updated: 2025/03/20 14:23:22 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	print_msg(char *str)
+int	get_node_count(t_env *env)
 {
-	write(2, str, (int)ft_strlen(str));
-	write(2, "\n", 1);
+	int		count;
+	t_env	*tmp;
+
+	count = 0;
+	tmp = env;
+	while (tmp)
+	{
+		count++;
+		tmp = tmp->next;
+	}
+	return (count);
 }
