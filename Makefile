@@ -16,6 +16,7 @@ SRCS	= \
 	srcs/utils/add_slash.c\
 	srcs/utils/remove_quotes.c\
 	srcs/utils/print_msg.c\
+	srcs/utils/serch_env.c\
 	srcs/builtin_commands/echo.c\
 	srcs/env/env.c\
 	srcs/env/envp_to_list_utils.c\

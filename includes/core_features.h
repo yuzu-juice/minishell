@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/22 19:00:03 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/22 19:42:37 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ typedef struct s_proc_list
 	t_proc	*proc;
 	t_proc	*next;
 }	t_proc_list;
+
+typedef struct s_replace_env
+{
+	char	*key;
+	char	*val;
+}	t_replace_env;
 
 void		exec_cmd(t_env *env, char *str);
 
