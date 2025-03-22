@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/19 20:09:49 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:32:12 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,36 @@
 
 volatile sig_atomic_t	g_sig_flag;
 
-static void	minishell(char **envp);
-static void	minishell_loop(char **envp);
+static void	minishell(t_env *env);
+static void	minishell_loop(t_env *env);
 static char	*get_input_line(void);
 
-int	main(int argc, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
+	t_env	*env;
+
+	(void)argv;
 	g_sig_flag = 0;
 	if (argc != 1)
 		return (0);
-	minishell(envp);
+	env = envp_to_list(envp);
+	if (env == NULL)
+		return (1);
+	minishell(env);
 	return (0);
 }
 
-static void	minishell(char **envp)
+static void	minishell(t_env *env)
 {
 	if (signal(SIGINT, handle_sigint) == SIG_ERR)
 	{
 		perror(NULL);
 		exit(EXIT_FAILURE);
 	}
-	minishell_loop(envp);
+	minishell_loop(env);
 }
 
-static void	minishell_loop(char **envp)
+static void	minishell_loop(t_env *env)
 {
 	char	*line;
 
@@ -54,7 +60,7 @@ static void	minishell_loop(char **envp)
 			add_history(line);
 			if (parser(line))
 				continue ;
-			exec_cmd(envp, line);
+			exec_cmd(env, line);
 			free(line);
 		}
 	}
