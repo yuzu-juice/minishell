@@ -6,13 +6,13 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/20 15:15:14 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/22 18:58:09 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-bool	parser(char *line)
+bool	parser(char *line, t_env *env)
 {
 	t_token	*head;
 
@@ -25,7 +25,8 @@ bool	parser(char *line)
 	head = create_token_list(line);
 	if (!head)
 		return (true);
-	expand_dollar(head);
+	if (expand_dollar(&head, env))
+		return (true);
 	return (false);
 }
 

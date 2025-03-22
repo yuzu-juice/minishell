@@ -11,6 +11,7 @@ SRCS	= \
 	srcs/create_normal_token.c\
 	srcs/create_token_util.c\
 	srcs/signal_handler.c\
+	srcs/expand_dollar.c\
 	srcs/utils/free_string_array.c\
 	srcs/utils/add_slash.c\
 	srcs/utils/remove_quotes.c\
