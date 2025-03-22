@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 20:33:45 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/22 18:58:12 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/22 19:04:12 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ bool	expand_dollar(t_token **head, t_env *env)
 		}
 		if (err_flg)
 			break ;
+		printf("curr->word %s\n", curr->word);
 		curr = curr->next;
 	}
 	return (err_flg);
@@ -72,14 +73,12 @@ static bool	expand_main(t_token *token, int *index, t_env *env)
 
 static bool	replace_word(t_token *token, int *index, char *before, char *after)
 {
-	int		replace_len;
 	char	*replace_word;
 	char	*word_left;
 	char	*temp;
 
-	replace_len = \
-	ft_strlen(token->word) - (int)ft_strlen(before) + (int)ft_strlen(after);
-	replace_word = (char *)ft_calloc(replace_len, sizeof(char));
+	replace_word = (char *)ft_calloc(ft_strlen(token->word) - \
+				(int)ft_strlen(before) + (int)ft_strlen(after), sizeof(char));
 	if (!replace_word)
 		return (true);
 	ft_strlcpy(replace_word, token->word, *index + 1);
