@@ -15,6 +15,7 @@
     "utils.h": "c",
     "builtin_commands.h": "c",
     "core_features.h": "c",
-    "libft.h": "c"
+    "libft.h": "c",
+    "stdio.h": "c"
   }
 }
