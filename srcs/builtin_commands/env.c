@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 12:49:16 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/23 13:12:12 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/23 15:19:26 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,17 @@ void	env(int argc, t_env *env)
 	while (tmp)
 	{
 		if (tmp->value == NULL)
-			printf("%s=\n", tmp->key);
+		{
+			write(1, tmp->key, ft_strlen(tmp->key));
+			write(1, "=\n", 2);
+		}
 		else
-			printf("%s=%s\n", tmp->key, tmp->value);
+		{
+			write(1, tmp->key, ft_strlen(tmp->key));
+			write(1, "=", 1);
+			write(1, tmp->value, ft_strlen(tmp->value));
+			write(1, "\n", 1);
+		}
 		tmp = tmp->next;
 	}
 }
