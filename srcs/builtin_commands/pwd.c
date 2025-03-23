@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 19:03:10 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/23 11:49:53 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/23 12:05:51 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	pwd(int argc)
 		return ;
 	}
 	pwd = getcwd(NULL, 0);
-	printf("%s\n",pwd);
+	printf("%s\n", pwd);
 	free(pwd);
 }
 
