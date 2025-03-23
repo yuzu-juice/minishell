@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/20 14:55:23 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/23 15:32:25 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 bool	parser(char *line)
 {
-	t_token	*head;
+	t_token		*head;
+	t_proc_list	*proc;
 
 	head = NULL;
 	if (has_unclosed_quotes(line))
@@ -24,6 +25,9 @@ bool	parser(char *line)
 	}
 	head = create_token_list(line);
 	if (!head)
+		return (true);
+	proc = create_process_list(&head);
+	if (!proc)
 		return (true);
 	return (false);
 }

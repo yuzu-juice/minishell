@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   core_features.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/20 14:38:23 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/23 15:38:03 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 # include <stdbool.h>
 # include "env.h"
 
-typedef struct s_token	t_token;
+typedef struct s_token		t_token;
+typedef struct s_proc_list	t_proc_list;
 
 typedef struct s_token
 {
@@ -29,15 +30,11 @@ typedef struct s_proc
 	char	*cmd;
 	int		status;
 }	t_proc;
-// ex) str*->
-// ls > a
-// cat -e
-// b "<" c > d
 
 typedef struct s_proc_list
 {
-	t_proc	*proc;
-	t_proc	*next;
+	t_proc		*proc;
+	t_proc_list	*next;
 }	t_proc_list;
 
 void		exec_cmd(t_env *env, char *str);
@@ -67,6 +64,9 @@ t_token		*create_token_node(char *word);
 bool		add_token_node(t_token **head, t_token *new);
 bool		is_split_char(char c);
 bool		is_quote(char c);
+
+// create_process_list
+t_proc_list	*create_process_list(t_token **head);
 
 // error
 void		syntax_error(t_token **head);
