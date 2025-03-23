@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/23 13:12:38 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/23 17:48:03 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void	exec_builtin(char **cmd_args, t_builtin builtin_cmd, t_env *envp)
 	else if (builtin_cmd == CD)
 		cd(i, cmd_args);
 	else if (builtin_cmd == UNSET)
-		unset(i, cmd_args, envp);
+		unset(i, cmd_args, &envp);
 	else if (builtin_cmd == ENV)
 		env(i, envp);
 	free_string_double_array(cmd_args);
