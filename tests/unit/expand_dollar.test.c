@@ -1,4 +1,5 @@
 #include"../../includes/minishell.h"
+#include <string.h>
 
 int main(int argc, char **argv, char **envp)
 {
@@ -11,7 +12,7 @@ int main(int argc, char **argv, char **envp)
 	env = envp_to_list(envp);
 
 	// only 1 token 1 dollar
-	char	array1[][100] = {{"/home/yohatana/work/minishell"}};
+	char	*array1[] = {getenv("PWD")};
 	head = create_token_list("$PWD");
 	err = expand_dollar(&head, env);
 	assert(err == false);
