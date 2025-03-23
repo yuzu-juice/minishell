@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 10:45:06 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/20 14:58:02 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/23 11:50:29 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void	echo(int argc, char **argv)
 	}
 	while (i < argc)
 	{
-		write(1, argv[i], ft_strlen(argv[i]));
+		printf("%s", argv[i]);
 		i++;
 		if (i < argc)
-			write(1, " ", 1);
+			printf(" ");
 	}
 }
 
