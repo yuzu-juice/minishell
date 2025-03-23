@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/23 12:57:05 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/23 13:03:21 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,14 @@ static char	**create_cmd_args(char *cmd)
 	return (cmd_args);
 }
 
-// TODO: replace ft_strncmp to ft_strcmp
 static t_builtin	resolve_builtin_cmd(char *cmd)
 {
-	if (ft_strncmp(cmd, "echo", 4) == 0)
+	if (ft_strcmp(cmd, "echo") == 0)
 		return (ECHO);
-	if (ft_strncmp(cmd, "pwd", 3) == 0)
+	if (ft_strcmp(cmd, "pwd") == 0)
 		return (PWD);
+	if (ft_strcmp(cmd, "cd") == 0)
+		return (CD);
 	if (ft_strcmp(cmd, "unset") == 0)
 		return (UNSET);
 	if (ft_strcmp(cmd, "env") == 0)
@@ -78,6 +79,8 @@ static void	exec_builtin(char **cmd_args, t_builtin builtin_cmd, t_env *envp)
 		echo(i, cmd_args);
 	else if (builtin_cmd == PWD)
 		pwd(i);
+	else if (builtin_cmd == CD)
+		cd(i, cmd_args);
 	else if (builtin_cmd == UNSET)
 		unset(i, cmd_args, envp);
 	else if (builtin_cmd == ENV)

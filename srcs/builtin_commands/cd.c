@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/19 19:03:10 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/23 13:03:04 by takitaga         ###   ########.fr       */
+/*   Created: 2025/03/23 11:15:38 by takitaga          #+#    #+#             */
+/*   Updated: 2025/03/23 12:06:06 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,23 @@
 
 static void	error(void);
 
-void	pwd(int argc)
+void	cd(int argc, char **argv)
 {
-	char	*pwd;
-
-	if (argc != 1)
+	if (argc != 2)
 	{
 		error();
 		return ;
 	}
-	pwd = getcwd(NULL, 0);
-	printf("%s\n", pwd);
-	free(pwd);
+	if (access(argv[1], F_OK) == 0)
+	{
+		if (chdir(argv[1]) == -1)
+			perror(argv[1]);
+	}
+	else
+		perror(argv[1]);
 }
 
 static void	error(void)
 {
-	write(2, "Usage: pwd\n", 11);
+	write(2, "Usage: cd [relative path | absolute path]\n", 42);
 }
