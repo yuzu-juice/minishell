@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/19 19:03:10 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/23 12:11:27 by takitaga         ###   ########.fr       */
+/*   Created: 2025/03/23 12:10:55 by takitaga          #+#    #+#             */
+/*   Updated: 2025/03/23 12:45:09 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,31 @@
 
 static void	error(void);
 
-void	pwd(int argc)
+void	unset(int argc, char **argv, t_env *env)
 {
-	char	*pwd;
+	t_env	*prev;
+	t_env	*tmp;
 
-	if (argc != 1)
+	if (argc != 2)
 	{
 		error();
 		return ;
 	}
-	pwd = getcwd(NULL, 0);
-	write(1, pwd, ft_strlen(pwd));
-	write(1, "\n", 1);
-	free(pwd);
+	tmp = env;
+	tmp = NULL;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->key, argv[1]))
+		{
+			prev->next = tmp->next;
+			free_env(tmp);
+		}
+		prev = tmp;
+		tmp = tmp->next;
+	}
 }
 
 static void	error(void)
 {
-	write(2, "Usage: pwd\n", 11);
+	write(2, "Usage: unset [string]\n", 22);
 }

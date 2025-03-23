@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 19:55:14 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/20 14:26:53 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/23 12:44:57 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,11 @@ char	**list_to_envp(t_env *env)
 		i++;
 	}
 	return (envp);
+}
+
+void	free_env(t_env *env)
+{
+	free(env->key);
+	free(env->value);
+	free(env);
 }

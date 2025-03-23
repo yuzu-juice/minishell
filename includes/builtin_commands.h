@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 10:51:45 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/20 14:53:03 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/23 12:11:52 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ typedef enum e_builtin
 
 void	echo(int argc, char **argv);
 void	pwd(int argc);
+void	unset(int argc, char **argv, t_env *env);
 
 #endif

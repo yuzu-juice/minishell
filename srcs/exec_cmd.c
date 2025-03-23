@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/20 14:54:36 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/23 12:48:37 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ void	exec_cmd(t_env *env, char *cmd)
 	}
 	builtin_cmd = resolve_builtin_cmd(cmd_args[0]);
 	if (builtin_cmd != NOT_A_BUILTIN_COMMAND)
+	{
 		exec_builtin(cmd_args, builtin_cmd, env);
+		return ;
+	}
 	cmd_path = create_cmd_path(cmd);
 	if (cmd_path == NULL)
 		perror(NULL);
@@ -57,6 +60,8 @@ static t_builtin	resolve_builtin_cmd(char *cmd)
 		return (ECHO);
 	if (ft_strncmp(cmd, "pwd", 3) == 0)
 		return (PWD);
+	if (ft_strcmp(cmd, "unset") == 0)
+		return (UNSET);
 	return (NOT_A_BUILTIN_COMMAND);
 }
 
@@ -72,6 +77,7 @@ static void	exec_builtin(char **cmd_args, t_builtin builtin_cmd, t_env *env)
 		echo(i, cmd_args);
 	else if (builtin_cmd == PWD)
 		pwd(i);
+	else if (builtin_cmd == UNSET)
+		unset(i, cmd_args, env);
 	free_string_double_array(cmd_args);
-	exit(EXIT_SUCCESS);
 }
