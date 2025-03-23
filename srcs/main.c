@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/23 15:17:21 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/23 16:59:46 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static char	*get_input_line(void)
 	char	*line;
 
 	if (isatty(STDIN_FILENO))
-		line = readline("minishell> ");
+		line = readline("\033[1;36mminishell> \033[0m");
 	else
 	{
 		stdout_copy = dup(STDOUT_FILENO);
