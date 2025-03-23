@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 11:15:38 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/23 11:53:26 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/23 11:57:50 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@ void	cd(int argc, char **argv)
 		error();
 		return ;
 	}
-    if (chdir(argv[1]) == -1)
+    if (access(argv[1], F_OK) == 0)
+	{
+		if (chdir(argv[1]) == -1)
+        	perror(argv[1]);
+	}
+	else
         perror(argv[1]);
 }
 
