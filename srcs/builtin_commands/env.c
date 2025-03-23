@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 12:49:16 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/23 12:58:44 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/23 13:12:12 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	error(void);
 
 void	env(int argc, t_env *env)
 {
-	t_env   *tmp;
+	t_env	*tmp;
 
 	if (argc != 1)
 	{

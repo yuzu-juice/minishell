@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 12:10:55 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/23 12:45:09 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/23 13:11:49 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	unset(int argc, char **argv, t_env *env)
 		return ;
 	}
 	tmp = env;
-	tmp = NULL;
+	prev = NULL;
 	while (tmp)
 	{
-		if (ft_strcmp(tmp->key, argv[1]))
+		if (ft_strcmp(tmp->key, argv[1]) == 0)
 		{
 			prev->next = tmp->next;
 			free_env(tmp);
