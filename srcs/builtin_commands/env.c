@@ -1,35 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_commands.h                                 :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/16 10:51:45 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/23 12:50:28 by takitaga         ###   ########.fr       */
+/*   Created: 2025/03/23 12:49:16 by takitaga          #+#    #+#             */
+/*   Updated: 2025/03/23 12:58:44 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_COMMANDS_H
-# define BUILTIN_COMMANDS_H
+#include "../../includes/minishell.h"
 
-# include <unistd.h>
+static void	error(void);
 
-typedef enum e_builtin
+void	env(int argc, t_env *env)
 {
-	NOT_A_BUILTIN_COMMAND,
-	ECHO,
-	CD,
-	PWD,
-	EXPORT,
-	UNSET,
-	ENV,
-	EXIT,
-}	t_builtin;
+	t_env   *tmp;
 
-void	echo(int argc, char **argv);
-void	pwd(int argc);
-void	unset(int argc, char **argv, t_env *env);
-void	env(int argc, t_env *env);
+	if (argc != 1)
+	{
+		error();
+		return ;
+	}
+	tmp = env;
+	while (tmp)
+	{
+		if (tmp->value == NULL)
+			printf("%s=\n", tmp->key);
+		else
+			printf("%s=%s\n", tmp->key, tmp->value);
+		tmp = tmp->next;
+	}
+}
 
-#endif
+static void	error(void)
+{
+	write(2, "Usage: env\n", 11);
+}

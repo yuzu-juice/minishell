@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/23 12:48:37 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/23 12:57:05 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,15 @@ static t_builtin	resolve_builtin_cmd(char *cmd)
 		return (PWD);
 	if (ft_strcmp(cmd, "unset") == 0)
 		return (UNSET);
+	if (ft_strcmp(cmd, "env") == 0)
+		return (ENV);
 	return (NOT_A_BUILTIN_COMMAND);
 }
 
-static void	exec_builtin(char **cmd_args, t_builtin builtin_cmd, t_env *env)
+static void	exec_builtin(char **cmd_args, t_builtin builtin_cmd, t_env *envp)
 {
 	int	i;
 
-	(void)env;
 	i = 0;
 	while (cmd_args[i] != NULL)
 		i++;
@@ -78,6 +79,8 @@ static void	exec_builtin(char **cmd_args, t_builtin builtin_cmd, t_env *env)
 	else if (builtin_cmd == PWD)
 		pwd(i);
 	else if (builtin_cmd == UNSET)
-		unset(i, cmd_args, env);
+		unset(i, cmd_args, envp);
+	else if (builtin_cmd == ENV)
+		env(i, envp);
 	free_string_double_array(cmd_args);
 }
