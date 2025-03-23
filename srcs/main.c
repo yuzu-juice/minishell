@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/20 14:45:25 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/23 11:48:43 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	minishell_loop(t_env *env)
 		line = get_input_line();
 		if (!line)
 		{
-			write(STDOUT_FILENO, "exit\n", 5);
+			printf("exit\n");
 			exit(EXIT_SUCCESS);
 		}
 		if (ft_strlen(line) != 0)

@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_commands.h                                 :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/16 10:51:45 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/23 11:53:35 by takitaga         ###   ########.fr       */
+/*   Created: 2025/03/23 11:15:38 by takitaga          #+#    #+#             */
+/*   Updated: 2025/03/23 11:53:26 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_COMMANDS_H
-# define BUILTIN_COMMANDS_H
+#include "../../includes/minishell.h"
 
-# include <unistd.h>
+static void	error(void);
 
-typedef enum e_builtin
+void	cd(int argc, char **argv)
 {
-	NOT_A_BUILTIN_COMMAND,
-	ECHO,
-	CD,
-	PWD,
-	EXPORT,
-	UNSET,
-	ENV,
-	EXIT,
-}	t_builtin;
+    if (argc != 2)
+	{
+		error();
+		return ;
+	}
+    if (chdir(argv[1]) == -1)
+        perror(argv[1]);
+}
 
-void	echo(int argc, char **argv);
-void	pwd(int argc);
-void	cd(int argc, char **argv);
-
-#endif
+static void	error(void)
+{
+	write(2, "Usage: cd [relative path | absolute path]\n", 42);
+}

@@ -16,10 +16,11 @@ SRCS	= \
 	srcs/utils/remove_quotes.c\
 	srcs/utils/print_msg.c\
 	srcs/builtin_commands/echo.c\
+	srcs/builtin_commands/pwd.c\
+	srcs/builtin_commands/cd.c\
 	srcs/env/env.c\
 	srcs/env/envp_to_list_utils.c\
-	srcs/env/list_to_envp_utils.c\
-	srcs/builtin_commands/pwd.c
+	srcs/env/list_to_envp_utils.c
 HEADERS	= \
 	includes/minishell.h\
 	includes/core_feature.h\

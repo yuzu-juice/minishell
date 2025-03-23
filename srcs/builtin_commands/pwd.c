@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 19:03:10 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/20 14:57:58 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/23 11:49:53 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ void	pwd(int argc)
 		return ;
 	}
 	pwd = getcwd(NULL, 0);
-	write(1, pwd, ft_strlen(pwd));
-	write(1, "\n", 1);
+	printf("%s\n",pwd);
 	free(pwd);
 }
 
