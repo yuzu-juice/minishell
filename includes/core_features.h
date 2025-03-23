@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   core_features.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/20 14:38:23 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/22 19:42:37 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ typedef struct s_proc_list
 	t_proc	*next;
 }	t_proc_list;
 
+typedef struct s_replace_env
+{
+	char	*key;
+	char	*val;
+}	t_replace_env;
+
 void		exec_cmd(t_env *env, char *str);
 
 // from envp
@@ -50,8 +56,8 @@ char		**get_env_path(void);
 char		*create_cmd_path(char *cmd);
 
 // parser
-bool		parser(char *line);
-void		expand(t_token **head);
+bool		parser(char *line, t_env *env);
+bool		expand_dollar(t_token **head, t_env *env);
 bool		has_unclosed_quotes(char *line);
 
 // create_token_list
