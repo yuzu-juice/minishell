@@ -84,3 +84,5 @@ $ valgrind --leak-check=full --show-leak-kinds=all ./minishell
 # GitHub Projects
 
 GitHub Projects については、[こちら](https://github.com/yuzu-juice/minishell/wiki/GitHub-Projects-運用ガイド)を参照してください。
+
+wa--
