@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/23 15:38:03 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/24 20:29:27 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ bool		is_quote(char c);
 
 // create_process_list
 t_proc_list	*create_process_list(t_token **head);
+bool		add_space(t_proc_list *curr);
+t_proc_list	*get_last_proc(t_proc_list **list);
 
 // error
 void		syntax_error(t_token **head);
