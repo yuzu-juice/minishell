@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   serch_env.c                                        :+:      :+:    :+:   */
+/*   search_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 19:43:53 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/22 19:44:16 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/24 20:13:34 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_env	*serch_env(char *key, t_env *env)
+t_env	*search_env(char *key, t_env *env)
 {
 	t_env	*temp;
 	char	*trim_dollar;

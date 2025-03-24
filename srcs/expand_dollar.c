@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 20:33:45 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/23 11:57:00 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/24 20:17:43 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool	expand_main(t_token *token, int *index, t_env *env);
 static char	*split_after_dollar_word(t_token *token, int *index);
-static char	*serch_env_value(char *before, t_env *env);
+static char	*search_env_value(char *before, t_env *env);
 static bool	create_after_token_word(t_token *token, \
 									int *index, \
 									t_replace_env replace_env, \
@@ -63,7 +63,7 @@ static bool	expand_main(t_token *token, int *index, t_env *env)
 		free(replace_env.key);
 		return (false);
 	}
-	replace_env.val = serch_env_value(replace_env.key, env);
+	replace_env.val = search_env_value(replace_env.key, env);
 	err_flg = create_after_token_word(token, \
 		index, replace_env, &after_token_word);
 	if (err_flg)
@@ -123,11 +123,11 @@ static char	*split_after_dollar_word(t_token *token, int *index)
 }
 
 // if (before_word == "$?"){return status;}
-static char	*serch_env_value(char *before, t_env *env)
+static char	*search_env_value(char *before, t_env *env)
 {
 	t_env	*result;
 
-	result = serch_env(before, env);
+	result = search_env(before, env);
 	if (result == NULL)
 		return (NULL);
 	return (result->value);
