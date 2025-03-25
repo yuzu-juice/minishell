@@ -3,7 +3,6 @@ MAIN = srcs/main.c
 SRCS	= \
 	srcs/exec_cmd.c\
 	srcs/get_env_path.c\
-	srcs/get_env_pwd.c\
 	srcs/create_cmd_path.c\
 	srcs/parser.c\
 	srcs/create_token_list.c\
