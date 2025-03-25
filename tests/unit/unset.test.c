@@ -1,33 +1,59 @@
 #include "../../includes/minishell.h"
+#include <assert.h>
 
-int	main(void)
+int main(void)
 {
-	// Test for envp_to_list
-	char *test_envp[] = {
-		"HOME=/home/user",
-		"PATH=/usr/bin:/bin",
-		"USER=tester",
-		"PWD=/workspaces",
-		NULL
-	};
+    char *test_envp[] = {
+        "HOME=/home/user",
+        "PATH=/usr/bin:/bin",
+        "USER=tester",
+        "PWD=/workspaces",
+        NULL
+    };
 
-	t_env *env_list = envp_to_list(test_envp);
+    t_env *env_list = envp_to_list(test_envp);
+    t_env *original_list = env_list;
 
-	// PATHが存在するか確認
-	assert(strcmp(env_list->next->key, "PATH") == 0);
+    t_env *tmp = env_list;
+    
+    // 中間ノードのunsetテスト
+    char *unset_args[] = {"unset", "PATH"};
+    unset(2, unset_args, &env_list);
 
-	char *unset_path[] = {
-		"PATH=/usr/bin:/bin",
-		NULL
-	};
+    tmp = env_list;
+    while (tmp)
+    {
+        assert(strcmp(tmp->key, "PATH") != 0);  // PATHが存在しないことを確認
+        tmp = tmp->next;
+    }
 
-	//PATHをunset
-	unset(1, unset_path, &env_list);
-	while (env_list)
-	{
-		printf("%s=%s\n", env_list->key, env_list->value);
-		assert(strcmp(env_list->key, "PATH") != 0);
-		env_list = env_list->next;
-	}
-	return (0);
+    // 環境変数リストを再作成
+    env_list = envp_to_list(test_envp);
+    
+    // 先頭ノードのunsetテスト
+    char *unset_home[] = {"unset", "HOME"};
+    unset(2, unset_home, &env_list);
+    
+    tmp = env_list;
+    while (tmp)
+    {
+        assert(strcmp(tmp->key, "HOME") != 0);
+        tmp = tmp->next;
+    }
+    
+    // 先頭がPATHになっていることを確認
+    assert(strcmp(env_list->key, "PATH") == 0);
+    
+    // 最後のノードのunsetテスト
+    char *unset_pwd[] = {"unset", "PWD"};
+    unset(2, unset_pwd, &env_list);
+    
+    tmp = env_list;
+    while (tmp)
+    {
+        assert(strcmp(tmp->key, "PWD") != 0);
+        tmp = tmp->next;
+    }
+    
+    return (0);
 }

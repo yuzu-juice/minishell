@@ -99,4 +99,6 @@ integration: all
 	done
 	@echo "⭐️\033[32mPassed all integration tests!\033[0m⭐️"
 
+test: norm unit integration
+
 .PHONY: all clean fclean re norm integration system unit

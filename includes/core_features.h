@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/20 14:38:23 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/25 10:50:36 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_proc_list
 	t_proc	*next;
 }	t_proc_list;
 
-void		exec_cmd(t_env *env, char *str);
+void		exec_cmd(t_env **env, char *str);
 
 // from envp
 char		*get_env_pwd(void);

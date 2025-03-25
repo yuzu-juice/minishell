@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/23 17:48:03 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/25 10:49:28 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static char			**create_cmd_args(char *cmd);
 static t_builtin	resolve_builtin_cmd(char *cmd);
-static void			exec_builtin(char **cmd_args, t_builtin cmd, t_env *envp);
+static void			exec_builtin(char **cmd_args, t_builtin cmd, t_env **envp);
 
-void	exec_cmd(t_env *env, char *cmd)
+void	exec_cmd(t_env **env, char *cmd)
 {
 	char		*cmd_path;
 	char		**cmd_args;
@@ -41,7 +41,7 @@ void	exec_cmd(t_env *env, char *cmd)
 	cmd_path = create_cmd_path(cmd);
 	if (cmd_path == NULL)
 		perror(NULL);
-	if (execve(cmd_path, cmd_args, list_to_envp(env)) == -1)
+	if (execve(cmd_path, cmd_args, list_to_envp(*env)) == -1)
 		perror(NULL);
 }
 
@@ -68,7 +68,7 @@ static t_builtin	resolve_builtin_cmd(char *cmd)
 	return (NOT_A_BUILTIN_COMMAND);
 }
 
-static void	exec_builtin(char **cmd_args, t_builtin builtin_cmd, t_env *envp)
+static void	exec_builtin(char **cmd_args, t_builtin builtin_cmd, t_env **envp)
 {
 	int	i;
 
@@ -82,8 +82,8 @@ static void	exec_builtin(char **cmd_args, t_builtin builtin_cmd, t_env *envp)
 	else if (builtin_cmd == CD)
 		cd(i, cmd_args);
 	else if (builtin_cmd == UNSET)
-		unset(i, cmd_args, &envp);
+		unset(i, cmd_args, envp);
 	else if (builtin_cmd == ENV)
-		env(i, envp);
+		env(i, *envp);
 	free_string_double_array(cmd_args);
 }

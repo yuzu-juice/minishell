@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/23 16:59:46 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/25 10:59:12 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	minishell_loop(t_env *env)
 			add_history(line);
 			if (parser(line))
 				continue ;
-			exec_cmd(env, line);
+			exec_cmd(&env, line);
 			free(line);
 		}
 	}

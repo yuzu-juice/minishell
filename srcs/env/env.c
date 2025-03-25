@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 19:55:14 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/23 12:44:57 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/25 10:49:24 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ char	**list_to_envp(t_env *env)
 
 void	free_env(t_env *env)
 {
+	if (env == NULL)
+		return ;
 	free(env->key);
 	free(env->value);
 	free(env);

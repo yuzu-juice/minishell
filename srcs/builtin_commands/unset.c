@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 12:10:55 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/23 17:47:47 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/25 10:48:45 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void	error(void);
 
 void	unset(int argc, char **argv, t_env **env)
 {
-	t_env	*prev;
 	t_env	*curr;
+	t_env	*prev;
 
 	if (argc != 2)
 	{
@@ -31,15 +31,10 @@ void	unset(int argc, char **argv, t_env **env)
 		if (ft_strcmp(curr->key, argv[1]) == 0)
 		{
 			if (prev == NULL)
-			{
 				*env = curr->next;
-				free_env(curr);
-			}
 			else
-			{
 				prev->next = curr->next;
-				free_env(curr);
-			}
+			free_env(curr);
 			return ;
 		}
 		prev = curr;
