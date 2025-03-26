@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 13:03:04 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/24 20:31:47 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/26 17:05:50 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_proc_list	*create_process_list(t_token **head)
 {
 	t_proc_list	*list;
 	t_token		*curr;
+	t_token		*prev;
 	bool		err_flg;
 	bool		new_proc_flg;
 
@@ -30,27 +31,24 @@ t_proc_list	*create_process_list(t_token **head)
 	err_flg = false;
 	curr = *head;
 	new_proc_flg = true;
+	prev = NULL;
 	while (curr)
 	{
-		if (ft_strcmp(curr->word, "|") == 0)
+		if (prev == NULL || ft_strcmp(prev->word, "|") == 0)
 			new_proc_flg = true;
 		else
-		{
-			err_flg = add_to_cmd(&list, curr->word, new_proc_flg);
 			new_proc_flg = false;
-		}
+		if (ft_strcmp(curr->word, "|") == 0)
+			err_flg = validation_pipe(prev, curr->next);
+		else
+			err_flg = add_to_cmd(&list, curr->word, new_proc_flg);
 		if (err_flg)
 			break ;
+		prev = curr;
 		curr = curr->next;
 	}
-
-	t_proc_list *test;
-	test = list;
-	while (test)
-	{
-		printf("cmd %s\n", test->proc->cmd);
-		test = test->next;
-	}
+	if (err_flg)
+		return (NULL);
 	return (list);
 }
 
@@ -125,4 +123,3 @@ static bool	add_proc_list(t_proc_list **list, t_proc_list *new)
 	}
 	return (false);
 }
-

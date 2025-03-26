@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 20:28:04 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/24 20:28:46 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/26 16:47:09 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,13 @@ t_proc_list	*get_last_proc(t_proc_list **list)
 		temp = temp->next;
 	}
 	return (temp);
+}
+
+bool	validation_pipe(t_token *prev, t_token *next)
+{
+	if (prev == NULL || next == NULL)
+		return (true);
+	if (ft_strcmp(prev->word, "|") == 0 || ft_strcmp(next->word, "|") == 0)
+		return (true);
+	return (false);
 }
