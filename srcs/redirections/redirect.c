@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:45:26 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/26 12:09:37 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/26 12:26:20 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@ static void	output(t_proc *process, t_redirection *redir, t_env *env);
 
 void	redirect(t_proc *process, t_redirection *redir, t_env *env)
 {
-	if (redir->type == OUTPUT)
-		output(process, redir, env);
+	while (redir)
+	{
+		if (redir->type == OUTPUT)
+			output(process, redir, env);
+		redir = redir->next;
+	}
 }
 
 static void	output(t_proc *process, t_redirection *redir, t_env *env)
@@ -31,5 +35,7 @@ static void	output(t_proc *process, t_redirection *redir, t_env *env)
 		return ;
 	}
 	dup2(outfile_fd, STDOUT_FILENO);
-	exec_cmd(&env, process->cmd);
+	if (redir->next == NULL)
+		exec_cmd(&env, process->cmd);
+	close(outfile_fd);
 }
