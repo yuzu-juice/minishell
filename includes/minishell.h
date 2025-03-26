@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 22:27:24 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/20 14:40:14 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/26 11:45:39 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "signal_handlings.h"
 # include "builtin_commands.h"
 # include "env.h"
+# include "redirections.h"
 
 # include <stdio.h>
 # include <readline/readline.h>

@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   redirections.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/19 19:25:30 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/26 11:44:52 by takitaga         ###   ########.fr       */
+/*   Created: 2025/03/26 11:41:51 by takitaga          #+#    #+#             */
+/*   Updated: 2025/03/26 12:08:27 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#ifndef REDIRECTIONS_H
+# define REDIRECTIONS_H
 
-typedef struct s_env	t_env;
-
-typedef struct s_env
+typedef enum e_redirection_type
 {
-	char	*key;
-	char	*value;
-	t_env	*next;
-}	t_env;
+	INPUT,
+	OUTPUT,
+	APPEND,
+	HEREDOC
+}	t_redirection_type;
 
-t_env	*envp_to_list(char **envp);
-void	add_env_node(t_env *env, char *str, int i);
-char	**list_to_envp(t_env *env);
-int		get_node_count(t_env *env);
-void	free_env(t_env *env);
+typedef struct s_redirection	t_redirection;
+
+typedef struct s_redirection
+{
+	char				*filename;
+	t_redirection_type	type;
+	t_redirection		*next;
+}	t_redirection;
+
+void	redirect(t_proc *process, t_redirection *redir, t_env *env);
 
 #endif
