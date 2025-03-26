@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 13:03:04 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/26 17:05:50 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/26 17:27:03 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,10 @@ t_proc_list	*create_process_list(t_token **head)
 		curr = curr->next;
 	}
 	if (err_flg)
+	{
+		free_proc_list(&list);
 		return (NULL);
+	}
 	return (list);
 }
 

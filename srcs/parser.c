@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/26 16:49:58 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/26 17:28:38 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ bool	parser(char *line)
 		return (true);
 	proc = create_process_list(&head);
 	if (!proc)
+	{
 		return (true);
+	}
 	return (false);
 }
 
