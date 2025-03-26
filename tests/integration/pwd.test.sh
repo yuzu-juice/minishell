@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 . $(dirname $0)/utils/assert.sh

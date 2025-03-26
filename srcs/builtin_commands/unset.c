@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/16 10:45:06 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/23 15:17:47 by takitaga         ###   ########.fr       */
+/*   Created: 2025/03/23 12:10:55 by takitaga          #+#    #+#             */
+/*   Updated: 2025/03/25 10:48:45 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,35 @@
 
 static void	error(void);
 
-void	echo(int argc, char **argv)
+void	unset(int argc, char **argv, t_env **env)
 {
-	int	i;
+	t_env	*curr;
+	t_env	*prev;
 
-	i = 1;
-	if (argc == 1)
+	if (argc != 2)
 	{
 		error();
 		return ;
 	}
-	if (argv[1][0] == '-' && argv[1][1] == 'n' && argv[1][2] == '\0')
-		i++;
-	else
+	curr = *env;
+	prev = NULL;
+	while (curr)
 	{
-		error();
-		return ;
-	}
-	while (i < argc)
-	{
-		write(1, argv[i], ft_strlen(argv[i]));
-		i++;
-		if (i < argc)
-			write(1, " ", 1);
+		if (ft_strcmp(curr->key, argv[1]) == 0)
+		{
+			if (prev == NULL)
+				*env = curr->next;
+			else
+				prev->next = curr->next;
+			free_env(curr);
+			return ;
+		}
+		prev = curr;
+		curr = curr->next;
 	}
 }
 
 static void	error(void)
 {
-	write(2, "Usage: echo -n [string]...\n", 27);
+	write(2, "Usage: unset [string]\n", 22);
 }
