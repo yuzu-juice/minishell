@@ -6,13 +6,11 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 20:28:04 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/27 16:54:01 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/27 17:00:16 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../includes/minishell.h"
-
-// static bool	add_to_cmd(t_proc_list **list, char *word, bool new_proc_flg);
+#include "../includes/minishell.h"
 
 bool	add_space(t_proc_list *curr)
 {

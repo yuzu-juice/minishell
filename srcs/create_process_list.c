@@ -6,11 +6,11 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 13:03:04 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/27 16:54:32 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/27 17:00:34 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../includes/minishell.h"
+#include "../includes/minishell.h"
 
 static t_proc_list	*create_node(char *word);
 static t_proc		*create_proc(char *word);
