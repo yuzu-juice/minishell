@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 20:33:45 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/24 20:17:43 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/27 14:50:22 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static bool	create_after_token_word(t_token *token, \
 									int *index, \
 									t_replace_env replace_env, \
 									char **after_token_word);
+static bool	expand_double_quote(t_token *token, int *index, t_env *env);
 
 bool	expand_dollar(t_token **head, t_env *env)
 {
@@ -33,8 +34,17 @@ bool	expand_dollar(t_token **head, t_env *env)
 		quart_count = 0;
 		while (curr->word[i])
 		{
+			// シングルクォートの中
 			if (curr->word[i] == '\'')
-				quart_count++;
+			{
+				while (curr->word[i] != '\'')
+					i++;
+			}
+			if (curr->word[i] == '\"')
+			{
+				if (expand_double_quote(curr, &i, env))
+					return (true);
+			}
 			if (quart_count % 2 == 0 && curr->word[i] == '$')
 			{
 				if (expand_main(curr, &i, env))
@@ -42,8 +52,37 @@ bool	expand_dollar(t_token **head, t_env *env)
 			}
 			i++;
 		}
+		printf("word :%s\n", curr->word);
 		curr = curr->next;
 	}
+	return (false);
+}
+
+static bool	expand_double_quote(t_token *token, int *index, t_env *env)
+{
+	char			*after_token_word;
+	bool			err_flg;
+	t_replace_env	replace_env;
+	(void)env;
+
+	err_flg = false;
+	after_token_word = NULL;
+	replace_env.key = split_after_dollar_word(token, index);
+	if (ft_strcmp(replace_env.key, "$") == 0)
+	{
+		free(replace_env.key);
+		return (false);
+	}
+	replace_env.val = search_env_value(replace_env.key, env);
+	err_flg = create_after_token_word(token, \
+		index, replace_env, &after_token_word);
+	if (err_flg)
+		free(replace_env.key);
+	free(token->word);
+	token->word = after_token_word;
+	*index = *index + (int)ft_strlen(replace_env.val) - 1;
+	if (err_flg)
+		return (true);
 	return (false);
 }
 
