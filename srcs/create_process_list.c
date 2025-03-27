@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 13:03:04 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/27 17:00:34 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/27 17:02:28 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,10 @@ t_proc_list	*create_process_list(t_token **head)
 	t_token		*curr;
 	t_token		*prev;
 	bool		err_flg;
-	bool		new_proc_flg;
 
 	list = NULL;
 	err_flg = false;
 	curr = *head;
-	new_proc_flg = true;
 	prev = NULL;
 	while (curr)
 	{
