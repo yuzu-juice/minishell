@@ -54,5 +54,16 @@ int main(void)
 		i++;
 	}
 
+	t_token *test5 = create_token_list("a || b");
+	t_proc_list *list5 = create_process_list(&test5);
+	head = list5;
+	i = 0;
+	while (list5)
+	{
+		assert(list5 ==  NULL);
+		list5 = list5->next;
+		i++;
+	}
+
 	return (0);
 }
