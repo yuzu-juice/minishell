@@ -21,7 +21,8 @@ SRCS	= \
 	srcs/env/envp_to_list_utils.c\
 	srcs/env/list_to_envp_utils.c\
 	srcs/builtin_commands/unset.c\
-	srcs/builtin_commands/env.c
+	srcs/builtin_commands/env.c\
+	srcs/redirections/redirect.c
 HEADERS	= \
 	includes/minishell.h\
 	includes/core_feature.h\
