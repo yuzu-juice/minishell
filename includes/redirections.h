@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:41:51 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/26 12:20:39 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/27 03:14:08 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ typedef struct s_redirection
 	t_redirection		*next;
 }	t_redirection;
 
-void	redirect(t_proc *process, t_redirection *redir, t_env *env);
+void	redirect(char *cmd, t_redirection *redir, t_env *env);
 
 #endif

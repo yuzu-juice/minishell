@@ -15,7 +15,7 @@ int	main()
     env = ft_calloc(1, sizeof(t_env));
     env->key = ft_strdup("HOME");
     env->value = ft_strdup("/home/user");
-    redirect(process, redir1, env);
+    redirect(process->cmd, redir1, env);
 
     int fd = open("output1.txt", O_RDONLY);
     char buffer[100];
@@ -32,7 +32,7 @@ int	main()
     redir2->type = OUTPUT;
     redir2->filename = "output2.txt";
     redir1->next = redir2;
-    redirect(process, redir1, env);
+    redirect(process->cmd, redir1, env);
     fd = open("output1.txt", O_RDONLY);
     assert(fd != -1);
     bytes_read = read(fd, buffer, sizeof(buffer) - 1);
@@ -59,7 +59,7 @@ int	main()
     redir1->filename = "existing.txt";
     redir1->next = NULL;
     process->cmd = "echo -n overwritten";
-    redirect(process, redir1, env);
+    redirect(process->cmd, redir1, env);
 
     // ファイルの内容が上書きされていることを確認
     fd = open("existing.txt", O_RDONLY);

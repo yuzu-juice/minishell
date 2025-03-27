@@ -6,25 +6,25 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:45:26 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/26 12:28:33 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/27 03:13:57 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	output(t_proc *process, t_redirection *redir, t_env *env);
+static void	output(char *cmd, t_redirection *redir, t_env *env);
 
-void	redirect(t_proc *process, t_redirection *redir, t_env *env)
+void	redirect(char *cmd, t_redirection *redir, t_env *env)
 {
 	while (redir)
 	{
 		if (redir->type == OUTPUT)
-			output(process, redir, env);
+			output(cmd, redir, env);
 		redir = redir->next;
 	}
 }
 
-static void	output(t_proc *process, t_redirection *redir, t_env *env)
+static void	output(char *cmd, t_redirection *redir, t_env *env)
 {
 	int	outfile_fd;
 
@@ -36,6 +36,6 @@ static void	output(t_proc *process, t_redirection *redir, t_env *env)
 	}
 	dup2(outfile_fd, STDOUT_FILENO);
 	if (redir->next == NULL)
-		exec_cmd(&env, process->cmd);
+		exec_cmd(&env, cmd);
 	close(outfile_fd);
 }

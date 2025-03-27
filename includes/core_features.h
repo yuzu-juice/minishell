@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/25 10:50:36 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/27 03:15:45 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdbool.h>
 # include "env.h"
+# include "redirections.h"
 
 typedef struct s_token	t_token;
 
@@ -26,8 +27,9 @@ typedef struct s_token
 
 typedef struct s_proc
 {
-	char	*cmd;
-	int		status;
+	char			*cmd;
+	int				status;
+	t_redirection	*redir;
 }	t_proc;
 // ex) str*->
 // ls > a
