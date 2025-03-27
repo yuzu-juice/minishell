@@ -6,15 +6,12 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 13:03:04 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/26 17:27:03 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/27 16:54:32 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../includes/minishell.h"
 
-static bool			add_to_cmd(t_proc_list **list, \
-								char *word, \
-								bool new_proc_flg);
 static t_proc_list	*create_node(char *word);
 static t_proc		*create_proc(char *word);
 static bool			add_proc_list(t_proc_list **list, t_proc_list *new);
@@ -34,24 +31,14 @@ t_proc_list	*create_process_list(t_token **head)
 	prev = NULL;
 	while (curr)
 	{
-		if (prev == NULL || ft_strcmp(prev->word, "|") == 0)
-			new_proc_flg = true;
-		else
-			new_proc_flg = false;
-		if (ft_strcmp(curr->word, "|") == 0)
-			err_flg = validation_pipe(prev, curr->next);
-		else
-			err_flg = add_to_cmd(&list, curr->word, new_proc_flg);
+		err_flg = token_to_cmd(curr, prev, &list);
 		if (err_flg)
 			break ;
 		prev = curr;
 		curr = curr->next;
 	}
 	if (err_flg)
-	{
-		free_proc_list(&list);
-		return (NULL);
-	}
+		return (free_proc_list(&list));
 	return (list);
 }
 
@@ -79,7 +66,7 @@ static t_proc	*create_proc(char *word)
 	return (proc);
 }
 
-static bool	add_to_cmd(t_proc_list **list, char *word, bool new_proc_flg)
+bool	add_to_cmd(t_proc_list **list, char *word, bool new_proc_flg)
 {
 	t_proc_list	*curr;
 	char		*temp;
