@@ -26,13 +26,16 @@ int main() {
     }
 
     int pid = fork();
-    if (pid == 0) {
+    if (pid == 0)
+    {
         close(pipe_fd[0]);
         dup2(pipe_fd[1], STDOUT_FILENO);
         close(pipe_fd[1]);
 
         redirect(process->cmd, redir1, env);
-    } else {
+    }
+    else
+    {
         close(pipe_fd[1]);
 
         int status;
@@ -40,6 +43,7 @@ int main() {
 
         char buffer[100];
         int bytes_read = read(pipe_fd[0], buffer, sizeof(buffer) - 1);
+        buffer[bytes_read] = '\0';
         assert(strcmp(buffer, "hoge") == 0);
         close(pipe_fd[0]);
     }
