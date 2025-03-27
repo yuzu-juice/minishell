@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/27 14:29:39 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/27 14:31:16 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	minishell_loop(t_env *env)
 		{
 			if (!isatty(STDIN_FILENO))
 				exit(EXIT_SUCCESS);
-			write(1, "exit\n", 5);
+			ft_putendl_fd("exit", 1);
 			exit(EXIT_SUCCESS);
 		}
 		if (ft_strlen(line) != 0)

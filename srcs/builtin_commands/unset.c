@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 12:10:55 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/25 10:48:45 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/27 14:32:36 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,5 @@ void	unset(int argc, char **argv, t_env **env)
 
 static void	error(void)
 {
-	write(2, "Usage: unset [string]\n", 22);
+	ft_putendl_fd("Usage: unset [string]", 2);
 }

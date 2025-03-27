@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 10:45:06 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/23 15:17:47 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/27 14:34:03 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,5 @@ void	echo(int argc, char **argv)
 
 static void	error(void)
 {
-	write(2, "Usage: echo -n [string]...\n", 27);
+	ft_putendl_fd("Usage: echo -n [string]...", 2);
 }

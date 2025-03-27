@@ -13,7 +13,6 @@ SRCS	= \
 	srcs/utils/free_string_array.c\
 	srcs/utils/add_slash.c\
 	srcs/utils/remove_quotes.c\
-	srcs/utils/print_msg.c\
 	srcs/builtin_commands/echo.c\
 	srcs/builtin_commands/pwd.c\
 	srcs/builtin_commands/cd.c\
