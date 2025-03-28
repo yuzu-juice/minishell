@@ -33,6 +33,7 @@
 # include <string.h>
 # include <fcntl.h>
 # include <stdbool.h>
+# include <sys/wait.h>
 
 extern volatile sig_atomic_t	g_sig_flag;
 
