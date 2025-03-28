@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/26 17:28:38 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/28 14:48:20 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 bool	parser(char *line)
 {
-	t_token		*head;
-	t_proc_list	*proc;
+	t_token	*head;
+	t_proc	*proc;
 
 	head = NULL;
 	if (has_unclosed_quotes(line))
@@ -29,6 +29,7 @@ bool	parser(char *line)
 	proc = create_process_list(&head);
 	if (!proc)
 	{
+		print_msg("syntax_error");
 		return (true);
 	}
 	return (false);

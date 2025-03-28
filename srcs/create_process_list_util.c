@@ -6,26 +6,26 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 20:28:04 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/27 17:00:16 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/28 14:47:02 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-bool	add_space(t_proc_list *curr)
+bool	add_space(t_proc *curr)
 {
 	char	*temp;
 
-	temp = ft_strjoin(curr->proc->cmd, " ");
+	temp = ft_strjoin(curr->cmd, " ");
 	if (!temp)
 		return (true);
-	curr->proc->cmd = temp;
+	curr->cmd = temp;
 	return (false);
 }
 
-t_proc_list	*get_last_proc(t_proc_list **list)
+t_proc	*get_last_proc(t_proc **list)
 {
-	t_proc_list	*temp;
+	t_proc	*temp;
 
 	if (*list == NULL)
 		return (*list);
@@ -46,20 +46,20 @@ bool	validation_pipe(t_token *prev, t_token *next)
 	return (false);
 }
 
-bool	token_to_cmd(t_token *curr, t_token *prev, t_proc_list **list)
+void	*free_proc_list(t_proc **list)
 {
-	bool	err_flg;
-	bool	new_proc_flg;
+	t_proc	*temp;
+	t_proc	*curr;
 
-	err_flg = false;
-	new_proc_flg = false;
-	if (prev == NULL || ft_strcmp(prev->word, "|") == 0)
-		new_proc_flg = true;
-	else
-		new_proc_flg = false;
-	if (ft_strcmp(curr->word, "|") == 0)
-		err_flg = validation_pipe(prev, curr->next);
-	else
-		err_flg = add_to_cmd(list, curr->word, new_proc_flg);
-	return (err_flg);
+	curr = *list;
+	while (curr)
+	{
+		free(curr->cmd);
+		free(curr->redir);
+		temp = curr->next;
+		free(curr);
+		curr = temp;
+	}
+	list = NULL;
+	return (NULL);
 }

@@ -12,7 +12,6 @@ SRCS	= \
 	srcs/signal_handler.c\
 	srcs/create_process_list.c\
 	srcs/create_process_list_util.c\
-	srcs/free_proc_list.c\
 	srcs/utils/free_string_array.c\
 	srcs/utils/add_slash.c\
 	srcs/utils/remove_quotes.c\
