@@ -15,7 +15,28 @@ int	main()
     env = ft_calloc(1, sizeof(t_env));
     env->key = ft_strdup("HOME");
     env->value = ft_strdup("/home/user");
-    redirect(process->cmd, redir1, env);
+    
+    int pipe_fd[2];
+    if (pipe(pipe_fd) == -1) {
+        perror("pipe failed");
+        return 1;
+    }
+    
+    pid_t pid = fork();
+    if (pid == -1) {
+        perror("fork failed");
+        return 1;
+    }
+    
+    if (pid == 0) {
+        close(pipe_fd[0]);
+        redirect(process->cmd, redir1, env);
+        exit(0);
+    } else {
+        close(pipe_fd[1]);
+        int status;
+        waitpid(pid, &status, 0);
+    }
 
     int fd = open("output1.txt", O_RDONLY);
     char buffer[100];
@@ -32,7 +53,28 @@ int	main()
     redir2->type = OUTPUT;
     redir2->filename = "output2.txt";
     redir1->next = redir2;
-    redirect(process->cmd, redir1, env);
+    
+    if (pipe(pipe_fd) == -1) {
+        perror("pipe failed");
+        return 1;
+    }
+    
+    pid = fork();
+    if (pid == -1) {
+        perror("fork failed");
+        return 1;
+    }
+    
+    if (pid == 0) {
+        close(pipe_fd[0]);
+        redirect(process->cmd, redir1, env);
+        exit(0);
+    } else {
+        close(pipe_fd[1]);
+        int status;
+        waitpid(pid, &status, 0);
+    }
+    
     fd = open("output1.txt", O_RDONLY);
     assert(fd != -1);
     bytes_read = read(fd, buffer, sizeof(buffer) - 1);
@@ -59,7 +101,27 @@ int	main()
     redir1->filename = "existing.txt";
     redir1->next = NULL;
     process->cmd = "echo -n overwritten";
-    redirect(process->cmd, redir1, env);
+    
+    if (pipe(pipe_fd) == -1) {
+        perror("pipe failed");
+        return 1;
+    }
+    
+    pid = fork();
+    if (pid == -1) {
+        perror("fork failed");
+        return 1;
+    }
+    
+    if (pid == 0) {
+        close(pipe_fd[0]);
+        redirect(process->cmd, redir1, env);
+        exit(0);
+    } else {
+        close(pipe_fd[1]);
+        int status;
+        waitpid(pid, &status, 0);
+    }
 
     // ファイルの内容が上書きされていることを確認
     fd = open("existing.txt", O_RDONLY);
