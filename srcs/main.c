@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/23 11:48:43 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/25 10:59:12 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ static void	minishell_loop(t_env *env)
 		line = get_input_line();
 		if (!line)
 		{
-			printf("exit\n");
+			if (!isatty(STDIN_FILENO))
+				exit(EXIT_SUCCESS);
+			write(1, "exit\n", 5);
 			exit(EXIT_SUCCESS);
 		}
 		if (ft_strlen(line) != 0)
@@ -60,7 +62,7 @@ static void	minishell_loop(t_env *env)
 			add_history(line);
 			if (parser(line))
 				continue ;
-			exec_cmd(env, line);
+			exec_cmd(&env, line);
 			free(line);
 		}
 	}
@@ -73,7 +75,7 @@ static char	*get_input_line(void)
 	char	*line;
 
 	if (isatty(STDIN_FILENO))
-		line = readline("minishell> ");
+		line = readline("\033[1;36mminishell> \033[0m");
 	else
 	{
 		stdout_copy = dup(STDOUT_FILENO);

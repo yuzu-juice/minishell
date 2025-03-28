@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/16 10:45:06 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/23 15:17:47 by takitaga         ###   ########.fr       */
+/*   Created: 2025/03/23 12:49:16 by takitaga          #+#    #+#             */
+/*   Updated: 2025/03/25 10:32:06 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,35 @@
 
 static void	error(void);
 
-void	echo(int argc, char **argv)
+void	env(int argc, t_env *env)
 {
-	int	i;
+	t_env	*tmp;
 
-	i = 1;
-	if (argc == 1)
+	if (argc != 1 || env == NULL)
 	{
 		error();
 		return ;
 	}
-	if (argv[1][0] == '-' && argv[1][1] == 'n' && argv[1][2] == '\0')
-		i++;
-	else
+	tmp = env;
+	while (tmp)
 	{
-		error();
-		return ;
-	}
-	while (i < argc)
-	{
-		write(1, argv[i], ft_strlen(argv[i]));
-		i++;
-		if (i < argc)
-			write(1, " ", 1);
+		if (tmp->value == NULL)
+		{
+			write(1, tmp->key, ft_strlen(tmp->key));
+			write(1, "=\n", 2);
+		}
+		else
+		{
+			write(1, tmp->key, ft_strlen(tmp->key));
+			write(1, "=", 1);
+			write(1, tmp->value, ft_strlen(tmp->value));
+			write(1, "\n", 1);
+		}
+		tmp = tmp->next;
 	}
 }
 
 static void	error(void)
 {
-	write(2, "Usage: echo -n [string]...\n", 27);
+	write(2, "Usage: env\n", 11);
 }

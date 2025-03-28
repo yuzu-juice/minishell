@@ -30,6 +30,26 @@ assert_bash_equivalent() {
 	fi
 }
 
+assert_stdout() {
+    minishell_stdout=/tmp/minishell_stdout
+    expected=/tmp/expected
+    echo "$1" | ./minishell 1> "$minishell_stdout" > /dev/null
+    echo "$2" > "$expected"
+    cat "$minishell_stdout"
+
+    # diff stdout
+    if diff "$expected" "$minishell_stdout" >/dev/null; then
+        :
+    else
+        echo -e "\033[31mFailed: $1\033[0m"
+        echo -e '\033[31mStdouts are different.\033[0m'
+        diff "$expected" "$minishell_stdout"
+        rm -f "$expected" "$minishell_stdout"
+        exit 1
+    fi
+    rm -f "$expected" "$minishell_stdout"
+}
+
 assert_stderr() {
     minishell_stderr=/tmp/minishell_stderr
     expected=/tmp/expected

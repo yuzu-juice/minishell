@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_commands.h                                 :+:      :+:    :+:   */
+/*   redirections.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/16 10:51:45 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/25 10:43:35 by takitaga         ###   ########.fr       */
+/*   Created: 2025/03/26 11:41:51 by takitaga          #+#    #+#             */
+/*   Updated: 2025/03/27 03:14:08 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_COMMANDS_H
-# define BUILTIN_COMMANDS_H
+#ifndef REDIRECTIONS_H
+# define REDIRECTIONS_H
 
-# include <unistd.h>
-
-typedef enum e_builtin
+typedef enum e_redirection_type
 {
-	NOT_A_BUILTIN_COMMAND,
-	ECHO,
-	CD,
-	PWD,
-	EXPORT,
-	UNSET,
-	ENV,
-	EXIT,
-}	t_builtin;
+	INPUT,
+	OUTPUT,
+	APPEND,
+	HEREDOC
+}	t_redirection_type;
 
-void	echo(int argc, char **argv);
-void	pwd(int argc);
-void	cd(int argc, char **argv);
-void	unset(int argc, char **argv, t_env **env);
-void	env(int argc, t_env *env);
+typedef struct s_redirection	t_redirection;
+
+typedef struct s_redirection
+{
+	char				*filename;
+	t_redirection_type	type;
+	t_redirection		*next;
+}	t_redirection;
+
+void	redirect(char *cmd, t_redirection *redir, t_env *env);
 
 #endif
