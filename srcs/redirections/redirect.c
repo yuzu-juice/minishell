@@ -6,15 +6,15 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:45:26 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/30 15:51:19 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/30 15:55:35 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 static void	output(char *cmd, t_redirection *redir, t_env *env);
-static void input(char *cmd, t_redirection *redir, t_env *env);
-static void here_doc(char *cmd, t_redirection *redir, t_env *env);
+static void	input(char *cmd, t_redirection *redir, t_env *env);
+static void	here_doc(char *cmd, t_redirection *redir, t_env *env);
 static void	input(char *cmd, t_redirection *redir, t_env *env);
 
 void	redirect(char *cmd, t_redirection *redir, t_env *env)
