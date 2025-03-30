@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/30 16:50:03 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:53:33 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool	parser(char *line, t_env *env)
 	proc = create_process_list(&head);
 	if (!proc)
 	{
-		print_msg("syntax_error");
+		ft_putendl_fd("syntax_error", 2);
 		return (true);
 	}
 	return (false);
