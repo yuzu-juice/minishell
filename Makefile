@@ -16,7 +16,6 @@ SRCS	= \
 	srcs/utils/free_string_array.c\
 	srcs/utils/add_slash.c\
 	srcs/utils/remove_quotes.c\
-	srcs/utils/print_msg.c\
 	srcs/utils/search_env.c\
 	srcs/builtin_commands/echo.c\
 	srcs/env/env.c\
