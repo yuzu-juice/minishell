@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/30 16:51:07 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:58:15 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include "redirections.h"
 
 typedef struct s_token		t_token;
-typedef struct s_proc_list	t_proc_list;
 typedef struct s_proc		t_proc;
 
 typedef struct s_token
@@ -33,12 +32,6 @@ typedef struct s_proc
 	t_redirection	*redir;
 	t_proc			*next;
 }	t_proc;
-
-typedef struct s_replace_env
-{
-	char	*key;
-	char	*val;
-}	t_replace_env;
 
 void		exec_cmd(t_env **env, char *str);
 
