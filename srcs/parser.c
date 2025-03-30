@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/22 18:58:09 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:42:37 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,6 @@ bool	has_unclosed_quotes(char *line)
 
 void	syntax_error(t_token **head)
 {
-	print_msg("syntax_error");
+	ft_putendl_fd("syntax_error", 2);
 	free_token_list(head);
 }
