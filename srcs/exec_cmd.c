@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/20 14:54:36 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/25 10:49:28 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static char			**create_cmd_args(char *cmd);
 static t_builtin	resolve_builtin_cmd(char *cmd);
-static void			exec_builtin(char **cmd_args, t_builtin cmd, t_env *envp);
+static void			exec_builtin(char **cmd_args, t_builtin cmd, t_env **envp);
 
-void	exec_cmd(t_env *env, char *cmd)
+void	exec_cmd(t_env **env, char *cmd)
 {
 	char		*cmd_path;
 	char		**cmd_args;
@@ -34,11 +34,14 @@ void	exec_cmd(t_env *env, char *cmd)
 	}
 	builtin_cmd = resolve_builtin_cmd(cmd_args[0]);
 	if (builtin_cmd != NOT_A_BUILTIN_COMMAND)
+	{
 		exec_builtin(cmd_args, builtin_cmd, env);
+		return ;
+	}
 	cmd_path = create_cmd_path(cmd);
 	if (cmd_path == NULL)
 		perror(NULL);
-	if (execve(cmd_path, cmd_args, list_to_envp(env)) == -1)
+	if (execve(cmd_path, cmd_args, list_to_envp(*env)) == -1)
 		perror(NULL);
 }
 
@@ -50,21 +53,25 @@ static char	**create_cmd_args(char *cmd)
 	return (cmd_args);
 }
 
-// TODO: replace ft_strncmp to ft_strcmp
 static t_builtin	resolve_builtin_cmd(char *cmd)
 {
-	if (ft_strncmp(cmd, "echo", 4) == 0)
+	if (ft_strcmp(cmd, "echo") == 0)
 		return (ECHO);
-	if (ft_strncmp(cmd, "pwd", 3) == 0)
+	if (ft_strcmp(cmd, "pwd") == 0)
 		return (PWD);
+	if (ft_strcmp(cmd, "cd") == 0)
+		return (CD);
+	if (ft_strcmp(cmd, "unset") == 0)
+		return (UNSET);
+	if (ft_strcmp(cmd, "env") == 0)
+		return (ENV);
 	return (NOT_A_BUILTIN_COMMAND);
 }
 
-static void	exec_builtin(char **cmd_args, t_builtin builtin_cmd, t_env *env)
+static void	exec_builtin(char **cmd_args, t_builtin builtin_cmd, t_env **envp)
 {
 	int	i;
 
-	(void)env;
 	i = 0;
 	while (cmd_args[i] != NULL)
 		i++;
@@ -72,6 +79,11 @@ static void	exec_builtin(char **cmd_args, t_builtin builtin_cmd, t_env *env)
 		echo(i, cmd_args);
 	else if (builtin_cmd == PWD)
 		pwd(i);
+	else if (builtin_cmd == CD)
+		cd(i, cmd_args);
+	else if (builtin_cmd == UNSET)
+		unset(i, cmd_args, envp);
+	else if (builtin_cmd == ENV)
+		env(i, *envp);
 	free_string_double_array(cmd_args);
-	exit(EXIT_SUCCESS);
 }

@@ -3,7 +3,6 @@ MAIN = srcs/main.c
 SRCS	= \
 	srcs/exec_cmd.c\
 	srcs/get_env_path.c\
-	srcs/get_env_pwd.c\
 	srcs/create_cmd_path.c\
 	srcs/parser.c\
 	srcs/create_token_list.c\
@@ -13,15 +12,21 @@ SRCS	= \
 	srcs/signal_handler.c\
 	srcs/expand_dollar.c\
 	srcs/expand_dollar_util.c\
+	srcs/create_process_list.c\
+	srcs/create_process_list_util.c\
 	srcs/utils/free_string_array.c\
 	srcs/utils/add_slash.c\
 	srcs/utils/remove_quotes.c\
 	srcs/utils/search_env.c\
 	srcs/builtin_commands/echo.c\
+	srcs/builtin_commands/pwd.c\
+	srcs/builtin_commands/cd.c\
 	srcs/env/env.c\
 	srcs/env/envp_to_list_utils.c\
 	srcs/env/list_to_envp_utils.c\
-	srcs/builtin_commands/pwd.c
+	srcs/builtin_commands/unset.c\
+	srcs/builtin_commands/env.c\
+	srcs/redirections/redirect.c
 HEADERS	= \
 	includes/minishell.h\
 	includes/core_feature.h\
@@ -97,5 +102,7 @@ integration: all
 		fi; \
 	done
 	@echo "⭐️\033[32mPassed all integration tests!\033[0m⭐️"
+
+test: norm unit integration
 
 .PHONY: all clean fclean re norm integration system unit

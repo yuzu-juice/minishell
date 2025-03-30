@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/22 18:25:14 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:49:49 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ static void	minishell_loop(t_env *env)
 		line = get_input_line();
 		if (!line)
 		{
-			write(STDOUT_FILENO, "exit\n", 5);
+			if (!isatty(STDIN_FILENO))
+				exit(EXIT_SUCCESS);
+			write(1, "exit\n", 5);
 			exit(EXIT_SUCCESS);
 		}
 		if (ft_strlen(line) != 0)
@@ -60,7 +62,7 @@ static void	minishell_loop(t_env *env)
 			add_history(line);
 			if (parser(line, env))
 				continue ;
-			exec_cmd(env, line);
+			exec_cmd(&env, line);
 			free(line);
 		}
 	}
@@ -73,7 +75,7 @@ static char	*get_input_line(void)
 	char	*line;
 
 	if (isatty(STDIN_FILENO))
-		line = readline("minishell> ");
+		line = readline("\033[1;36mminishell> \033[0m");
 	else
 	{
 		stdout_copy = dup(STDOUT_FILENO);

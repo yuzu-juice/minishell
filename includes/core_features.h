@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/30 13:22:16 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:51:07 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 
 # include <stdbool.h>
 # include "env.h"
+# include "redirections.h"
 
-typedef struct s_token	t_token;
+typedef struct s_token		t_token;
+typedef struct s_proc_list	t_proc_list;
+typedef struct s_proc		t_proc;
 
 typedef struct s_token
 {
@@ -26,19 +29,10 @@ typedef struct s_token
 
 typedef struct s_proc
 {
-	char	*cmd;
-	int		status;
+	char			*cmd;
+	t_redirection	*redir;
+	t_proc			*next;
 }	t_proc;
-// ex) str*->
-// ls > a
-// cat -e
-// b "<" c > d
-
-typedef struct s_proc_list
-{
-	t_proc	*proc;
-	t_proc	*next;
-}	t_proc_list;
 
 typedef struct s_replace_env
 {
@@ -46,7 +40,7 @@ typedef struct s_replace_env
 	char	*val;
 }	t_replace_env;
 
-void		exec_cmd(t_env *env, char *str);
+void		exec_cmd(t_env **env, char *str);
 
 // from envp
 char		*get_env_pwd(void);
@@ -79,6 +73,15 @@ t_token		*create_token_node(char *word);
 bool		add_token_node(t_token **head, t_token *new);
 bool		is_split_char(char c);
 bool		is_quote(char c);
+
+// create_process_list
+t_proc		*create_process_list(t_token **head);
+
+// create_process_list_util
+bool		validation_pipe(t_token *prev, t_token *next);
+t_proc		*get_last_proc(t_proc **list);
+bool		add_space(t_proc *curr);
+void		*free_proc_list(t_proc **list);
 
 // error
 void		syntax_error(t_token **head);
