@@ -6,12 +6,13 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:41:51 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/27 03:14:08 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/27 14:14:35 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef REDIRECTIONS_H
 # define REDIRECTIONS_H
+# define HEREDOC_FILE "/tmp/heredoc"
 
 typedef enum e_redirection_type
 {

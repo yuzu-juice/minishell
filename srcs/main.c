@@ -54,7 +54,7 @@ static void	minishell_loop(t_env *env)
 		{
 			if (!isatty(STDIN_FILENO))
 				exit(EXIT_SUCCESS);
-			write(1, "exit\n", 5);
+			ft_putendl_fd("exit", 1);
 			exit(EXIT_SUCCESS);
 		}
 		if (ft_strlen(line) != 0)

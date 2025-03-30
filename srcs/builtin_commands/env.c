@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 12:49:16 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/25 10:32:06 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/27 14:33:52 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,13 @@ void	env(int argc, t_env *env)
 		if (tmp->value == NULL)
 		{
 			write(1, tmp->key, ft_strlen(tmp->key));
-			write(1, "=\n", 2);
+			ft_putendl_fd("=", 1);
 		}
 		else
 		{
 			write(1, tmp->key, ft_strlen(tmp->key));
 			write(1, "=", 1);
-			write(1, tmp->value, ft_strlen(tmp->value));
-			write(1, "\n", 1);
+			ft_putendl_fd(tmp->value, 1);
 		}
 		tmp = tmp->next;
 	}
@@ -44,5 +43,5 @@ void	env(int argc, t_env *env)
 
 static void	error(void)
 {
-	write(2, "Usage: env\n", 11);
+	ft_putendl_fd("Usage: env", 2);
 }
