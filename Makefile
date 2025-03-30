@@ -10,10 +10,11 @@ SRCS	= \
 	srcs/create_normal_token.c\
 	srcs/create_token_util.c\
 	srcs/signal_handler.c\
+	srcs/create_process_list.c\
+	srcs/create_process_list_util.c\
 	srcs/utils/free_string_array.c\
 	srcs/utils/add_slash.c\
 	srcs/utils/remove_quotes.c\
-	srcs/utils/print_msg.c\
 	srcs/builtin_commands/echo.c\
 	srcs/builtin_commands/pwd.c\
 	srcs/builtin_commands/cd.c\

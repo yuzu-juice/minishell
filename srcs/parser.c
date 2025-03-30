@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/20 14:55:23 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/30 15:57:04 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 bool	parser(char *line)
 {
 	t_token	*head;
+	t_proc	*proc;
 
 	head = NULL;
 	if (has_unclosed_quotes(line))
@@ -25,6 +26,12 @@ bool	parser(char *line)
 	head = create_token_list(line);
 	if (!head)
 		return (true);
+	proc = create_process_list(&head);
+	if (!proc)
+	{
+		ft_putendl_fd("syntax_error", 2);
+		return (true);
+	}
 	return (false);
 }
 
@@ -59,6 +66,6 @@ bool	has_unclosed_quotes(char *line)
 
 void	syntax_error(t_token **head)
 {
-	print_msg("syntax_error");
+	ft_putendl_fd("syntax_error", 2);
 	free_token_list(head);
 }

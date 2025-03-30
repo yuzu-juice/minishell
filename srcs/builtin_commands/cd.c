@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 11:15:38 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/23 12:06:06 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/27 14:32:04 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ void	cd(int argc, char **argv)
 
 static void	error(void)
 {
-	write(2, "Usage: cd [relative path | absolute path]\n", 42);
+	ft_putendl_fd("Usage: cd [relative path | absolute path]", 2);
 }

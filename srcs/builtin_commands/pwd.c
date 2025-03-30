@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 19:03:10 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/23 15:23:02 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/27 14:33:04 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,11 @@ void	pwd(int argc)
 		return ;
 	}
 	pwd = getcwd(NULL, 0);
-	write(1, pwd, ft_strlen(pwd));
-	write(1, "\n", 1);
+	ft_putendl_fd(pwd, 1);
 	free(pwd);
 }
 
 static void	error(void)
 {
-	write(2, "Usage: pwd\n", 11);
+	ft_putendl_fd("Usage: pwd", 2);
 }
