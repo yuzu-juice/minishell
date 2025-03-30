@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/22 19:42:37 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/30 13:22:16 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,14 @@ char		*create_cmd_path(char *cmd);
 
 // parser
 bool		parser(char *line, t_env *env);
-bool		expand_dollar(t_token **head, t_env *env);
 bool		has_unclosed_quotes(char *line);
+
+// expand_dollar
+bool		expand_dollar(t_token **head, t_env *env);
+
+// expand_dollar_util
+bool		replace_word(t_token *curr, int *index, t_env replace);
+char		*serch_env_value(char *key, t_env *env);
 
 // create_token_list
 t_token		*create_token_list(char *line);

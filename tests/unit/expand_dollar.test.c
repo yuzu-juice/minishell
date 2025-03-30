@@ -37,6 +37,7 @@ int main(int argc, char **argv, char **envp)
 		temp = temp->next;
 		i++;
 	}
+	free_token_list(&head);
 
 	char	*array3[] = {ft_strjoin("a", getenv("PWD"))};
 	head = create_token_list("a$PWD");
