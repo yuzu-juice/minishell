@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/27 14:30:15 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/30 15:49:46 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 bool	parser(char *line)
 {
 	t_token	*head;
+	t_proc	*proc;
 
 	head = NULL;
 	if (has_unclosed_quotes(line))
@@ -25,6 +26,12 @@ bool	parser(char *line)
 	head = create_token_list(line);
 	if (!head)
 		return (true);
+	proc = create_process_list(&head);
+	if (!proc)
+	{
+		print_msg("syntax_error");
+		return (true);
+	}
 	return (false);
 }
 

@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:45:26 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/27 14:28:03 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/30 15:51:19 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	output(char *cmd, t_redirection *redir, t_env *env);
 static void input(char *cmd, t_redirection *redir, t_env *env);
 static void here_doc(char *cmd, t_redirection *redir, t_env *env);
+static void	input(char *cmd, t_redirection *redir, t_env *env);
 
 void	redirect(char *cmd, t_redirection *redir, t_env *env)
 {
@@ -22,6 +23,8 @@ void	redirect(char *cmd, t_redirection *redir, t_env *env)
 	{
 		if (redir->type == OUTPUT)
 			output(cmd, redir, env);
+		else if (redir->type == INPUT)
+			input(cmd, redir, env);
 		else if (redir->type == HEREDOC)
 			here_doc(cmd, redir, env);
 		redir = redir->next;
