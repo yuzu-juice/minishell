@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/30 15:49:46 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/30 15:57:04 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool	parser(char *line)
 	proc = create_process_list(&head);
 	if (!proc)
 	{
-		print_msg("syntax_error");
+		ft_putendl_fd("syntax_error", 2);
 		return (true);
 	}
 	return (false);
