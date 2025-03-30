@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 12:49:16 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/25 10:32:06 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/30 19:38:47 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,7 @@ void	env(int argc, t_env *env)
 	tmp = env;
 	while (tmp)
 	{
-		if (tmp->value == NULL)
-		{
-			write(1, tmp->key, ft_strlen(tmp->key));
-			write(1, "=\n", 2);
-		}
-		else
+		if (tmp->value != NULL)
 		{
 			write(1, tmp->key, ft_strlen(tmp->key));
 			write(1, "=", 1);

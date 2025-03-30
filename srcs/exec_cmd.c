@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/25 10:49:28 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/30 19:33:10 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ static t_builtin	resolve_builtin_cmd(char *cmd)
 		return (UNSET);
 	if (ft_strcmp(cmd, "env") == 0)
 		return (ENV);
+	if (ft_strcmp(cmd, "export") == 0)
+		return (EXPORT);
 	return (NOT_A_BUILTIN_COMMAND);
 }
 
@@ -85,5 +87,7 @@ static void	exec_builtin(char **cmd_args, t_builtin builtin_cmd, t_env **envp)
 		unset(i, cmd_args, envp);
 	else if (builtin_cmd == ENV)
 		env(i, *envp);
+	else if (builtin_cmd == EXPORT)
+		export(i, cmd_args, envp);
 	free_string_double_array(cmd_args);
 }

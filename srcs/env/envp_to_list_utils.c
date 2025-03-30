@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp_to_list_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:58:23 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/23 15:44:13 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/30 19:47:26 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ void	add_env_node(t_env *env, char *str, int i)
 	if (env == NULL || str == NULL)
 		return ;
 	key_values = split_string(str, '=');
-	if (key_values == NULL || key_values[1] == NULL)
+	printf("key %s val %s\n", key_values[0], key_values[1]);
+	// if (key_values == NULL || key_values[1] == NULL)
+	if (key_values == NULL || key_values[0] == NULL)
 		return (free_string_double_array(key_values));
 	if (i == 0)
 		new_node = env;
@@ -36,6 +38,7 @@ void	add_env_node(t_env *env, char *str, int i)
 	}
 	new_node->key = key_values[0];
 	new_node->value = key_values[1];
+	printf("new_node->key %s\n", new_node->key);
 	free(key_values);
 }
 
