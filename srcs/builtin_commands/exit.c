@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_commands.h                                 :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/16 10:51:45 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/01 15:12:39 by yohatana         ###   ########.fr       */
+/*   Created: 2025/04/01 14:57:27 by yohatana          #+#    #+#             */
+/*   Updated: 2025/04/01 15:12:43 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_COMMANDS_H
-# define BUILTIN_COMMANDS_H
+#include "../../includes/minishell.h"
 
-# include <unistd.h>
-
-typedef enum e_builtin
+void	minishell_exit(int argc, char **argv)
 {
-	NOT_A_BUILTIN_COMMAND,
-	ECHO,
-	CD,
-	PWD,
-	EXPORT,
-	UNSET,
-	ENV,
-	EXIT,
-}	t_builtin;
+	int	status;
 
-void	echo(int argc, char **argv);
-void	pwd(int argc);
-void	cd(int argc, char **argv);
-void	unset(int argc, char **argv, t_env **env);
-void	env(int argc, t_env *env);
-void	minishell_exit(int argc, char **argv);
-
-#endif
+	status = 0;
+	if (argc == 1)
+	{
+		exit(0);
+	}
+	if (argc == 2)
+	{
+		status = ft_atoi(argv[1]);
+		exit(status);
+	}
+	else
+	{
+		ft_putstr_fd("Usage: exit [exit_status]", 2);
+	}
+}
