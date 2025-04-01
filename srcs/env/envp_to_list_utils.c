@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:58:23 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/30 19:47:26 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/01 14:18:17 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,8 @@ void	add_env_node(t_env *env, char *str, int i)
 
 	if (env == NULL || str == NULL)
 		return ;
+	printf("str %s\n", str);
 	key_values = split_string(str, '=');
-	printf("key %s val %s\n", key_values[0], key_values[1]);
-	// if (key_values == NULL || key_values[1] == NULL)
 	if (key_values == NULL || key_values[0] == NULL)
 		return (free_string_double_array(key_values));
 	if (i == 0)
@@ -36,10 +35,12 @@ void	add_env_node(t_env *env, char *str, int i)
 			return (free_string_double_array(key_values));
 		get_last_env_node(env)->next = new_node;
 	}
+	printf("add_env_node() : new_node %p\n", new_node);
 	new_node->key = key_values[0];
 	new_node->value = key_values[1];
-	printf("new_node->key %s\n", new_node->key);
+	printf("new_node->key %s new_node->value %s\n", new_node->key, new_node->value);
 	free(key_values);
+	// ここでフリーしてるから次の参照で値が書き換わっている？
 }
 
 static t_env	*get_last_env_node(t_env *env)
