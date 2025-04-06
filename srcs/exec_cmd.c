@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/01 15:13:21 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/06 11:56:42 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ static t_builtin	resolve_builtin_cmd(char *cmd)
 		return (UNSET);
 	if (ft_strcmp(cmd, "env") == 0)
 		return (ENV);
+	if (ft_strcmp(cmd, "export") == 0)
+		return (EXPORT);
 	if (ft_strcmp(cmd, "exit") == 0)
 		return (EXIT);
 	return (NOT_A_BUILTIN_COMMAND);
@@ -87,6 +89,8 @@ static void	exec_builtin(char **cmd_args, t_builtin builtin_cmd, t_env **envp)
 		unset(i, cmd_args, envp);
 	else if (builtin_cmd == ENV)
 		env(i, *envp);
+	else if (builtin_cmd == EXPORT)
+		export(i, cmd_args, envp);
 	else if (builtin_cmd == EXIT)
 		minishell_exit(i, cmd_args);
 	free_string_double_array(cmd_args);
