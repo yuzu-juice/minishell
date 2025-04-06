@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/06 14:04:51 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/06 14:17:18 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	minishell(env);
 	free_all_env(env);
+	rl_clear_history();
 	return (0);
 }
 
@@ -40,6 +41,7 @@ static void	minishell(t_env *env)
 	{
 		perror(NULL);
 		free_all_env(env);
+		rl_clear_history();
 		exit(EXIT_FAILURE);
 	}
 	minishell_loop(env);
