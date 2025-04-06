@@ -3,38 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:45:26 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/30 15:59:55 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/06 14:43:24 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	output(char *cmd, t_redirection *redir, t_env *env);
-static void	append(char *cmd, t_redirection *redir, t_env *env);
-static void	input(char *cmd, t_redirection *redir, t_env *env);
-static void	here_doc(char *cmd, t_redirection *redir, t_env *env);
-static void	input(char *cmd, t_redirection *redir, t_env *env);
+static void	output(char *cmd, t_redirection *redir, t_minishell *m_shell);
+static void	append(char *cmd, t_redirection *redir, t_minishell *m_shell);
+static void	input(char *cmd, t_redirection *redir, t_minishell *m_shell);
+static void	here_doc(char *cmd, t_redirection *redir, t_minishell *m_shell);
+static void	input(char *cmd, t_redirection *redir, t_minishell *m_shell);
 
-void	redirect(char *cmd, t_redirection *redir, t_env *env)
+void	redirect(char *cmd, t_redirection *redir, t_minishell *m_shell)
 {
 	while (redir)
 	{
 		if (redir->type == OUTPUT)
-			output(cmd, redir, env);
+			output(cmd, redir, m_shell);
 		else if (redir->type == INPUT)
-			input(cmd, redir, env);
+			input(cmd, redir, m_shell);
 		else if (redir->type == HEREDOC)
-			here_doc(cmd, redir, env);
+			here_doc(cmd, redir, m_shell);
 		if (redir->type == APPEND)
-			append(cmd, redir, env);
+			append(cmd, redir, m_shell);
 		redir = redir->next;
 	}
 }
 
-static void	output(char *cmd, t_redirection *redir, t_env *env)
+static void	output(char *cmd, t_redirection *redir, t_minishell *m_shell)
 {
 	int	outfile_fd;
 
@@ -46,11 +46,11 @@ static void	output(char *cmd, t_redirection *redir, t_env *env)
 	}
 	dup2(outfile_fd, STDOUT_FILENO);
 	if (redir->next == NULL)
-		exec_cmd(&env, cmd);
+		exec_cmd(m_shell, cmd);
 	close(outfile_fd);
 }
 
-static void	input(char *cmd, t_redirection *redir, t_env *env)
+static void	input(char *cmd, t_redirection *redir, t_minishell *m_shell)
 {
 	int	infile_fd;
 
@@ -62,11 +62,11 @@ static void	input(char *cmd, t_redirection *redir, t_env *env)
 	}
 	dup2(infile_fd, STDIN_FILENO);
 	if (redir->next == NULL)
-		exec_cmd(&env, cmd);
+		exec_cmd(m_shell, cmd);
 	close(infile_fd);
 }
 
-static void	here_doc(char *cmd, t_redirection *redir, t_env *env)
+static void	here_doc(char *cmd, t_redirection *redir, t_minishell *m_shell)
 {
 	int		heredoc_file_fd;
 	char	*line;
@@ -92,10 +92,10 @@ static void	here_doc(char *cmd, t_redirection *redir, t_env *env)
 	}
 	close(heredoc_file_fd);
 	redir->filename = HEREDOC_FILE;
-	input(cmd, redir, env);
+	input(cmd, redir, m_shell);
 }
 
-static void	append(char *cmd, t_redirection *redir, t_env *env)
+static void	append(char *cmd, t_redirection *redir, t_minishell *m_shell)
 {
 	int	outfile_fd;
 
@@ -107,6 +107,6 @@ static void	append(char *cmd, t_redirection *redir, t_env *env)
 	}
 	dup2(outfile_fd, STDOUT_FILENO);
 	if (redir->next == NULL)
-		exec_cmd(&env, cmd);
+		exec_cmd(m_shell, cmd);
 	close(outfile_fd);
 }
