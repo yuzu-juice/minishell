@@ -6,11 +6,11 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 20:33:45 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/30 13:25:47 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/30 18:34:18 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static bool	expand_exec(t_token *curr, int *index, t_env *env);
 static void	skip_single_quote(t_token *curr, int *index);

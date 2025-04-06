@@ -4,16 +4,7 @@ SRCS	= \
 	srcs/exec_cmd.c\
 	srcs/get_env_path.c\
 	srcs/create_cmd_path.c\
-	srcs/parser.c\
-	srcs/create_token_list.c\
-	srcs/create_split_token.c\
-	srcs/create_normal_token.c\
-	srcs/create_token_util.c\
 	srcs/signal_handler.c\
-	srcs/expand_dollar.c\
-	srcs/expand_dollar_util.c\
-	srcs/create_process_list.c\
-	srcs/create_process_list_util.c\
 	srcs/utils/free_string_array.c\
 	srcs/utils/add_slash.c\
 	srcs/utils/remove_quotes.c\
@@ -26,7 +17,16 @@ SRCS	= \
 	srcs/env/list_to_envp_utils.c\
 	srcs/builtin_commands/unset.c\
 	srcs/builtin_commands/env.c\
-	srcs/redirections/redirect.c
+	srcs/redirections/redirect.c\
+	srcs/parser/create_normal_token.c\
+	srcs/parser/create_process_list_util.c\
+	srcs/parser/create_process_list.c\
+	srcs/parser/create_split_token.c\
+	srcs/parser/create_token_list.c\
+	srcs/parser/create_token_util.c\
+	srcs/parser/expand_dollar_util.c\
+	srcs/parser/expand_dollar.c\
+	srcs/parser/parser.c
 HEADERS	= \
 	includes/minishell.h\
 	includes/core_feature.h\
