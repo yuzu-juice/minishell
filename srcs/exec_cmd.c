@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/06 11:56:42 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/06 13:21:10 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	exec_cmd(t_env **env, char *cmd)
 	char		**cmd_args;
 	t_builtin	builtin_cmd;
 	int			i;
+	char		**envp;
 
 	i = 0;
 	cmd_args = create_cmd_args(cmd);
@@ -34,15 +35,14 @@ void	exec_cmd(t_env **env, char *cmd)
 	}
 	builtin_cmd = resolve_builtin_cmd(cmd_args[0]);
 	if (builtin_cmd != NOT_A_BUILTIN_COMMAND)
-	{
-		exec_builtin(cmd_args, builtin_cmd, env);
-		return ;
-	}
+		return (exec_builtin(cmd_args, builtin_cmd, env));
 	cmd_path = create_cmd_path(cmd);
 	if (cmd_path == NULL)
 		perror(NULL);
-	if (execve(cmd_path, cmd_args, list_to_envp(*env)) == -1)
+	envp = list_to_envp(*env);
+	if (execve(cmd_path, cmd_args, envp) == -1)
 		perror(NULL);
+	free_string_double_array(envp);
 }
 
 static char	**create_cmd_args(char *cmd)
