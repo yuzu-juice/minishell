@@ -6,11 +6,11 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:48:17 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/19 20:16:35 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/30 18:38:59 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 t_token	*create_token_list(char *line)
 {
@@ -80,7 +80,6 @@ void	free_token_list(t_token **head)
 	while (curr)
 	{
 		temp = curr->next;
-		free(curr->word);
 		free(curr);
 		curr = temp;
 	}
