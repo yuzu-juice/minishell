@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/30 16:49:49 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/06 13:16:53 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int argc, char **argv, char **envp)
 	if (env == NULL)
 		return (1);
 	minishell(env);
+	free_env(env);
 	return (0);
 }
 
@@ -38,6 +39,7 @@ static void	minishell(t_env *env)
 	if (signal(SIGINT, handle_sigint) == SIG_ERR)
 	{
 		perror(NULL);
+		free_env(env);
 		exit(EXIT_FAILURE);
 	}
 	minishell_loop(env);
@@ -53,9 +55,9 @@ static void	minishell_loop(t_env *env)
 		if (!line)
 		{
 			if (!isatty(STDIN_FILENO))
-				exit(EXIT_SUCCESS);
+				break ;
 			ft_putendl_fd("exit", 1);
-			exit(EXIT_SUCCESS);
+			break ;
 		}
 		if (ft_strlen(line) != 0)
 		{
