@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/06 13:29:21 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/06 16:32:24 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ bool	parser(char *line, t_minishell *m_shell)
 	proc = create_process_list(&head);
 	if (!proc)
 	{
+		free_token_list(&head);
 		ft_putendl_fd("syntax_error", 2);
 		return (true);
 	}
 	m_shell->proc = proc;
+	free_token_list(&head);
 	return (false);
 }
 

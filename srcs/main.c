@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/06 14:36:12 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/06 16:37:02 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ volatile sig_atomic_t	g_sig_flag;
 
 static void			minishell(t_env *env);
 static void			minishell_loop(t_env *env);
-static void			exit_null_line(void);
+static void			exit_null_line(t_minishell *m_shell);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -59,7 +59,7 @@ static void	minishell_loop(t_env *env)
 	{
 		line = get_input_line();
 		if (!line)
-			exit_null_line();
+			exit_null_line(m_shell);
 		if (ft_strlen(line) != 0)
 		{
 			add_history(line);
@@ -72,8 +72,9 @@ static void	minishell_loop(t_env *env)
 	free_minishell_struct(m_shell);
 }
 
-static void	exit_null_line(void)
+static void	exit_null_line(t_minishell *m_shell)
 {
+	free_minishell_struct(m_shell);
 	if (!isatty(STDIN_FILENO))
 		exit(EXIT_SUCCESS);
 	ft_putendl_fd("exit", 1);

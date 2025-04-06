@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 14:28:21 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/06 14:32:44 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/06 16:34:38 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_minishell	*create_minishell_struct(t_env *env)
 
 void	free_minishell_struct(t_minishell *m_shell)
 {
-	free_env(m_shell->env);
+	free_all_env(m_shell->env);
 	free(m_shell);
 	m_shell = NULL;
 }
