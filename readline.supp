@@ -896,3 +896,18 @@
    fun:minishell
    fun:main
 }
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xrealloc
+   obj:/usr/lib/x86_64-linux-gnu/libreadline.so.8.1
+   fun:rl_expand_prompt
+   fun:rl_set_prompt
+   fun:readline
+   fun:get_input_line
+   fun:minishell_loop
+   fun:minishell
+   fun:main
+}
