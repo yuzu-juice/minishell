@@ -18,6 +18,7 @@ SRCS	= \
 	srcs/builtin_commands/unset.c\
 	srcs/builtin_commands/env.c\
 	srcs/redirections/redirect.c\
+	srcs/builtin_commands/exit.c\
 	srcs/parser/create_normal_token.c\
 	srcs/parser/create_process_list_util.c\
 	srcs/parser/create_process_list.c\
