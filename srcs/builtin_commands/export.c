@@ -6,23 +6,23 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 18:42:27 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/06 12:05:53 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/06 16:13:30 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	print_env(t_env **env);
+static void	print_env(t_minishell *m_shell);
 
-void	export(int argc, char **argv, t_env **env)
+void	export(int argc, char **argv, t_minishell *m_shell)
 {
 	if (argc == 1)
 	{
-		print_env(env);
+		print_env(m_shell);
 	}
 	else if (argc == 2)
 	{
-		add_env_node(*env, argv[1], 1);
+		add_env_node(m_shell->env, argv[1], 1);
 	}
 	else
 	{
@@ -30,11 +30,11 @@ void	export(int argc, char **argv, t_env **env)
 	}
 }
 
-static void	print_env(t_env **env)
+static void	print_env(t_minishell *m_shell)
 {
 	t_env	*tmp;
 
-	tmp = *env;
+	tmp = m_shell->env;
 	while (tmp)
 	{
 		if (tmp->value == NULL)

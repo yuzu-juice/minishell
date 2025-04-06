@@ -6,13 +6,13 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/30 18:34:14 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/06 16:32:24 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	parser(char *line, t_env *env)
+bool	parser(char *line, t_minishell *m_shell)
 {
 	t_token	*head;
 	t_proc	*proc;
@@ -26,14 +26,17 @@ bool	parser(char *line, t_env *env)
 	head = create_token_list(line);
 	if (!head)
 		return (true);
-	if (expand_dollar(&head, env))
+	if (expand_dollar(&head, m_shell->env))
 		return (true);
 	proc = create_process_list(&head);
 	if (!proc)
 	{
+		free_token_list(&head);
 		ft_putendl_fd("syntax_error", 2);
 		return (true);
 	}
+	m_shell->proc = proc;
+	free_token_list(&head);
 	return (false);
 }
 

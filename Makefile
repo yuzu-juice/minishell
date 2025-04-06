@@ -28,7 +28,9 @@ SRCS	= \
 	srcs/parser/create_token_util.c\
 	srcs/parser/expand_dollar_util.c\
 	srcs/parser/expand_dollar.c\
-	srcs/parser/parser.c
+	srcs/parser/parser.c\
+	srcs/get_input_line.c\
+	srcs/create_minishell_struct.c
 HEADERS	= \
 	includes/minishell.h\
 	includes/core_feature.h\
@@ -75,7 +77,7 @@ INTEGRATION_TESTS = $(wildcard tests/integration/*.test.sh)
 norm:
 	norminette srcs includes
 
-unit:
+unit: all
 	@echo "Running unit tests..."
 	@mkdir -p tests/unit/bin
 	@for test in $(UNIT_TESTS); do \

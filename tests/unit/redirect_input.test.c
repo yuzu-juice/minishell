@@ -4,6 +4,7 @@ int main() {
     t_proc *process;
     t_redirection *redir1;
     t_env *env;
+	t_minishell *m_shell;
 
     process = ft_calloc(1, sizeof(t_proc));
     process->cmd = "cat";
@@ -13,6 +14,8 @@ int main() {
     env = ft_calloc(1, sizeof(t_env));
     env->key = ft_strdup("HOME");
     env->value = ft_strdup("/home/user");
+	m_shell = ft_calloc(sizeof(t_minishell), 1);
+	m_shell->env = env;
 
     // input.txt に "hoge" を書き込む
     int fd = open(redir1->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -32,7 +35,7 @@ int main() {
         dup2(pipe_fd[1], STDOUT_FILENO);
         close(pipe_fd[1]);
 
-        redirect(process->cmd, redir1, env);
+        redirect(process->cmd, redir1, m_shell);
     }
     else
     {
@@ -54,6 +57,7 @@ int main() {
     free(env);
     free(redir1);
     free(process);
+	free(m_shell);
 
     return (0);
 }

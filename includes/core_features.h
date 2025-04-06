@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/30 16:58:15 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/06 14:45:04 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 typedef struct s_token		t_token;
 typedef struct s_proc		t_proc;
+typedef struct s_minishell	t_minishell;
 
 typedef struct s_token
 {
@@ -33,7 +34,7 @@ typedef struct s_proc
 	t_proc			*next;
 }	t_proc;
 
-void		exec_cmd(t_env **env, char *str);
+void		exec_cmd(t_minishell *m_shell, char *str);
 
 // from envp
 char		*get_env_pwd(void);
@@ -43,7 +44,7 @@ char		**get_env_path(void);
 char		*create_cmd_path(char *cmd);
 
 // parser
-bool		parser(char *line, t_env *env);
+bool		parser(char *line, t_minishell *m_shell);
 bool		has_unclosed_quotes(char *line);
 
 // expand_dollar
