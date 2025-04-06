@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 22:27:24 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/06 16:50:02 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/06 16:55:23 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_minishell
 	int		prev_status;
 	t_env	*env;
 	t_proc	*proc;
+	int		proc_count;
 }	t_minishell;
 
 t_minishell	*create_minishell_struct(t_env *env);

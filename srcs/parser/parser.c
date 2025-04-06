@@ -6,11 +6,13 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/06 16:32:24 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/06 17:07:04 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static int	count_proc(t_proc *proc);
 
 bool	parser(char *line, t_minishell *m_shell)
 {
@@ -29,14 +31,14 @@ bool	parser(char *line, t_minishell *m_shell)
 	if (expand_dollar(&head, m_shell->env))
 		return (true);
 	proc = create_process_list(&head);
+	free_token_list(&head);
 	if (!proc)
 	{
-		free_token_list(&head);
 		ft_putendl_fd("syntax_error", 2);
 		return (true);
 	}
 	m_shell->proc = proc;
-	free_token_list(&head);
+	m_shell->proc_count = count_proc(proc);
 	return (false);
 }
 
@@ -73,4 +75,19 @@ void	syntax_error(t_token **head)
 {
 	ft_putendl_fd("syntax_error", 2);
 	free_token_list(head);
+}
+
+static int	count_proc(t_proc *proc)
+{
+	int		count;
+	t_proc	*curr;
+
+	count = 0;
+	curr = proc;
+	while (curr)
+	{
+		count++;
+		curr = curr->next;
+	}
+	return (count);
 }
