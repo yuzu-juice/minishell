@@ -109,4 +109,7 @@ integration: all
 
 test: norm unit integration
 
+valgrind: all
+	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --gen-suppressions=all ./minishell
+
 .PHONY: all clean fclean re norm integration system unit

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
 /*   Updated: 2025/04/06 15:03:32 by yohatana         ###   ########.fr       */
@@ -22,6 +22,7 @@ void	exec_cmd(t_minishell *m_shell, char *cmd)
 	char		**cmd_args;
 	t_builtin	builtin_cmd;
 	int			i;
+	char		**envp;
 
 	i = 0;
 	cmd_args = create_cmd_args(cmd);
@@ -43,6 +44,7 @@ void	exec_cmd(t_minishell *m_shell, char *cmd)
 		perror(NULL);
 	if (execve(cmd_path, cmd_args, list_to_envp(m_shell->env)) == -1)
 		perror(NULL);
+	free_string_double_array(envp);
 }
 
 static char	**create_cmd_args(char *cmd)

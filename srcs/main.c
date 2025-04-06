@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
 /*   Updated: 2025/04/06 14:36:12 by yohatana         ###   ########.fr       */
@@ -30,6 +30,8 @@ int	main(int argc, char **argv, char **envp)
 	if (env == NULL)
 		return (1);
 	minishell(env);
+	free_all_env(env);
+	rl_clear_history();
 	return (0);
 }
 
@@ -38,6 +40,8 @@ static void	minishell(t_env *env)
 	if (signal(SIGINT, handle_sigint) == SIG_ERR)
 	{
 		perror(NULL);
+		free_all_env(env);
+		rl_clear_history();
 		exit(EXIT_FAILURE);
 	}
 	minishell_loop(env);
