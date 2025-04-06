@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 22:27:24 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/30 18:14:48 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/06 12:26:40 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "builtin_commands.h"
 # include "env.h"
 # include "redirections.h"
+# include "pipes.h"
 
 # include <stdio.h>
 # include <readline/readline.h>
