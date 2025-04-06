@@ -6,11 +6,11 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 13:18:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/30 13:19:59 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/30 18:34:22 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static char	*split_after_word(t_token *curr, int *index, t_env replace);
 

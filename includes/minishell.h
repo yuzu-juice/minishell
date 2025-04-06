@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 22:27:24 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/30 15:59:24 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/03/30 18:14:48 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,12 @@
 # include <sys/wait.h>
 
 extern volatile sig_atomic_t	g_sig_flag;
+
+typedef struct s_minishell
+{
+	int		prev_status;
+	t_env	*env;
+	t_proc	*proc;
+}	t_minishell;
 
 #endif
