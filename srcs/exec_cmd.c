@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/06 15:03:32 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/06 15:15:15 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,19 @@
 static char			**create_cmd_args(char *cmd);
 static t_builtin	resolve_builtin_cmd(char *cmd);
 static void			exec_builtin(char **cmd_args, t_builtin cmd, t_env **envp);
+static void			remove_args_quotes(char **cmd_args);
 
 void	exec_cmd(t_minishell *m_shell, char *cmd)
 {
 	char		*cmd_path;
 	char		**cmd_args;
 	t_builtin	builtin_cmd;
-	int			i;
 	char		**envp;
 
-	i = 0;
 	cmd_args = create_cmd_args(cmd);
 	if (cmd_args == NULL)
 		perror(NULL);
-	while (cmd_args[i] != NULL)
-	{
-		cmd_args[i] = remove_quotes(cmd_args[i]);
-		i++;
-	}
+	remove_args_quotes(cmd_args);
 	builtin_cmd = resolve_builtin_cmd(cmd_args[0]);
 	if (builtin_cmd != NOT_A_BUILTIN_COMMAND)
 	{
@@ -42,9 +37,22 @@ void	exec_cmd(t_minishell *m_shell, char *cmd)
 	cmd_path = create_cmd_path(cmd);
 	if (cmd_path == NULL)
 		perror(NULL);
-	if (execve(cmd_path, cmd_args, list_to_envp(m_shell->env)) == -1)
+	envp = list_to_envp(m_shell->env);
+	if (execve(cmd_path, cmd_args, envp) == -1)
 		perror(NULL);
 	free_string_double_array(envp);
+}
+
+static void	remove_args_quotes(char **cmd_args)
+{
+	int	i;
+
+	i = 0;
+	while (cmd_args[i] != NULL)
+	{
+		cmd_args[i] = remove_quotes(cmd_args[i]);
+		i++;
+	}
 }
 
 static char	**create_cmd_args(char *cmd)
