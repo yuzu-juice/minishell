@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/06 15:15:15 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/06 16:09:37 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 static char			**create_cmd_args(char *cmd);
 static t_builtin	resolve_builtin_cmd(char *cmd);
-static void			exec_builtin(char **cmd_args, t_builtin cmd, t_env **envp);
+static void			exec_builtin(char **cmd_args, \
+								t_builtin cmd, \
+								t_minishell *m_shell);
 static void			remove_args_quotes(char **cmd_args);
 
 void	exec_cmd(t_minishell *m_shell, char *cmd)
@@ -31,7 +33,7 @@ void	exec_cmd(t_minishell *m_shell, char *cmd)
 	builtin_cmd = resolve_builtin_cmd(cmd_args[0]);
 	if (builtin_cmd != NOT_A_BUILTIN_COMMAND)
 	{
-		exec_builtin(cmd_args, builtin_cmd, &m_shell->env);
+		exec_builtin(cmd_args, builtin_cmd, m_shell);
 		return ;
 	}
 	cmd_path = create_cmd_path(cmd);
@@ -82,7 +84,9 @@ static t_builtin	resolve_builtin_cmd(char *cmd)
 	return (NOT_A_BUILTIN_COMMAND);
 }
 
-static void	exec_builtin(char **cmd_args, t_builtin builtin_cmd, t_env **envp)
+static void	exec_builtin(char **cmd_args, \
+						t_builtin builtin_cmd, \
+						t_minishell *m_shell)
 {
 	int	i;
 
@@ -96,11 +100,11 @@ static void	exec_builtin(char **cmd_args, t_builtin builtin_cmd, t_env **envp)
 	else if (builtin_cmd == CD)
 		cd(i, cmd_args);
 	else if (builtin_cmd == UNSET)
-		unset(i, cmd_args, envp);
+		unset(i, cmd_args, m_shell);
 	else if (builtin_cmd == ENV)
-		env(i, *envp);
+		env(i, m_shell);
 	else if (builtin_cmd == EXPORT)
-		export(i, cmd_args, envp);
+		export(i, cmd_args, m_shell);
 	else if (builtin_cmd == EXIT)
 		minishell_exit(i, cmd_args);
 	free_string_double_array(cmd_args);

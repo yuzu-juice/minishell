@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 12:49:16 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/06 11:56:18 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/06 16:12:07 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 static void	error(void);
 
-void	env(int argc, t_env *env)
+void	env(int argc, t_minishell *m_shell)
 {
 	t_env	*tmp;
 
-	if (argc != 1 || env == NULL)
+	if (argc != 1 || m_shell->env == NULL)
 	{
 		error();
 		return ;
 	}
-	tmp = env;
+	tmp = m_shell->env;
 	while (tmp)
 	{
 		if (tmp->value != NULL)
