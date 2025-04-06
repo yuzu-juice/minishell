@@ -6,6 +6,7 @@ int	main()
     t_redirection *redir1;
     t_redirection *redir2;
     t_env *env;
+	t_minishell *m_shell;
 
     process = ft_calloc(1, sizeof(t_proc));
     process->cmd = "echo -n hello";
@@ -15,22 +16,24 @@ int	main()
     env = ft_calloc(1, sizeof(t_env));
     env->key = ft_strdup("HOME");
     env->value = ft_strdup("/home/user");
-    
+	m_shell = ft_calloc(sizeof(t_minishell), 1);
+	m_shell->env = env;
+
     int pipe_fd[2];
     if (pipe(pipe_fd) == -1) {
         perror("pipe failed");
         return 1;
     }
-    
+
     pid_t pid = fork();
     if (pid == -1) {
         perror("fork failed");
         return 1;
     }
-    
+
     if (pid == 0) {
         close(pipe_fd[0]);
-        redirect(process->cmd, redir1, env);
+        redirect(process->cmd, redir1, m_shell);
         exit(0);
     } else {
         close(pipe_fd[1]);
@@ -53,28 +56,28 @@ int	main()
     redir2->type = OUTPUT;
     redir2->filename = "output2.txt";
     redir1->next = redir2;
-    
+
     if (pipe(pipe_fd) == -1) {
         perror("pipe failed");
         return 1;
     }
-    
+
     pid = fork();
     if (pid == -1) {
         perror("fork failed");
         return 1;
     }
-    
+
     if (pid == 0) {
         close(pipe_fd[0]);
-        redirect(process->cmd, redir1, env);
+        redirect(process->cmd, redir1, m_shell);
         exit(0);
     } else {
         close(pipe_fd[1]);
         int status;
         waitpid(pid, &status, 0);
     }
-    
+
     fd = open("output1.txt", O_RDONLY);
     assert(fd != -1);
     bytes_read = read(fd, buffer, sizeof(buffer) - 1);
@@ -101,21 +104,21 @@ int	main()
     redir1->filename = "existing.txt";
     redir1->next = NULL;
     process->cmd = "echo -n overwritten";
-    
+
     if (pipe(pipe_fd) == -1) {
         perror("pipe failed");
         return 1;
     }
-    
+
     pid = fork();
     if (pid == -1) {
         perror("fork failed");
         return 1;
     }
-    
+
     if (pid == 0) {
         close(pipe_fd[0]);
-        redirect(process->cmd, redir1, env);
+        redirect(process->cmd, redir1, m_shell);
         exit(0);
     } else {
         close(pipe_fd[1]);
@@ -138,6 +141,7 @@ int	main()
     free(redir1);
     free(redir2);
     free(process);
+	free(m_shell);
 
     return (0);
 }

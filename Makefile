@@ -18,6 +18,7 @@ SRCS	= \
 	srcs/builtin_commands/unset.c\
 	srcs/builtin_commands/env.c\
 	srcs/redirections/redirect.c\
+	srcs/builtin_commands/export.c\
 	srcs/builtin_commands/exit.c\
 	srcs/parser/create_normal_token.c\
 	srcs/parser/create_process_list_util.c\
@@ -27,7 +28,9 @@ SRCS	= \
 	srcs/parser/create_token_util.c\
 	srcs/parser/expand_dollar_util.c\
 	srcs/parser/expand_dollar.c\
-	srcs/parser/parser.c
+	srcs/parser/parser.c\
+	srcs/get_input_line.c\
+	srcs/create_minishell_struct.c
 HEADERS	= \
 	includes/minishell.h\
 	includes/core_feature.h\
@@ -74,7 +77,7 @@ INTEGRATION_TESTS = $(wildcard tests/integration/*.test.sh)
 norm:
 	norminette srcs includes
 
-unit:
+unit: all
 	@echo "Running unit tests..."
 	@mkdir -p tests/unit/bin
 	@for test in $(UNIT_TESTS); do \
@@ -105,5 +108,8 @@ integration: all
 	@echo "⭐️\033[32mPassed all integration tests!\033[0m⭐️"
 
 test: norm unit integration
+
+valgrind: all
+	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --gen-suppressions=all ./minishell
 
 .PHONY: all clean fclean re norm integration system unit

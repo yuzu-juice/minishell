@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 22:27:24 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/06 12:26:40 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/06 16:50:02 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,9 @@ typedef struct s_minishell
 	t_env	*env;
 	t_proc	*proc;
 }	t_minishell;
+
+t_minishell	*create_minishell_struct(t_env *env);
+void		free_minishell_struct(t_minishell *m_shell);
+char		*get_input_line(void);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 12:10:55 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/27 14:32:36 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/06 16:10:35 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	error(void);
 
-void	unset(int argc, char **argv, t_env **env)
+void	unset(int argc, char **argv, t_minishell *m_shell)
 {
 	t_env	*curr;
 	t_env	*prev;
@@ -24,14 +24,14 @@ void	unset(int argc, char **argv, t_env **env)
 		error();
 		return ;
 	}
-	curr = *env;
+	curr = m_shell->env;
 	prev = NULL;
 	while (curr)
 	{
 		if (ft_strcmp(curr->key, argv[1]) == 0)
 		{
 			if (prev == NULL)
-				*env = curr->next;
+				m_shell->env = curr->next;
 			else
 				prev->next = curr->next;
 			free_env(curr);
