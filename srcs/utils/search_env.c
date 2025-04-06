@@ -1,42 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   search_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/23 12:49:16 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/06 11:56:18 by yohatana         ###   ########.fr       */
+/*   Created: 2025/03/22 19:43:53 by yohatana          #+#    #+#             */
+/*   Updated: 2025/03/24 20:13:34 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	error(void);
-
-void	env(int argc, t_env *env)
+t_env	*search_env(char *key, t_env *env)
 {
-	t_env	*tmp;
+	t_env	*temp;
+	char	*trim_dollar;
 
-	if (argc != 1 || env == NULL)
+	temp = env;
+	trim_dollar = ft_strtrim(key, "$");
+	if (!key)
+		return (NULL);
+	while (temp)
 	{
-		error();
-		return ;
+		if (ft_strcmp(trim_dollar, temp->key) == 0)
+			return (temp);
+		temp = temp->next;
 	}
-	tmp = env;
-	while (tmp)
-	{
-		if (tmp->value != NULL)
-		{
-			write(1, tmp->key, ft_strlen(tmp->key));
-			write(1, "=", 1);
-			ft_putendl_fd(tmp->value, 1);
-		}
-		tmp = tmp->next;
-	}
-}
-
-static void	error(void)
-{
-	ft_putendl_fd("Usage: env", 2);
+	return (NULL);
 }

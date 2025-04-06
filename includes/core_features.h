@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/28 14:46:25 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:58:15 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include "redirections.h"
 
 typedef struct s_token		t_token;
-typedef struct s_proc_list	t_proc_list;
 typedef struct s_proc		t_proc;
 
 typedef struct s_token
@@ -44,9 +43,15 @@ char		**get_env_path(void);
 char		*create_cmd_path(char *cmd);
 
 // parser
-bool		parser(char *line);
-void		expand(t_token **head);
+bool		parser(char *line, t_env *env);
 bool		has_unclosed_quotes(char *line);
+
+// expand_dollar
+bool		expand_dollar(t_token **head, t_env *env);
+
+// expand_dollar_util
+bool		replace_word(t_token *curr, int *index, t_env replace);
+char		*serch_env_value(char *key, t_env *env);
 
 // create_token_list
 t_token		*create_token_list(char *line);

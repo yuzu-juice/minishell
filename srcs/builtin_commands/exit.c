@@ -1,19 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_msg.c                                        :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/16 15:41:25 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/20 14:40:45 by takitaga         ###   ########.fr       */
+/*   Created: 2025/04/01 14:57:27 by yohatana          #+#    #+#             */
+/*   Updated: 2025/04/06 11:36:44 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	print_msg(char *str)
+void	minishell_exit(int argc, char **argv)
 {
-	write(2, str, (int)ft_strlen(str));
-	write(2, "\n", 1);
+	int	status;
+
+	status = 0;
+	if (argc == 1)
+	{
+		exit(0);
+	}
+	if (argc == 2)
+	{
+		status = ft_atoi(argv[1]);
+		exit(status);
+	}
+	else
+	{
+		ft_putstr_fd("Usage: exit [exit_status]\n", 2);
+	}
 }

@@ -6,13 +6,13 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/28 14:48:20 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/30 18:34:14 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-bool	parser(char *line)
+bool	parser(char *line, t_env *env)
 {
 	t_token	*head;
 	t_proc	*proc;
@@ -26,10 +26,12 @@ bool	parser(char *line)
 	head = create_token_list(line);
 	if (!head)
 		return (true);
+	if (expand_dollar(&head, env))
+		return (true);
 	proc = create_process_list(&head);
 	if (!proc)
 	{
-		print_msg("syntax_error");
+		ft_putendl_fd("syntax_error", 2);
 		return (true);
 	}
 	return (false);
@@ -66,6 +68,6 @@ bool	has_unclosed_quotes(char *line)
 
 void	syntax_error(t_token **head)
 {
-	print_msg("syntax_error");
+	ft_putendl_fd("syntax_error", 2);
 	free_token_list(head);
 }

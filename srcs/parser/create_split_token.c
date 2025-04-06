@@ -6,11 +6,11 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 16:26:35 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/19 20:19:08 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/03/30 18:34:34 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static bool	create_redirect_token(char *line, int *i, t_token **head);
 static bool	create_double_redirect(char *line, int *index, char **word);

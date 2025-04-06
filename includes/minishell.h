@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 22:27:24 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/30 14:40:18 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/06 11:56:27 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,11 @@
 
 extern volatile sig_atomic_t	g_sig_flag;
 
-// こんな感じで持ち回したほうが良さそう
 typedef struct s_minishell
 {
-	int		prev_status; // env_keyにしてしまう手もある
+	int		prev_status;
 	t_env	*env;
 	t_proc	*proc;
 }	t_minishell;
-
 
 #endif

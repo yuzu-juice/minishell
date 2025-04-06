@@ -4,18 +4,11 @@ SRCS	= \
 	srcs/exec_cmd.c\
 	srcs/get_env_path.c\
 	srcs/create_cmd_path.c\
-	srcs/parser.c\
-	srcs/create_token_list.c\
-	srcs/create_split_token.c\
-	srcs/create_normal_token.c\
-	srcs/create_token_util.c\
 	srcs/signal_handler.c\
-	srcs/create_process_list.c\
-	srcs/create_process_list_util.c\
 	srcs/utils/free_string_array.c\
 	srcs/utils/add_slash.c\
 	srcs/utils/remove_quotes.c\
-	srcs/utils/print_msg.c\
+	srcs/utils/search_env.c\
 	srcs/builtin_commands/echo.c\
 	srcs/builtin_commands/pwd.c\
 	srcs/builtin_commands/cd.c\
@@ -26,6 +19,16 @@ SRCS	= \
 	srcs/builtin_commands/env.c\
 	srcs/redirections/redirect.c\
 	srcs/builtin_commands/export.c
+	srcs/builtin_commands/exit.c\
+	srcs/parser/create_normal_token.c\
+	srcs/parser/create_process_list_util.c\
+	srcs/parser/create_process_list.c\
+	srcs/parser/create_split_token.c\
+	srcs/parser/create_token_list.c\
+	srcs/parser/create_token_util.c\
+	srcs/parser/expand_dollar_util.c\
+	srcs/parser/expand_dollar.c\
+	srcs/parser/parser.c
 HEADERS	= \
 	includes/minishell.h\
 	includes/core_feature.h\
