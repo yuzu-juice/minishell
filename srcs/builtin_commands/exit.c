@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 14:57:27 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/01 15:12:43 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/06 11:36:44 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ void	minishell_exit(int argc, char **argv)
 	}
 	else
 	{
-		ft_putstr_fd("Usage: exit [exit_status]", 2);
+		ft_putstr_fd("Usage: exit [exit_status]\n", 2);
 	}
 }
