@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   core_features.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/06 14:45:04 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/08 19:30:49 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,8 @@ void		*free_proc_list(t_proc **list);
 
 // error
 void		syntax_error(t_token **head);
+
+// redirection
+void		separate_redir(t_proc *proc);
 
 #endif

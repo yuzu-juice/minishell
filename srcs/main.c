@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/06 16:43:08 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/08 19:30:51 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static void	minishell_loop(t_env *env)
 			add_history(line);
 			if (parser(line, m_shell))
 				continue ;
+			separate_redir(m_shell->proc);
 			exec_cmd(m_shell, line);
 			free(line);
 		}
