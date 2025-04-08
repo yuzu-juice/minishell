@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:16:50 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/08 17:30:46 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:58:27 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,23 @@ bool	minishell_pipe(t_minishell *m_shell)
 	return (false);
 }
 
+// なんかおかしい
 void	parent_process(int pipe_fd[2][2], int index, t_proc *proc)
 {
-	if (index != 0)
+	if (index == 0)
 	{
 		close(pipe_fd[PREV][READ]);
 		close(pipe_fd[PREV][WRITE]);
 	}
-	if (proc->next)
+	else if (proc->next)
 	{
+		// middle
 		pipe_fd[PREV][READ] = pipe_fd[CURR][READ];
 		pipe_fd[PREV][WRITE] = pipe_fd[CURR][WRITE];
 	}
 	else
 	{
+		// last
 		close(pipe_fd[CURR][READ]);
 		close(pipe_fd[CURR][WRITE]);
 	}
