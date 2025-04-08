@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/06 14:45:04 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:31:32 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,11 @@ typedef struct s_proc
 	t_proc			*next;
 }	t_proc;
 
-void		exec_cmd(t_minishell *m_shell, char *str);
+// void		exec_cmd(t_minishell *m_shell, char *str, int proc_index);
+void	exec_cmd(t_minishell *m_shell, \
+	char *cmd, \
+	int proc_index, \
+	int pipe_fd[2][2]);
 
 // from envp
 char		*get_env_pwd(void);

@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 12:23:12 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/06 17:00:21 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:45:29 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@
 typedef struct s_minishell	t_minishell;
 
 bool	minishell_pipe(t_minishell *minishell);
+void	change_fds(t_minishell *m_shell, int proc_index, int pipe_fd[2][2]);
 
 #endif

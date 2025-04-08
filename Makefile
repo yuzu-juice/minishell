@@ -31,7 +31,8 @@ SRCS	= \
 	srcs/parser/parser.c\
 	srcs/get_input_line.c\
 	srcs/create_minishell_struct.c\
-	srcs/pipe/pipe.c
+	srcs/pipe/pipe.c\
+	srcs/pipe/change_fds.c
 HEADERS	= \
 	includes/minishell.h\
 	includes/core_feature.h\

@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:16:50 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/08 16:02:39 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:30:46 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ bool	minishell_pipe(t_minishell *m_shell)
 		}
 		if (pid == 0)
 		{
-			exec_cmd(m_shell, curr->cmd);
+			exec_cmd(m_shell, curr->cmd, index, pipe_fd);
 		}
 		else
 			parent_process(pipe_fd, index, curr);

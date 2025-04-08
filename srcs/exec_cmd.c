@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/08 16:03:00 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:46:24 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,17 @@ static void			exec_builtin(char **cmd_args, \
 								t_minishell *m_shell);
 static void			remove_args_quotes(char **cmd_args);
 
-void	exec_cmd(t_minishell *m_shell, char *cmd)
+void	exec_cmd(t_minishell *m_shell, \
+				char *cmd, \
+				int proc_index, \
+				int pipe_fd[2][2])
 {
 	char		*cmd_path;
 	char		**cmd_args;
 	t_builtin	builtin_cmd;
 	char		**envp;
 
-	printf("exec_cmd %s\n", cmd);
-	// redirectらへん入れたい
+	change_fds(m_shell, proc_index, pipe_fd);
 	cmd_args = create_cmd_args(cmd);
 	if (cmd_args == NULL)
 		perror(NULL);
