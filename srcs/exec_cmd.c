@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/08 17:46:24 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/08 18:05:05 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	exec_cmd(t_minishell *m_shell, \
 	t_builtin	builtin_cmd;
 	char		**envp;
 
-	change_fds(m_shell, proc_index, pipe_fd);
+	if (m_shell->proc_count != 1)
+		change_fds(m_shell, proc_index, pipe_fd);
 	cmd_args = create_cmd_args(cmd);
 	if (cmd_args == NULL)
 		perror(NULL);
