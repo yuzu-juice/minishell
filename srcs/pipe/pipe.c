@@ -6,11 +6,13 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:16:50 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/06 18:22:09 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/08 16:02:39 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	parent_process(int pipe_fd[2][2], int index, t_proc *proc);
 
 bool	minishell_pipe(t_minishell *m_shell)
 {
@@ -18,34 +20,56 @@ bool	minishell_pipe(t_minishell *m_shell)
 	int		pid;
 	int		status;
 	int		pipe_fd[2][2];
+	int		index;
 
 	curr = m_shell->proc;
+	index = 0;
 	while (curr)
 	{
-		// 単一コマンドだったらパイプしない
 		if (m_shell->proc_count != 0)
 		{
-			if (pipe(pipe_fd[1]) < 0)
+			if (pipe(pipe_fd[CURR]) < 0)
 			{
-				ft_putendl_fd("filed: create pipe\n", 2);
+				ft_putendl_fd("failed: create pipe\n", 2);
 				return (true);
 			}
 		}
 		pid = fork();
 		if (pid < 0)
 		{
-			ft_putendl_fd("filed: create process\n", 2);
+			ft_putendl_fd("failed: create process\n", 2);
 			return (true);
 		}
 		if (pid == 0)
 		{
-			printf("child process\n");
-			// redirect
 			exec_cmd(m_shell, curr->cmd);
 		}
+		else
+			parent_process(pipe_fd, index, curr);
 		curr = curr->next;
+		index++;
 	}
-	waitpid(pid, &status, 0);
-	m_shell->prev_status = status;
+	waitpid(pid, &(m_shell->prev_status), 0);
+	wait(&status);
+	m_shell->prev_status = WEXITSTATUS(m_shell->prev_status);
 	return (false);
+}
+
+void	parent_process(int pipe_fd[2][2], int index, t_proc *proc)
+{
+	if (index != 0)
+	{
+		close(pipe_fd[PREV][READ]);
+		close(pipe_fd[PREV][WRITE]);
+	}
+	if (proc->next)
+	{
+		pipe_fd[PREV][READ] = pipe_fd[CURR][READ];
+		pipe_fd[PREV][WRITE] = pipe_fd[CURR][WRITE];
+	}
+	else
+	{
+		close(pipe_fd[CURR][READ]);
+		close(pipe_fd[CURR][WRITE]);
+	}
 }

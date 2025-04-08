@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/06 16:09:37 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/08 16:03:00 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	exec_cmd(t_minishell *m_shell, char *cmd)
 	t_builtin	builtin_cmd;
 	char		**envp;
 
+	printf("exec_cmd %s\n", cmd);
+	// redirectらへん入れたい
 	cmd_args = create_cmd_args(cmd);
 	if (cmd_args == NULL)
 		perror(NULL);
@@ -38,10 +40,19 @@ void	exec_cmd(t_minishell *m_shell, char *cmd)
 	}
 	cmd_path = create_cmd_path(cmd);
 	if (cmd_path == NULL)
+	{
 		perror(NULL);
+		exit(1);
+	}
 	envp = list_to_envp(m_shell->env);
 	if (execve(cmd_path, cmd_args, envp) == -1)
+	{
 		perror(NULL);
+		write(2, "cmd: ", 5);
+		write(2, cmd, ft_strlen(cmd));
+		write(2, "\n", 1);
+		exit(1);
+	}
 	free_string_double_array(envp);
 }
 
