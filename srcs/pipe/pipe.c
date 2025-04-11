@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:16:50 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/11 16:39:02 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:41:18 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,11 @@ bool	minishell_pipe(t_minishell *m_shell)
 			chiled_process(m_shell, curr, index, pipe_fd);
 		else
 			parent_process(pipe_fd, index, curr, m_shell->proc_count);
-		waitpid(pid, &(m_shell->prev_status), 0);
 		curr = curr->next;
 		index++;
 	}
+	waitpid(pid, &(m_shell->prev_status), 0);
+	wait(0);
 	m_shell->prev_status = WEXITSTATUS(m_shell->prev_status);
 	return (false);
 }
