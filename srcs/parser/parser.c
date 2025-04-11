@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/06 16:32:24 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/11 19:19:50 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	parser(char *line, t_minishell *m_shell)
 	head = create_token_list(line);
 	if (!head)
 		return (true);
-	if (expand_dollar(&head, m_shell->env))
+	if (expand_dollar(&head, m_shell))
 		return (true);
 	proc = create_process_list(&head);
 	if (!proc)
