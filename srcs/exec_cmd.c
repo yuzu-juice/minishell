@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/06 16:09:37 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:15:28 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,18 @@ static void			exec_builtin(char **cmd_args, \
 								t_minishell *m_shell);
 static void			remove_args_quotes(char **cmd_args);
 
-void	exec_cmd(t_minishell *m_shell, char *cmd)
+void	exec_cmd(t_minishell *m_shell, \
+				char *cmd, \
+				int proc_index, \
+				int pipe_fd[2][2])
 {
 	char		*cmd_path;
 	char		**cmd_args;
 	t_builtin	builtin_cmd;
 	char		**envp;
 
+	if (m_shell->proc_count > 1)
+		change_fds(m_shell, proc_index, pipe_fd);
 	cmd_args = create_cmd_args(cmd);
 	if (cmd_args == NULL)
 		perror(NULL);
@@ -38,11 +43,19 @@ void	exec_cmd(t_minishell *m_shell, char *cmd)
 	}
 	cmd_path = create_cmd_path(cmd);
 	if (cmd_path == NULL)
+	{
 		perror(NULL);
+		exit(1);
+	}
 	envp = list_to_envp(m_shell->env);
-	if (execve(cmd_path, cmd_args, envp) == -1)
+	if (execve(cmd_path, cmd_args, envp) < 0)
+	{
 		perror(NULL);
-	free_string_double_array(envp);
+		write(2, "cmd: ", 5);
+		write(2, cmd, ft_strlen(cmd));
+		write(2, "\n", 1);
+		exit(1);
+	}
 }
 
 static void	remove_args_quotes(char **cmd_args)

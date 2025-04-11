@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 20:28:04 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/30 18:34:42 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:15:00 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ void	*free_proc_list(t_proc **list)
 		free(curr);
 		curr = temp;
 	}
-	list = NULL;
+	*list = NULL;
 	return (NULL);
 }
