@@ -6,11 +6,11 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:29:28 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/11 16:43:34 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:00:46 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	change_fds(t_minishell *m_shell, int proc_index, int pipe_fd[2][2])
 {

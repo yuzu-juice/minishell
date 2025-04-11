@@ -6,14 +6,20 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:16:50 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/11 16:46:48 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:03:57 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	parent_process(int pipe_fd[2][2], int index, t_proc *proc, int proc_count);
-void	chiled_process(t_minishell *m_shell, t_proc *proc, int index, int pipe_fd[2][2]);
+void		parent_process(int pipe_fd[2][2], \
+							int index, \
+							t_proc *proc, \
+							int proc_count);
+void		chiled_process(t_minishell *m_shell, \
+							t_proc *proc, \
+							int index, \
+							int pipe_fd[2][2]);
 static bool	return_prpcess_err(char *str);
 
 bool	minishell_pipe(t_minishell *m_shell)
@@ -54,7 +60,10 @@ static bool	return_prpcess_err(char *str)
 	return (true);
 }
 
-void	parent_process(int pipe_fd[2][2], int index, t_proc *proc, int proc_count)
+void	parent_process(int pipe_fd[2][2], \
+						int index, \
+						t_proc *proc, \
+						int proc_count)
 {
 
 	(void)index;
@@ -79,8 +88,10 @@ void	parent_process(int pipe_fd[2][2], int index, t_proc *proc, int proc_count)
 	}
 }
 
-void	chiled_process(t_minishell *m_shell, t_proc *proc, int index, int pipe_fd[2][2])
+void	chiled_process(t_minishell *m_shell, \
+						t_proc *proc, \
+						int index, \
+						int pipe_fd[2][2])
 {
-	// redirect
 	exec_cmd(m_shell, proc->cmd, index, pipe_fd);
 }
