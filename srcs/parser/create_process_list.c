@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 13:03:04 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/08 17:27:31 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:14:55 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,9 @@ static bool	token_to_cmd(t_token *curr, t_token *prev, t_proc **list)
 	else
 		is_new_proc = false;
 	if (ft_strcmp(curr->word, "|") == 0)
+	{
 		err_flg = validation_pipe(prev, curr->next);
+	}
 	else
 		err_flg = add_to_cmd(list, curr->word, is_new_proc);
 	return (err_flg);

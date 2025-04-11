@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:16:50 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/11 14:38:56 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:06:58 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	parent_process(int pipe_fd[2][2], int index, t_proc *proc, int proc_count);
 void	chiled_process(t_minishell *m_shell, t_proc *proc, int index, int pipe_fd[2][2]);
+static bool	return_prpcess_err(char *str);
 
 
 /*
@@ -36,39 +37,35 @@ bool	minishell_pipe(t_minishell *m_shell)
 		if (m_shell->proc_count > 1)
 		{
 			if (pipe(pipe_fd[CURR]) < 0)
-			{
-				ft_putendl_fd("failed: create pipe\n", 2);
-				return (true);
-			}
+				return_prpcess_err("failed: create pipe\n");
 		}
 		pid = fork();
 		if (pid < 0)
-		{
-			ft_putendl_fd("failed: create process\n", 2);
-			return (true);
-		}
+			return_prpcess_err("failed: create process\n");
 		if (pid == 0)
 			chiled_process(m_shell, curr, index, pipe_fd);
 		else
 			parent_process(pipe_fd, index, curr, m_shell->proc_count);
+		waitpid(pid, &(m_shell->prev_status), 0);
 		curr = curr->next;
 		index++;
 	}
-	waitpid(pid, &(m_shell->prev_status), 0);
 	m_shell->prev_status = WEXITSTATUS(m_shell->prev_status);
 	return (false);
+}
+
+static bool	return_prpcess_err(char *str)
+{
+	write(2, str, ft_strlen(str));
+	return (true);
 }
 
 void	parent_process(int pipe_fd[2][2], int index, t_proc *proc, int proc_count)
 {
 
+	(void)index;
 	if (proc_count == 1)
 		return ;
-	if (index == 0)
-	{
-		close(pipe_fd[PREV][READ]);
-		close(pipe_fd[PREV][WRITE]);
-	}
 	if (proc->next)
 	{
 		pipe_fd[PREV][READ] = pipe_fd[CURR][READ];
@@ -83,6 +80,6 @@ void	parent_process(int pipe_fd[2][2], int index, t_proc *proc, int proc_count)
 
 void	chiled_process(t_minishell *m_shell, t_proc *proc, int index, int pipe_fd[2][2])
 {
-	// heredoc
+	// redirect
 	exec_cmd(m_shell, proc->cmd, index, pipe_fd);
 }
