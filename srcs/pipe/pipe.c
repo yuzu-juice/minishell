@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:16:50 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/11 16:41:18 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:46:48 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ void	parent_process(int pipe_fd[2][2], int index, t_proc *proc, int proc_count)
 	(void)index;
 	if (proc_count == 1)
 		return ;
+	if (index != 0)
+	{
+		close(pipe_fd[PREV][READ]);
+		close(pipe_fd[PREV][WRITE]);
+	}
 	if (proc->next)
 	{
 		pipe_fd[PREV][READ] = pipe_fd[CURR][READ];
