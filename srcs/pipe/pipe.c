@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:16:50 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/11 16:06:58 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:39:02 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,6 @@ void	parent_process(int pipe_fd[2][2], int index, t_proc *proc, int proc_count);
 void	chiled_process(t_minishell *m_shell, t_proc *proc, int index, int pipe_fd[2][2]);
 static bool	return_prpcess_err(char *str);
 
-
-/*
-	まずは単体パイプを完成させよう->invaled readなん？
-	・ls | ls
-	・ls | cat
-*/
 bool	minishell_pipe(t_minishell *m_shell)
 {
 	t_proc	*curr;
@@ -33,7 +27,6 @@ bool	minishell_pipe(t_minishell *m_shell)
 	index = 0;
 	while (curr)
 	{
-		printf("m_shell->proc_count %d\n", m_shell->proc_count);
 		if (m_shell->proc_count > 1)
 		{
 			if (pipe(pipe_fd[CURR]) < 0)
@@ -73,6 +66,8 @@ void	parent_process(int pipe_fd[2][2], int index, t_proc *proc, int proc_count)
 	}
 	else
 	{
+		close(pipe_fd[PREV][READ]);
+		close(pipe_fd[PREV][WRITE]);
 		close(pipe_fd[CURR][READ]);
 		close(pipe_fd[CURR][WRITE]);
 	}
