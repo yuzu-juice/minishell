@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/11 16:59:53 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:11:00 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_proc
 {
 	char			*cmd;
 	t_redirection	*redir;
+	int				index;
 	t_proc			*next;
 }	t_proc;
 

@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/06 17:07:04 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:12:31 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,18 @@ void	syntax_error(t_token **head)
 static int	count_proc(t_proc *proc)
 {
 	int		count;
+	int		index;
 	t_proc	*curr;
 
 	count = 0;
+	index = 0;
 	curr = proc;
 	while (curr)
 	{
 		count++;
+		curr->index = index;
 		curr = curr->next;
+		index++;
 	}
 	return (count);
 }
