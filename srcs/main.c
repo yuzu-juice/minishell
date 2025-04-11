@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/06 17:00:36 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/11 14:28:02 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,16 @@ static void	minishell_loop(t_env *env)
 		{
 			add_history(line);
 			if (parser(line, m_shell))
+			{
+				free(line);
+				free_proc_list(&(m_shell->proc));
 				continue ;
+			}
 			minishell_pipe(m_shell);
-			// exec_cmd(m_shell, line);
 			free(line);
 		}
-		free_proc_list(&m_shell->proc);
+		free_proc_list(&(m_shell->proc));
+		m_shell->proc_count = 0;
 	}
 	free_minishell_struct(m_shell);
 }

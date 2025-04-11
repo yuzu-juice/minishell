@@ -6,19 +6,25 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:16:50 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/08 17:58:27 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/11 14:38:56 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	parent_process(int pipe_fd[2][2], int index, t_proc *proc);
+void	parent_process(int pipe_fd[2][2], int index, t_proc *proc, int proc_count);
+void	chiled_process(t_minishell *m_shell, t_proc *proc, int index, int pipe_fd[2][2]);
 
+
+/*
+	まずは単体パイプを完成させよう->invaled readなん？
+	・ls | ls
+	・ls | cat
+*/
 bool	minishell_pipe(t_minishell *m_shell)
 {
 	t_proc	*curr;
 	int		pid;
-	int		status;
 	int		pipe_fd[2][2];
 	int		index;
 
@@ -26,7 +32,8 @@ bool	minishell_pipe(t_minishell *m_shell)
 	index = 0;
 	while (curr)
 	{
-		if (m_shell->proc_count != 0)
+		printf("m_shell->proc_count %d\n", m_shell->proc_count);
+		if (m_shell->proc_count > 1)
 		{
 			if (pipe(pipe_fd[CURR]) < 0)
 			{
@@ -41,38 +48,41 @@ bool	minishell_pipe(t_minishell *m_shell)
 			return (true);
 		}
 		if (pid == 0)
-		{
-			exec_cmd(m_shell, curr->cmd, index, pipe_fd);
-		}
+			chiled_process(m_shell, curr, index, pipe_fd);
 		else
-			parent_process(pipe_fd, index, curr);
+			parent_process(pipe_fd, index, curr, m_shell->proc_count);
 		curr = curr->next;
 		index++;
 	}
 	waitpid(pid, &(m_shell->prev_status), 0);
-	wait(&status);
 	m_shell->prev_status = WEXITSTATUS(m_shell->prev_status);
 	return (false);
 }
 
-// なんかおかしい
-void	parent_process(int pipe_fd[2][2], int index, t_proc *proc)
+void	parent_process(int pipe_fd[2][2], int index, t_proc *proc, int proc_count)
 {
+
+	if (proc_count == 1)
+		return ;
 	if (index == 0)
 	{
 		close(pipe_fd[PREV][READ]);
 		close(pipe_fd[PREV][WRITE]);
 	}
-	else if (proc->next)
+	if (proc->next)
 	{
-		// middle
 		pipe_fd[PREV][READ] = pipe_fd[CURR][READ];
 		pipe_fd[PREV][WRITE] = pipe_fd[CURR][WRITE];
 	}
 	else
 	{
-		// last
 		close(pipe_fd[CURR][READ]);
 		close(pipe_fd[CURR][WRITE]);
 	}
+}
+
+void	chiled_process(t_minishell *m_shell, t_proc *proc, int index, int pipe_fd[2][2])
+{
+	// heredoc
+	exec_cmd(m_shell, proc->cmd, index, pipe_fd);
 }
