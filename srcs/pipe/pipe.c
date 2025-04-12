@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yoshiko <yoshiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:16:50 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/11 17:14:45 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/12 23:06:55 by yoshiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void		chiled_process(t_minishell *m_shell, \
 							t_proc *proc, \
 							int pipe_fd[2][2]);
 static bool	return_prpcess_err(char *str);
+void	exec_parent_bultin_cmd(t_minishell *m_shell, t_proc *proc);
 
 bool	minishell_pipe(t_minishell *m_shell)
 {
@@ -26,6 +27,15 @@ bool	minishell_pipe(t_minishell *m_shell)
 	int		pid;
 	int		pipe_fd[2][2];
 
+	// ここ切り分け予定
+	if (m_shell->proc_count == 1)
+	{
+		if (is_builtin(m_shell->proc)) // exec_cmd()でのごちゃごちゃを綺麗にして利用出来るかも
+		{
+			exec_parent_bultin_cmd(m_shell, m_shell->proc);
+			return (false);
+		}
+	}
 	curr = m_shell->proc;
 	while (curr)
 	{
@@ -85,4 +95,21 @@ void	chiled_process(t_minishell *m_shell, \
 						int pipe_fd[2][2])
 {
 	exec_cmd(m_shell, proc->cmd, proc->index, pipe_fd);
+}
+
+void	exec_parent_bultin_cmd(t_minishell *m_shell, t_proc *proc)
+{
+	char **cmd_args;
+	int	builtin_cmd;
+
+	cmd_args = create_cmd_args(proc->cmd);
+	if (cmd_args == NULL)
+		perror(NULL);
+	remove_args_quotes(cmd_args);
+	builtin_cmd = resolve_builtin_cmd(cmd_args[0]);
+	if (builtin_cmd != NOT_A_BUILTIN_COMMAND)
+	{
+		exec_builtin(cmd_args, builtin_cmd, m_shell);
+		return ;
+	}
 }
