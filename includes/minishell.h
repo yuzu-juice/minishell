@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 22:27:24 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/06 16:55:23 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/13 13:28:47 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "env.h"
 # include "redirections.h"
 # include "pipes.h"
+# include "exec.h"
 
 # include <stdio.h>
 # include <readline/readline.h>

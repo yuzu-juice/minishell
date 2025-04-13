@@ -6,13 +6,13 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 14:57:27 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/06 11:36:44 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/13 13:41:51 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	minishell_exit(int argc, char **argv)
+int	minishell_exit(int argc, char **argv)
 {
 	int	status;
 
@@ -29,5 +29,6 @@ void	minishell_exit(int argc, char **argv)
 	else
 	{
 		ft_putstr_fd("Usage: exit [exit_status]\n", 2);
+		return (1);
 	}
 }

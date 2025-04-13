@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 10:45:06 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/27 14:34:03 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/13 13:46:00 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	error(void);
 
-void	echo(int argc, char **argv)
+int	echo(int argc, char **argv)
 {
 	int	i;
 
@@ -22,14 +22,14 @@ void	echo(int argc, char **argv)
 	if (argc == 1)
 	{
 		error();
-		return ;
+		return (1);
 	}
 	if (argv[1][0] == '-' && argv[1][1] == 'n' && argv[1][2] == '\0')
 		i++;
 	else
 	{
 		error();
-		return ;
+		return (1);
 	}
 	while (i < argc)
 	{
@@ -38,6 +38,7 @@ void	echo(int argc, char **argv)
 		if (i < argc)
 			write(1, " ", 1);
 	}
+	return (0);
 }
 
 static void	error(void)

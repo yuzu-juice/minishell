@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/11 17:11:00 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/13 13:32:58 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ typedef struct s_proc
 }	t_proc;
 
 // void		exec_cmd(t_minishell *m_shell, char *str, int proc_index);
-void	exec_cmd(t_minishell *m_shell, \
-	char *cmd, \
-	int proc_index, \
-	int pipe_fd[2][2]);
+// void	exec_cmd(t_minishell *m_shell, \
+// 	char *cmd, \
+// 	int proc_index, \
+// 	int pipe_fd[2][2]);
 
 // from envp
 char	*get_env_pwd(void);
 char	**get_env_path(void);
 
 // create cmd
-char	*create_cmd_path(char *cmd);
+// char	*create_cmd_path(char *cmd);
 
 // parser
 bool	parser(char *line, t_minishell *m_shell);

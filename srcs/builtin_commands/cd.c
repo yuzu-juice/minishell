@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 11:15:38 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/27 14:32:04 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/13 13:38:45 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static void	error(void);
 
-void	cd(int argc, char **argv)
+int	cd(int argc, char **argv)
 {
 	if (argc != 2)
 	{
 		error();
-		return ;
+		return (1);
 	}
 	if (access(argv[1], F_OK) == 0)
 	{
@@ -27,7 +27,11 @@ void	cd(int argc, char **argv)
 			perror(argv[1]);
 	}
 	else
+	{
 		perror(argv[1]);
+		return (1);
+	}
+	return (0);
 }
 
 static void	error(void)

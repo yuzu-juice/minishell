@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 10:51:45 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/06 16:09:18 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/13 13:43:22 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ typedef enum e_builtin
 	EXIT,
 }	t_builtin;
 
-void	echo(int argc, char **argv);
-void	pwd(int argc);
-void	cd(int argc, char **argv);
-void	unset(int argc, char **argv, t_minishell *m_shell);
-void	env(int argc, t_minishell *m_shell);
-void	export(int argc, char **argv, t_minishell *m_shell);
-void	minishell_exit(int argc, char **argv);
+int	echo(int argc, char **argv);
+int	pwd(int argc);
+int	cd(int argc, char **argv);
+int	unset(int argc, char **argv, t_minishell *m_shell);
+int	env(int argc, t_minishell *m_shell);
+int	export(int argc, char **argv, t_minishell *m_shell);
+int	minishell_exit(int argc, char **argv);
 
 #endif
