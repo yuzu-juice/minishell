@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 13:26:20 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/13 13:37:00 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/13 14:10:09 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define EXEC_H
 
 typedef struct s_minishell	t_minishell;
-typedef enum   e_builtin	t_builtin;
+typedef enum e_builtin		t_builtin;
 
 // exec_cmd
 void		exec_cmd(t_minishell *m_shell, \

@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:16:50 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/13 13:56:31 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/13 14:07:51 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void		chiled_process(t_minishell *m_shell, \
 							t_proc *proc, \
 							int pipe_fd[2][2]);
 static bool		return_prpcess_err(char *str);
-static void		exec_parent_bultin_cmd(t_minishell *m_shell, t_proc *proc);
+static bool		exec_parent_bultin_cmd(t_minishell *m_shell, t_proc *proc);
 
 bool	minishell_pipe(t_minishell *m_shell)
 {
@@ -27,8 +27,8 @@ bool	minishell_pipe(t_minishell *m_shell)
 	int		pid;
 	int		pipe_fd[2][2];
 
-	if (m_shell->proc_count == 1)
-		exec_parent_bultin_cmd(m_shell, m_shell->proc);
+	if (exec_parent_bultin_cmd(m_shell, m_shell->proc))
+		return (false);
 	curr = m_shell->proc;
 	while (curr)
 	{
@@ -90,22 +90,25 @@ static void	chiled_process(t_minishell *m_shell, \
 	exec_cmd(m_shell, proc->cmd, proc->index, pipe_fd);
 }
 
-static void	exec_parent_bultin_cmd(t_minishell *m_shell, t_proc *proc)
+static bool	exec_parent_bultin_cmd(t_minishell *m_shell, t_proc *proc)
 {
 	char	**cmd_args;
 	int		builtin_cmd;
 
+	if (m_shell->proc_count != 1)
+		return (false);
 	cmd_args = ft_split(proc->cmd, ' ');
 	if (cmd_args == NULL)
 	{
 		perror(NULL);
-		return ;
+		return (true);
 	}
 	remove_args_quotes(cmd_args);
 	builtin_cmd = resolve_builtin_cmd(cmd_args[0]);
 	if (builtin_cmd == NOT_A_BUILTIN_COMMAND)
-		return ;
+		return (false);
 	m_shell->prev_status = exec_builtin(cmd_args, builtin_cmd, m_shell);
+	return (true);
 }
 
 
