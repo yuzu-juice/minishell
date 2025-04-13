@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 13:18:47 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/13 13:47:31 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/13 14:16:25 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,25 @@ int	exec_builtin(char **cmd_args, \
 		status = minishell_exit(i, cmd_args);
 	free_string_double_array(cmd_args);
 	return (status);
+}
+
+bool	exec_parent_bultin_cmd(t_minishell *m_shell, t_proc *proc)
+{
+	char	**cmd_args;
+	int		builtin_cmd;
+
+	if (m_shell->proc_count != 1)
+		return (false);
+	cmd_args = ft_split(proc->cmd, ' ');
+	if (cmd_args == NULL)
+	{
+		perror(NULL);
+		return (true);
+	}
+	remove_args_quotes(cmd_args);
+	builtin_cmd = resolve_builtin_cmd(cmd_args[0]);
+	if (builtin_cmd == NOT_A_BUILTIN_COMMAND)
+		return (false);
+	m_shell->prev_status = exec_builtin(cmd_args, builtin_cmd, m_shell);
+	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 13:26:20 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/13 14:10:09 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/13 14:16:58 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ t_builtin	resolve_builtin_cmd(char *cmd);
 int			exec_builtin(char **cmd_args, \
 								t_builtin cmd, \
 								t_minishell *m_shell);
+bool		exec_parent_bultin_cmd(t_minishell *m_shell, t_proc *proc);
 
 #endif
