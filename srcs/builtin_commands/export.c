@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 18:42:27 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/06 16:13:30 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/13 13:42:20 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,22 @@
 
 static void	print_env(t_minishell *m_shell);
 
-void	export(int argc, char **argv, t_minishell *m_shell)
+int	export(int argc, char **argv, t_minishell *m_shell)
 {
 	if (argc == 1)
 	{
 		print_env(m_shell);
+		return (0);
 	}
 	else if (argc == 2)
 	{
 		add_env_node(m_shell->env, argv[1], 1);
+		return (0);
 	}
 	else
 	{
 		ft_putstr_fd("Usage: export [key=value]\n", 2);
+		return (1);
 	}
 }
 
