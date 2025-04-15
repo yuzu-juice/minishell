@@ -30,7 +30,10 @@ SRCS	= \
 	srcs/parser/expand_dollar.c\
 	srcs/parser/parser.c\
 	srcs/get_input_line.c\
-	srcs/create_minishell_struct.c
+	srcs/create_minishell_struct.c\
+	srcs/pipe/pipe.c\
+	srcs/pipe/change_fds.c\
+	srcs/exec_builtin_cmd.c
 HEADERS	= \
 	includes/minishell.h\
 	includes/core_feature.h\
@@ -42,7 +45,7 @@ MAIN_OBJ = $(MAIN:.c=.o)
 OBJS	= $(SRCS:.c=.o)
 
 CC	= cc
-CFLAGS	= -Wall -Wextra -Werror -I includes/
+CFLAGS	= -Wall -Wextra -Werror -I includes/ -g
 
 .DEFAULT:	all
 

@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:48:17 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/30 18:38:59 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:17:47 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,11 @@ void	free_token_list(t_token **head)
 	curr = *head;
 	while (curr)
 	{
+		if (ft_strcmp(curr->word, "|") == 0)
+			free(curr->word);
 		temp = curr->next;
 		free(curr);
 		curr = temp;
 	}
+	*head = NULL;
 }

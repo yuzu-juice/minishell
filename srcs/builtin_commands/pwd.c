@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 19:03:10 by takitaga          #+#    #+#             */
-/*   Updated: 2025/03/27 14:33:04 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/13 13:42:34 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,19 @@
 
 static void	error(void);
 
-void	pwd(int argc)
+int	pwd(int argc)
 {
 	char	*pwd;
 
 	if (argc != 1)
 	{
 		error();
-		return ;
+		return (1);
 	}
 	pwd = getcwd(NULL, 0);
 	ft_putendl_fd(pwd, 1);
 	free(pwd);
+	return (0);
 }
 
 static void	error(void)

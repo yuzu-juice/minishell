@@ -1,40 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   pipes.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/23 11:15:38 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/13 13:38:45 by yohatana         ###   ########.fr       */
+/*   Created: 2025/04/06 12:23:12 by yohatana          #+#    #+#             */
+/*   Updated: 2025/04/08 17:45:29 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#ifndef PIPES_H
+# define PIPES_H
 
-static void	error(void);
+# define PREV 0
+# define CURR 1
+# define READ 0
+# define WRITE 1
 
-int	cd(int argc, char **argv)
-{
-	if (argc != 2)
-	{
-		error();
-		return (1);
-	}
-	if (access(argv[1], F_OK) == 0)
-	{
-		if (chdir(argv[1]) == -1)
-			perror(argv[1]);
-	}
-	else
-	{
-		perror(argv[1]);
-		return (1);
-	}
-	return (0);
-}
+typedef struct s_minishell	t_minishell;
 
-static void	error(void)
-{
-	ft_putendl_fd("Usage: cd [relative path | absolute path]", 2);
-}
+bool	minishell_pipe(t_minishell *minishell);
+void	change_fds(t_minishell *m_shell, int proc_index, int pipe_fd[2][2]);
+
+#endif

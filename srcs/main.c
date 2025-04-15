@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/06 16:43:08 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/13 14:15:51 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 volatile sig_atomic_t	g_sig_flag;
 
 static void			minishell(t_env *env);
-static void			minishell_loop(t_env *env);
+static void			minishell_loop(t_minishell *m_shell);
 static void			exit_null_line(t_minishell *m_shell);
 
 int	main(int argc, char **argv, char **envp)
@@ -37,6 +37,8 @@ int	main(int argc, char **argv, char **envp)
 
 static void	minishell(t_env *env)
 {
+	t_minishell	*m_shell;
+
 	if (signal(SIGINT, handle_sigint) == SIG_ERR)
 	{
 		perror(NULL);
@@ -44,17 +46,16 @@ static void	minishell(t_env *env)
 		rl_clear_history();
 		exit(EXIT_FAILURE);
 	}
-	minishell_loop(env);
-}
-
-static void	minishell_loop(t_env *env)
-{
-	char		*line;
-	t_minishell	*m_shell;
-
 	m_shell = create_minishell_struct(env);
 	if (!m_shell)
 		return ;
+	minishell_loop(m_shell);
+}
+
+static void	minishell_loop(t_minishell *m_shell)
+{
+	char		*line;
+
 	while (1)
 	{
 		line = get_input_line();
@@ -64,11 +65,16 @@ static void	minishell_loop(t_env *env)
 		{
 			add_history(line);
 			if (parser(line, m_shell))
+			{
+				free(line);
+				free_proc_list(&(m_shell->proc));
 				continue ;
-			exec_cmd(m_shell, line);
+			}
+			minishell_pipe(m_shell);
 			free(line);
 		}
-		free_proc_list(&m_shell->proc);
+		free_proc_list(&(m_shell->proc));
+		m_shell->proc_count = 0;
 	}
 	free_minishell_struct(m_shell);
 }
