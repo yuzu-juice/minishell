@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 20:33:45 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/11 19:30:31 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/15 14:45:58 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static bool	replace_env_word(t_token *curr, int *index, t_minishell *m_shell)
 		*index = *index + 1;
 		return (false);
 	}
-	replace.value = ft_strdup(serch_env_value(replace.key, m_shell));
+	replace.value = ft_strdup(search_env_value(replace.key, m_shell));
 	if (replace_word(curr, index, replace))
 	{
 		free(replace.key);
