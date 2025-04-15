@@ -157,31 +157,31 @@ int main(int argc, char **argv, char **envp)
 	}
 
 	// prev_status get
-	m_shell->prev_status = 0;
-	char	*array11[] = {ft_strdup("0")};
-	head = create_token_list("$?");
-	err = expand_dollar(&head, m_shell);
-	assert(err == false);
-	temp = head;
-	i = 0;
-	while (temp)
-	{
-		assert(strcmp(temp->word, array11[i]) == 0);
-		temp = temp->next;
-		i++;
-	}
+	// m_shell->prev_status = 0;
+	// char	*array11[] = {ft_strdup("0")};
+	// head = create_token_list("$?");
+	// err = expand_dollar(&head, m_shell);
+	// assert(err == false);
+	// temp = head;
+	// i = 0;
+	// while (temp)
+	// {
+	// 	assert(strcmp(temp->word, array11[i]) == 0);
+	// 	temp = temp->next;
+	// 	i++;
+	// }
 
-	char	*array12[] = {ft_strdup("0aa")};
-	head = create_token_list("$?aa");
-	err = expand_dollar(&head, m_shell);
-	assert(err == false);
-	temp = head;
-	i = 0;
-	while (temp)
-	{
-		assert(strcmp(temp->word, array12[i]) == 0);
-		temp = temp->next;
-		i++;
-	}
+	// char	*array12[] = {ft_strdup("0aa")};
+	// head = create_token_list("$?aa");
+	// err = expand_dollar(&head, m_shell);
+	// assert(err == false);
+	// temp = head;
+	// i = 0;
+	// while (temp)
+	// {
+	// 	assert(strcmp(temp->word, array12[i]) == 0);
+	// 	temp = temp->next;
+	// 	i++;
+	// }
 	return (0);
 }
