@@ -10,8 +10,8 @@ int main(int argc, char **argv, char **envp)
 	int i = 0;
 	t_minishell *m_shell;
 
-	env = envp_to_list(envp);
 	m_shell->env = env;
+	m_shell = create_minishell_struct(env);
 
 	// only 1 token 1 dollar
 	char	*array1[] = {getenv("PWD")};
