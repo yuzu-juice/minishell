@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/13 14:20:38 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/15 14:46:54 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,16 @@ typedef struct s_proc
 char	*get_env_pwd(void);
 char	**get_env_path(void);
 
-// create cmd
-// char	*create_cmd_path(char *cmd);
-
 // parser
 bool	parser(char *line, t_minishell *m_shell);
 bool	has_unclosed_quotes(char *line);
 
 // expand_dollar
-bool	expand_dollar(t_token **head, t_env *env);
+bool	expand_dollar(t_token **head, t_minishell *m_shell);
 
 // expand_dollar_util
 bool	replace_word(t_token *curr, int *index, t_env replace);
-char	*serch_env_value(char *key, t_env *env);
+char	*search_env_value(char *key, t_minishell *m_shell);
 
 // create_token_list
 t_token	*create_token_list(char *line);

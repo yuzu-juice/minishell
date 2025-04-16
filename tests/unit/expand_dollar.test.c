@@ -8,13 +8,15 @@ int main(int argc, char **argv, char **envp)
 	bool	err;
 	t_token *temp;
 	int i = 0;
+	t_minishell *m_shell = create_minishell_struct(NULL);
 
 	env = envp_to_list(envp);
+	m_shell->env = env;
 
 	// only 1 token 1 dollar
 	char	*array1[] = {getenv("PWD")};
 	head = create_token_list("$PWD");
-	err = expand_dollar(&head, env);
+	err = expand_dollar(&head, m_shell);
 	assert(err == false);
 	temp = head;
 	while (temp)
@@ -27,7 +29,7 @@ int main(int argc, char **argv, char **envp)
 
 	char	*array2[] = {ft_strjoin(getenv("PWD"), getenv("PWD"))};
 	head = create_token_list("$PWD$PWD");
-	err = expand_dollar(&head, env);
+	err = expand_dollar(&head, m_shell);
 	assert(err == false);
 	temp = head;
 	i = 0;
@@ -41,7 +43,7 @@ int main(int argc, char **argv, char **envp)
 
 	char	*array3[] = {ft_strjoin("a", getenv("PWD"))};
 	head = create_token_list("a$PWD");
-	err = expand_dollar(&head, env);
+	err = expand_dollar(&head, m_shell);
 	assert(err == false);
 	temp = head;
 	i = 0;
@@ -55,7 +57,7 @@ int main(int argc, char **argv, char **envp)
 	// double quote
 	char	*array4[] = {ft_strjoin(ft_strjoin("\"", getenv("PWD")), "\"")};
 	head = create_token_list("\"$PWD\"");
-	err = expand_dollar(&head, env);
+	err = expand_dollar(&head, m_shell);
 	assert(err == false);
 	temp = head;
 	i = 0;
@@ -69,7 +71,7 @@ int main(int argc, char **argv, char **envp)
 	// nothing env value
 	char	array5[][100] = {{""}};
 	head = create_token_list("$NOTHING");
-	err = expand_dollar(&head, env);
+	err = expand_dollar(&head, m_shell);
 	assert(err == false);
 	temp = head;
 	i = 0;
@@ -83,7 +85,7 @@ int main(int argc, char **argv, char **envp)
 	// single quote
 	char	array6[][100] = {{"\'$PWD\'"}};
 	head = create_token_list("\'$PWD\'");
-	err = expand_dollar(&head, env);
+	err = expand_dollar(&head, m_shell);
 	assert(err == false);
 	temp = head;
 	i = 0;
@@ -98,7 +100,7 @@ int main(int argc, char **argv, char **envp)
 	char	*array7[] = {ft_strjoin(getenv("PWD"), ft_strjoin(ft_strjoin("\"", getenv("PWD")), "\""))};
 	// char	array7[][100] = {{"/home/yohatana/work/minishell\"/home/yohatana/work/minishell\""}};
 	head = create_token_list("$PWD\"$PWD\"");
-	err = expand_dollar(&head, env);
+	err = expand_dollar(&head, m_shell);
 	assert(err == false);
 	temp = head;
 	i = 0;
@@ -112,7 +114,7 @@ int main(int argc, char **argv, char **envp)
 	// $ only
 	char	array8[][100] = {{"$"}};
 	head = create_token_list("$");
-	err = expand_dollar(&head, env);
+	err = expand_dollar(&head, m_shell);
 	assert(err == false);
 	temp = head;
 	i = 0;
@@ -126,7 +128,7 @@ int main(int argc, char **argv, char **envp)
 	// contiguous string
 	char	*array9[] = {ft_strjoin(ft_strjoin("abc", getenv("PWD")), "\'def\'")};
 	head = create_token_list("abc$PWD\'def\'");
-	err = expand_dollar(&head, env);
+	err = expand_dollar(&head, m_shell);
 	assert(err == false);
 	temp = head;
 	i = 0;
@@ -143,13 +145,41 @@ int main(int argc, char **argv, char **envp)
 									getenv("USER"), \
 									ft_strdup("\'$\'")};
 	head = create_token_list("abc$PWD\'def\' $a\"$USER\" $USER \'$\'");
-	err = expand_dollar(&head, env);
+	err = expand_dollar(&head, m_shell);
 	assert(err == false);
 	temp = head;
 	i = 0;
 	while (temp)
 	{
 		assert(strcmp(temp->word, array10[i]) == 0);
+		temp = temp->next;
+		i++;
+	}
+
+	// prev_status get
+	m_shell->prev_status = 0;
+	char	*array11[] = {ft_strdup("0")};
+	head = create_token_list("$?");
+	err = expand_dollar(&head, m_shell);
+	assert(err == false);
+	temp = head;
+	i = 0;
+	while (temp)
+	{
+		assert(strcmp(temp->word, array11[i]) == 0);
+		temp = temp->next;
+		i++;
+	}
+
+	char	*array12[] = {ft_strdup("0aa")};
+	head = create_token_list("$?aa");
+	err = expand_dollar(&head, m_shell);
+	assert(err == false);
+	temp = head;
+	i = 0;
+	while (temp)
+	{
+		assert(strcmp(temp->word, array12[i]) == 0);
 		temp = temp->next;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 14:28:21 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/06 16:55:46 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/15 14:42:58 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_minishell	*create_minishell_struct(t_env *env)
 		return (NULL);
 	}
 	m_shell->env = env;
+	m_shell->prev_status = 0;
 	m_shell->proc_count = 0;
 	return (m_shell);
 }

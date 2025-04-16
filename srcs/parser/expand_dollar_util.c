@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 13:18:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/30 18:34:22 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/15 14:45:16 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,17 @@ static char	*split_after_word(t_token *curr, int *index, t_env replace)
 	return (split_after_word);
 }
 
-char	*serch_env_value(char *key, t_env *env)
+char	*search_env_value(char *key, t_minishell *m_shell)
 {
 	t_env	*find;
+	char	*status;
 
-	find = search_env(key, env);
+	if (ft_strcmp(key, "$?") == 0)
+	{
+		status = ft_itoa(m_shell->prev_status);
+		return (status);
+	}
+	find = search_env(key, m_shell->env);
 	if (find == NULL)
 		return ("");
 	return (find->value);

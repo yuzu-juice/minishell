@@ -6,18 +6,18 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 20:33:45 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/30 18:34:18 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/15 14:45:58 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static bool	expand_exec(t_token *curr, int *index, t_env *env);
+static bool	expand_exec(t_token *curr, int *index, t_minishell *m_shell);
 static void	skip_single_quote(t_token *curr, int *index);
-static bool	replace_env_word(t_token *curr, int *index, t_env *env);
+static bool	replace_env_word(t_token *curr, int *index, t_minishell *m_shell);
 static char	*split_env_key(t_token *curr, int *index);
 
-bool	expand_dollar(t_token **head, t_env *env)
+bool	expand_dollar(t_token **head, t_minishell *m_shell)
 {
 	t_token	*curr;
 	int		i;
@@ -31,7 +31,7 @@ bool	expand_dollar(t_token **head, t_env *env)
 		while (curr->word[i])
 		{
 			if (is_quote(curr->word[i]) || curr->word[i] == '$')
-				err_flg = expand_exec(curr, &i, env);
+				err_flg = expand_exec(curr, &i, m_shell);
 			if (err_flg)
 				break ;
 			i++;
@@ -45,7 +45,7 @@ bool	expand_dollar(t_token **head, t_env *env)
 	return (false);
 }
 
-static bool	expand_exec(t_token *curr, int *index, t_env *env)
+static bool	expand_exec(t_token *curr, int *index, t_minishell *m_shell)
 {
 	int		i;
 	bool	err_flg;
@@ -61,13 +61,13 @@ static bool	expand_exec(t_token *curr, int *index, t_env *env)
 			if (curr->word[i] == '$')
 			{
 				*index = i;
-				err_flg = replace_env_word(curr, index, env);
+				err_flg = replace_env_word(curr, index, m_shell);
 			}
 			i++;
 		}
 	}
 	else
-		err_flg = replace_env_word(curr, index, env);
+		err_flg = replace_env_word(curr, index, m_shell);
 	return (err_flg);
 }
 
@@ -85,7 +85,7 @@ static void	skip_single_quote(t_token *curr, int *index)
 	*index = i;
 }
 
-static bool	replace_env_word(t_token *curr, int *index, t_env *env)
+static bool	replace_env_word(t_token *curr, int *index, t_minishell *m_shell)
 {
 	t_env	replace;
 
@@ -97,7 +97,7 @@ static bool	replace_env_word(t_token *curr, int *index, t_env *env)
 		*index = *index + 1;
 		return (false);
 	}
-	replace.value = ft_strdup(serch_env_value(replace.key, env));
+	replace.value = ft_strdup(search_env_value(replace.key, m_shell));
 	if (replace_word(curr, index, replace))
 	{
 		free(replace.key);
@@ -113,6 +113,8 @@ static char	*split_env_key(t_token *curr, int *index)
 	int		i;
 
 	i = *index + 1;
+	if (ft_strncmp(&curr->word[*index], "$?", 2) == 0)
+		return (ft_strdup("$?"));
 	while (curr->word[i] && curr->word[i] != ' ' && \
 		!is_quote(curr->word[i]) && curr->word[i] != '$')
 		i++;
