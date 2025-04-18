@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 13:03:04 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/18 03:16:24 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/18 03:19:16 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static t_proc	*create_proc_node(char *word);
 static bool		add_proc_list(t_proc **list, t_proc *new);
 static bool		add_to_cmd(t_proc **list, char *word, bool is_new_proc);
-static bool		token_to_cmd(t_token *curr, t_token *prev, t_proc **list);
+static bool		token_to_cmd(t_token **curr, t_token *prev, t_proc **list);
 
 t_proc	*create_process_list(t_token **head)
 {
@@ -30,7 +30,7 @@ t_proc	*create_process_list(t_token **head)
 	prev = NULL;
 	while (curr)
 	{
-		err_flg = token_to_cmd(curr, prev, &list);
+		err_flg = token_to_cmd(&curr, prev, &list);
 		if (err_flg)
 			break ;
 		prev = curr;
@@ -49,7 +49,6 @@ static t_proc	*create_proc_node(char *word)
 	if (!proc)
 		return (NULL);
 	proc->cmd = word;
-	proc->redir = NULL;
 	proc->next = NULL;
 	return (proc);
 }
@@ -102,7 +101,7 @@ static bool	add_proc_list(t_proc **list, t_proc *new)
 	return (false);
 }
 
-static bool	token_to_cmd(t_token *curr, t_token *prev, t_proc **list)
+static bool	token_to_cmd(t_token **curr, t_token *prev, t_proc **list)
 {
 	bool	err_flg;
 	bool	is_new_proc;
