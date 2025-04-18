@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 11:33:20 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/18 13:57:52 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/18 15:11:20 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	count_quotes(char *token);
 static char	*copy_token(char *token, char *ret);
+static void	copy_str(char *ret, char *token, int *i, int *k);
 
 char	*remove_quotes(char *token)
 {
@@ -47,9 +48,10 @@ static int	count_quotes(char *token)
 			remove_char_count++;
 			quote_type = token[i];
 			j = i + 1;
-			while (token[j] != quote_type)
+			while (token[j] != quote_type && token[j] != '\0')
 				j++;
-			remove_char_count++;
+			if (token[j] == quote_type)
+				remove_char_count++;
 			i = j;
 		}
 		i++;
@@ -60,26 +62,39 @@ static int	count_quotes(char *token)
 static char	*copy_token(char *token, char *ret)
 {
 	int		i;
-	char	quote_type;
-	int		j;
 	int		k;
 
 	i = 0;
 	k = 0;
 	while (token[i] != '\0')
 	{
-		if (token[i] == '\'' || token[i] == '"')
-			quote_type = token[i];
-		j = i + 1;
-		while (token[j] != quote_type)
+		if (token[i] != '\'' && token[i] != '"')
 		{
-			ret[k] = token[j];
-			j++;
+			ret[k] = token[i];
 			k++;
 		}
-		i = j;
+		else
+		{
+			copy_str(ret, token, &i, &k);
+		}
 		i++;
 	}
 	ret[k] = '\0';
 	return (ret);
+}
+
+static void	copy_str(char *ret, char *token, int *i, int *k)
+{
+	char	quote_type;
+	int		j;
+
+	quote_type = token[*i];
+	j = *i + 1;
+	while (token[j] != quote_type && token[j] != '\0')
+	{
+		ret[*k] = token[j];
+		j++;
+		*k = *k + 1;
+	}
+	*i = j;
 }

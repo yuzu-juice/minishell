@@ -5,6 +5,8 @@
 assert_bash_equivalent 'echo -n'
 assert_bash_equivalent 'echo -n aaa'
 assert_bash_equivalent 'echo -n "aaa"sss "ddd"'
+assert_bash_equivalent 'echo -n "aaa sss"'
+assert_bash_equivalent "echo -n 'aaa sss'"
 assert_bash_equivalent "echo -n 'aaa' 'sss' 'ddd'"
 assert_bash_equivalent 'echo -n aaa sss        ddd'
 assert_bash_equivalent "echo -n 'single quoted' mixed \"double quoted\""
