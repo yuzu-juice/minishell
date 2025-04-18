@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:45:26 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/18 16:49:16 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/18 16:53:46 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	output(char *cmd, t_redirection *redir, t_minishell *m_shell)
 {
 	int		outfile_fd;
 	int		pfd[2][2];
-	t_proc *proc;
+	t_proc	*proc;
 
 	outfile_fd = open(redir->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (outfile_fd < 0)

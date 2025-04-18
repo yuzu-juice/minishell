@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 17:16:50 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/18 16:26:33 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/18 16:53:30 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,5 @@ static void	chiled_process(t_minishell *m_shell, \
 						t_proc *proc, \
 						int pipe_fd[2][2])
 {
-	// exec_cmd(m_shell, proc->cmd, proc->index, pipe_fd);
 	exec_cmd(m_shell, proc, pipe_fd);
 }

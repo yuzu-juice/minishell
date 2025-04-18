@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/18 16:49:14 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:04:30 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,14 @@ static char	**create_cmd_args(t_proc *proc)
 	int		count_word;
 	int		i;
 
-	printf("proc %p\n", proc);
 	count_word = count_token(&proc->token);
-	cmd_args = (char **)ft_calloc(sizeof(char *), count_word);
+	cmd_args = (char **)ft_calloc(sizeof(char *), count_word + 1);
 	if (!cmd_args)
 		return (NULL);
 	token = proc->token;
 	i = 0;
 	while (token)
 	{
-		printf("token->word %s\n", token->word);
 		cmd_args[i] = ft_strdup(token->word);
 		if (!cmd_args[i])
 		{
@@ -84,6 +82,7 @@ static char	**create_cmd_args(t_proc *proc)
 		i++;
 		token = token->next;
 	}
+	cmd_args[i] = NULL;
 	return (cmd_args);
 }
 

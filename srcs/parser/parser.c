@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/18 16:49:23 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/18 16:54:09 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ bool	parser(char *line, t_minishell *m_shell)
 		ft_putendl_fd("syntax_error", 2);
 		return (true);
 	}
-
 	m_shell->proc = proc;
 	m_shell->proc_count = count_proc(proc);
 	return (false);
