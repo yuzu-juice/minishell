@@ -10,7 +10,7 @@ int	main(void)
 
 	// "'ls'"
 	removed_quotes = remove_quotes("\"\'ls\'\"");
-	assert(strcmp(removed_quotes, "ls") == 0);
+	assert(strcmp(removed_quotes, "\'ls\'") == 0);
 
     // ls
 	removed_quotes = remove_quotes("ls");
