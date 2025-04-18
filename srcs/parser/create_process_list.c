@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_process_list.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 13:03:04 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/11 16:14:55 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/18 03:16:24 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ t_proc	*create_process_list(t_token **head)
 	err_flg = false;
 	curr = *head;
 	prev = NULL;
-	head = NULL;
 	while (curr)
 	{
 		err_flg = token_to_cmd(curr, prev, &list);
