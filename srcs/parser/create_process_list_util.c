@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 20:28:04 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/11 16:15:00 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/18 15:52:14 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ t_proc	*get_last_proc(t_proc **list)
 	return (temp);
 }
 
-bool	validation_pipe(t_token *prev, t_token *next)
+bool	validation_pipe(t_token *prev, t_token *next, t_proc **list)
 {
+	(void)list;
 	if (prev == NULL || next == NULL)
 		return (true);
 	if (ft_strcmp(prev->word, "|") == 0 || ft_strcmp(next->word, "|") == 0)

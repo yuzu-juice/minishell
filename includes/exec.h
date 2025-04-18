@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 13:26:20 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/13 14:16:58 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/18 16:27:19 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@ typedef struct s_minishell	t_minishell;
 typedef enum e_builtin		t_builtin;
 
 // exec_cmd
+// void		exec_cmd(t_minishell *m_shell, \
+// 	char *cmd, \
+// 	int proc_index, \
+// 	int pipe_fd[2][2]);
 void		exec_cmd(t_minishell *m_shell, \
-	char *cmd, \
-	int proc_index, \
-	int pipe_fd[2][2]);
+					t_proc	*proc, \
+					int pipe_fd[2][2]);
 void		remove_args_quotes(char **cmd_args);
 
 // create cmd_path

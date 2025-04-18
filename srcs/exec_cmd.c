@@ -6,19 +6,18 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/13 14:01:27 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/18 16:49:14 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static char	**create_cmd_args(char *cmd);
+static char	**create_cmd_args(t_proc *proc);
 static void	print_execve_err(char *cmd);
 
 void	exec_cmd(t_minishell *m_shell, \
-				char *cmd, \
-				int proc_index, \
-				int pipe_fd[2][2])
+	t_proc *proc, \
+	int pipe_fd[2][2])
 {
 	char		*cmd_path;
 	char		**cmd_args;
@@ -26,8 +25,8 @@ void	exec_cmd(t_minishell *m_shell, \
 	char		**envp;
 
 	if (m_shell->proc_count > 1)
-		change_fds(m_shell, proc_index, pipe_fd);
-	cmd_args = create_cmd_args(cmd);
+		change_fds(m_shell, proc->index, pipe_fd);
+	cmd_args = create_cmd_args(proc);
 	if (cmd_args == NULL)
 		perror(NULL);
 	remove_args_quotes(cmd_args);
@@ -36,7 +35,7 @@ void	exec_cmd(t_minishell *m_shell, \
 	{
 		exit(exec_builtin(cmd_args, builtin_cmd, m_shell));
 	}
-	cmd_path = create_cmd_path(cmd);
+	cmd_path = create_cmd_path(proc->cmd);
 	if (cmd_path == NULL)
 	{
 		perror(NULL);
@@ -44,7 +43,7 @@ void	exec_cmd(t_minishell *m_shell, \
 	}
 	envp = list_to_envp(m_shell->env);
 	if (execve(cmd_path, cmd_args, envp) < 0)
-		print_execve_err(cmd);
+		print_execve_err(proc->cmd);
 }
 
 void	remove_args_quotes(char **cmd_args)
@@ -59,11 +58,32 @@ void	remove_args_quotes(char **cmd_args)
 	}
 }
 
-static char	**create_cmd_args(char *cmd)
+static char	**create_cmd_args(t_proc *proc)
 {
 	char	**cmd_args;
+	t_token	*token;
+	int		count_word;
+	int		i;
 
-	cmd_args = ft_split(cmd, ' ');
+	printf("proc %p\n", proc);
+	count_word = count_token(&proc->token);
+	cmd_args = (char **)ft_calloc(sizeof(char *), count_word);
+	if (!cmd_args)
+		return (NULL);
+	token = proc->token;
+	i = 0;
+	while (token)
+	{
+		printf("token->word %s\n", token->word);
+		cmd_args[i] = ft_strdup(token->word);
+		if (!cmd_args[i])
+		{
+			free_string_double_array(cmd_args);
+			return (NULL);
+		}
+		i++;
+		token = token->next;
+	}
 	return (cmd_args);
 }
 

@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:45:26 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/08 17:49:06 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/18 16:49:16 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ void	redirect(char *cmd, t_redirection *redir, t_minishell *m_shell)
 
 static void	output(char *cmd, t_redirection *redir, t_minishell *m_shell)
 {
-	int	outfile_fd;
-	int	pfd[2][2];
+	int		outfile_fd;
+	int		pfd[2][2];
+	t_proc *proc;
 
 	outfile_fd = open(redir->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (outfile_fd < 0)
@@ -46,15 +47,19 @@ static void	output(char *cmd, t_redirection *redir, t_minishell *m_shell)
 		return ;
 	}
 	dup2(outfile_fd, STDOUT_FILENO);
+	proc = ft_calloc(sizeof(t_proc), 1);
+	proc->cmd = cmd;
+	proc->index = 0;
 	if (redir->next == NULL)
-		exec_cmd(m_shell, cmd, 0, pfd);
+		exec_cmd(m_shell, proc, pfd);
 	close(outfile_fd);
 }
 
 static void	input(char *cmd, t_redirection *redir, t_minishell *m_shell)
 {
-	int	infile_fd;
-	int	pfd[2][2];
+	int		infile_fd;
+	int		pfd[2][2];
+	t_proc	*proc;
 
 	infile_fd = open(redir->filename, O_RDONLY, 0644);
 	if (infile_fd < 0)
@@ -63,8 +68,11 @@ static void	input(char *cmd, t_redirection *redir, t_minishell *m_shell)
 		return ;
 	}
 	dup2(infile_fd, STDIN_FILENO);
+	proc = ft_calloc(sizeof(t_proc), 1);
+	proc->cmd = cmd;
+	proc->index = 0;
 	if (redir->next == NULL)
-		exec_cmd(m_shell, cmd, 0, pfd);
+		exec_cmd(m_shell, proc, pfd);
 	close(infile_fd);
 }
 
@@ -99,8 +107,9 @@ static void	here_doc(char *cmd, t_redirection *redir, t_minishell *m_shell)
 
 static void	append(char *cmd, t_redirection *redir, t_minishell *m_shell)
 {
-	int	outfile_fd;
-	int	pfd[2][2];
+	int		outfile_fd;
+	int		pfd[2][2];
+	t_proc	*proc;
 
 	outfile_fd = open(redir->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (outfile_fd < 0)
@@ -109,7 +118,10 @@ static void	append(char *cmd, t_redirection *redir, t_minishell *m_shell)
 		return ;
 	}
 	dup2(outfile_fd, STDOUT_FILENO);
+	proc = ft_calloc(sizeof(t_proc), 1);
+	proc->cmd = cmd;
+	proc->index = 0;
 	if (redir->next == NULL)
-		exec_cmd(m_shell, cmd, 0, pfd);
+		exec_cmd(m_shell, proc, pfd);
 	close(outfile_fd);
 }
