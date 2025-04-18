@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 13:03:04 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/18 03:20:29 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/18 03:22:20 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,7 @@ static bool	add_proc_list(t_proc **list, t_proc *new)
 	}
 	else
 	{
-		temp = *list;
-		while (temp->next)
-		{
-			temp = temp->next;
-		}
+		temp = get_last_proc(list);
 		temp->next = new;
 	}
 	return (false);
