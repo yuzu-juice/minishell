@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 13:03:04 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/18 03:19:16 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/18 03:20:29 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static bool	add_to_cmd(t_proc **list, char *word, bool is_new_proc)
 	err_flg = false;
 	curr = get_last_proc(list);
 	if (is_new_proc)
-		err_flg = add_proc_list(list, create_proc_node(word));
+		return (add_proc_list(list, create_proc_node(word)));
 	else
 	{
 		curr = get_last_proc(list);
