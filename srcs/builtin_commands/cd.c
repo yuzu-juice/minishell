@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 11:15:38 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/19 20:40:38 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/19 21:00:11 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,14 @@ int	cd(int argc, char **argv)
 		error();
 		return (1);
 	}
-	// ..はじまりのときaccess(argv[1], X_OK)が失敗する可能性
+	if (ft_strncmp(argv[1], "..", 2) != 0)
+	{
+		if (access(argv[1], X_OK) != 0)
+		{
+			perror(argv[1]);
+			return (1);
+		}
+	}
 	if (access(argv[1], F_OK) == 0)
 	{
 		if (chdir(argv[1]) == -1)
