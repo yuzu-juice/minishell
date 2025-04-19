@@ -21,7 +21,8 @@ SRCS	= \
 	srcs/builtin_commands/export.c\
 	srcs/builtin_commands/exit.c\
 	srcs/parser/create_normal_token.c\
-	srcs/parser/create_process_list_util.c\
+	srcs/parser/create_process_list_utils1.c\
+	srcs/parser/create_process_list_utils2.c\
 	srcs/parser/create_process_list.c\
 	srcs/parser/create_split_token.c\
 	srcs/parser/create_token_list.c\
@@ -29,11 +30,14 @@ SRCS	= \
 	srcs/parser/expand_dollar_util.c\
 	srcs/parser/expand_dollar.c\
 	srcs/parser/parser.c\
+	srcs/parser/error.c\
 	srcs/get_input_line.c\
 	srcs/create_minishell_struct.c\
 	srcs/pipe/pipe.c\
+	srcs/pipe/pipe_process_handlers.c\
 	srcs/pipe/change_fds.c\
-	srcs/exec_builtin_cmd.c
+	srcs/exec_builtin_cmd.c\
+	srcs/parser/parser_redirection.c
 HEADERS	= \
 	includes/minishell.h\
 	includes/core_feature.h\

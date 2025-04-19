@@ -6,122 +6,110 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:45:26 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/18 16:53:46 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/19 15:54:40 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	output(char *cmd, t_redirection *redir, t_minishell *m_shell);
-static void	append(char *cmd, t_redirection *redir, t_minishell *m_shell);
-static void	input(char *cmd, t_redirection *redir, t_minishell *m_shell);
-static void	here_doc(char *cmd, t_redirection *redir, t_minishell *m_shell);
-static void	input(char *cmd, t_redirection *redir, t_minishell *m_shell);
+static int	handle_input_redir(t_redirection *redir);
+static int	handle_output_redir_trunc(t_redirection *redir);
+static int	handle_output_redir_append(t_redirection *redir);
+static int	handle_output_redir(t_redirection *redir);
 
-void	redirect(char *cmd, t_redirection *redir, t_minishell *m_shell)
+int	setup_redirections(t_proc *proc)
 {
-	while (redir)
+	t_redirection	*redir;
+	int				status;
+
+	redir = proc->redir;
+	status = 0;
+	while (redir && status == 0)
 	{
-		if (redir->type == OUTPUT)
-			output(cmd, redir, m_shell);
-		else if (redir->type == INPUT)
-			input(cmd, redir, m_shell);
-		else if (redir->type == HEREDOC)
-			here_doc(cmd, redir, m_shell);
-		if (redir->type == APPEND)
-			append(cmd, redir, m_shell);
+		if (redir->type == INPUT || redir->type == HEREDOC)
+			status = handle_input_redir(redir);
+		else if (redir->type == OUTPUT || redir->type == APPEND)
+			status = handle_output_redir(redir);
 		redir = redir->next;
 	}
+	return (status);
 }
 
-static void	output(char *cmd, t_redirection *redir, t_minishell *m_shell)
+static int	handle_input_redir(t_redirection *redir)
 {
-	int		outfile_fd;
-	int		pfd[2][2];
-	t_proc	*proc;
+	int	fd;
 
-	outfile_fd = open(redir->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (outfile_fd < 0)
+	fd = -1;
+	if (redir->type == HEREDOC)
+		fd = open(HEREDOC_FILE, O_RDONLY);
+	else
+		fd = open(redir->filename, O_RDONLY);
+	if (fd < 0)
 	{
-		perror("open");
-		return ;
+		ft_putstr_fd("minishell: ", 2);
+		perror(redir->filename);
+		return (1);
 	}
-	dup2(outfile_fd, STDOUT_FILENO);
-	proc = ft_calloc(sizeof(t_proc), 1);
-	proc->cmd = cmd;
-	proc->index = 0;
-	if (redir->next == NULL)
-		exec_cmd(m_shell, proc, pfd);
-	close(outfile_fd);
+	if (dup2(fd, STDIN_FILENO) < 0)
+	{
+		perror("minishell: dup2 stdin failed");
+		close(fd);
+		return (1);
+	}
+	close(fd);
+	return (0);
 }
 
-static void	input(char *cmd, t_redirection *redir, t_minishell *m_shell)
+static int	handle_output_redir_trunc(t_redirection *redir)
 {
-	int		infile_fd;
-	int		pfd[2][2];
-	t_proc	*proc;
+	int	fd;
+	int	flags;
 
-	infile_fd = open(redir->filename, O_RDONLY, 0644);
-	if (infile_fd < 0)
+	flags = O_WRONLY | O_CREAT | O_TRUNC;
+	fd = open(redir->filename, flags, 0644);
+	if (fd < 0)
 	{
-		perror("open");
-		return ;
+		ft_putstr_fd("minishell: ", 2);
+		perror(redir->filename);
+		return (1);
 	}
-	dup2(infile_fd, STDIN_FILENO);
-	proc = ft_calloc(sizeof(t_proc), 1);
-	proc->cmd = cmd;
-	proc->index = 0;
-	if (redir->next == NULL)
-		exec_cmd(m_shell, proc, pfd);
-	close(infile_fd);
+	if (dup2(fd, STDOUT_FILENO) < 0)
+	{
+		perror("minishell: dup2 stdout failed");
+		close(fd);
+		return (1);
+	}
+	close(fd);
+	return (0);
 }
 
-static void	here_doc(char *cmd, t_redirection *redir, t_minishell *m_shell)
+static int	handle_output_redir_append(t_redirection *redir)
 {
-	int		heredoc_file_fd;
-	char	*line;
+	int	fd;
+	int	flags;
 
-	heredoc_file_fd = open(HEREDOC_FILE, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (heredoc_file_fd < 0)
+	flags = O_WRONLY | O_CREAT | O_APPEND;
+	fd = open(redir->filename, flags, 0644);
+	if (fd < 0)
 	{
-		perror("open");
-		return ;
+		ft_putstr_fd("minishell: ", 2);
+		perror(redir->filename);
+		return (1);
 	}
-	while (true)
+	if (dup2(fd, STDOUT_FILENO) < 0)
 	{
-		line = readline("> ");
-		if (line == NULL)
-			break ;
-		if (ft_strcmp(line, redir->filename) == 0)
-		{
-			free(line);
-			break ;
-		}
-		ft_putendl_fd(line, heredoc_file_fd);
-		free(line);
+		perror("minishell: dup2 stdout append failed");
+		close(fd);
+		return (1);
 	}
-	close(heredoc_file_fd);
-	redir->filename = HEREDOC_FILE;
-	input(cmd, redir, m_shell);
+	close(fd);
+	return (0);
 }
 
-static void	append(char *cmd, t_redirection *redir, t_minishell *m_shell)
+static int	handle_output_redir(t_redirection *redir)
 {
-	int		outfile_fd;
-	int		pfd[2][2];
-	t_proc	*proc;
-
-	outfile_fd = open(redir->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (outfile_fd < 0)
-	{
-		perror("open");
-		return ;
-	}
-	dup2(outfile_fd, STDOUT_FILENO);
-	proc = ft_calloc(sizeof(t_proc), 1);
-	proc->cmd = cmd;
-	proc->index = 0;
-	if (redir->next == NULL)
-		exec_cmd(m_shell, proc, pfd);
-	close(outfile_fd);
+	if (redir->type == OUTPUT)
+		return (handle_output_redir_trunc(redir));
+	else
+		return (handle_output_redir_append(redir));
 }

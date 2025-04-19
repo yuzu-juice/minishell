@@ -5,17 +5,21 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/23 13:03:04 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/18 16:49:45 by yohatana         ###   ########.fr       */
+/*   Created: 2025/04/19 05:05:14 by takitaga          #+#    #+#             */
+/*   Updated: 2025/04/19 15:53:56 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static t_proc	*create_proc_node(t_token *token);
-static bool		add_proc_list(t_proc **list, t_proc *new);
-static bool		add_to_cmd(t_proc **list, t_token *token, bool is_new_proc);
-static bool		token_to_cmd(t_token *curr, t_token *prev, t_proc **list);
+static bool		handle_redirection_token(
+					t_token **curr_token_ptr,
+					t_proc **list);
+static bool		token_to_cmd(
+					t_token **curr_token_ptr,
+					t_token *prev,
+					t_proc **list);
+static bool		handle_pipe_logic(t_token *prev, t_token *curr);
 
 t_proc	*create_process_list(t_token **head)
 {
@@ -28,10 +32,9 @@ t_proc	*create_process_list(t_token **head)
 	err_flg = false;
 	curr = *head;
 	prev = NULL;
-	head = NULL;
 	while (curr)
 	{
-		err_flg = token_to_cmd(curr, prev, &list);
+		err_flg = token_to_cmd(&curr, prev, &list);
 		if (err_flg)
 			break ;
 		prev = curr;
@@ -42,85 +45,64 @@ t_proc	*create_process_list(t_token **head)
 	return (list);
 }
 
-static t_proc	*create_proc_node(t_token *token)
+static bool	handle_redirection_token(t_token **curr_token_ptr, t_proc **list)
 {
-	t_proc	*proc;
+	t_token				*curr;
+	t_token				*filename_token;
+	t_proc				*last_proc;
+	t_redirection_type	redir_type;
 
-	proc = (t_proc *)ft_calloc(sizeof(t_proc), 1);
-	if (!proc)
-		return (NULL);
-	proc->cmd = token->word;
-	add_token_node(&proc->token, create_token_node(token->word));
-	proc->redir = NULL;
-	proc->next = NULL;
-	return (proc);
-}
-
-static bool	add_to_cmd(t_proc **list, t_token *token, bool is_new_proc)
-{
-	t_proc	*curr;
-	char	*temp;
-	bool	err_flg;
-
-	err_flg = false;
-	curr = get_last_proc(list);
-	if (is_new_proc)
-		err_flg = add_proc_list(list, create_proc_node(token));
-	else
+	curr = *curr_token_ptr;
+	filename_token = curr->next;
+	if (filename_token == NULL || !filename_token->word
+		|| is_redirection(filename_token->word)
+		|| ft_strcmp(filename_token->word, "|") == 0)
 	{
-		curr = get_last_proc(list);
-		if (curr->cmd)
-			err_flg = add_space(curr);
-		if (err_flg)
-			return (true);
-		temp = ft_strjoin(curr->cmd, token->word);
-		if (!temp)
-			return (true);
-		add_token_node(&curr->token, create_token_node(token->word));
-		free(curr->cmd);
-		curr->cmd = temp;
-	}
-	return (false);
-}
-
-static bool	add_proc_list(t_proc **list, t_proc *new)
-{
-	t_proc	*temp;
-
-	if (!new)
+		syntax_error(NULL);
 		return (true);
-	if (*list == NULL)
-	{
-		*list = new;
 	}
-	else
+	last_proc = get_last_proc(list);
+	if (!last_proc)
+		return (true);
+	redir_type = get_redirection_type(curr->word);
+	if (add_redirection(last_proc, redir_type, filename_token->word))
+		return (true);
+	*curr_token_ptr = filename_token;
+	return (false);
+}
+
+static bool	handle_pipe_logic(t_token *prev, t_token *curr)
+{
+	if (validation_pipe(prev, curr->next))
 	{
-		temp = *list;
-		while (temp->next)
-		{
-			temp = temp->next;
-		}
-		temp->next = new;
+		syntax_error(NULL);
+		return (true);
 	}
 	return (false);
 }
 
-static bool	token_to_cmd(t_token *curr, t_token *prev, t_proc **list)
+static bool	token_to_cmd(t_token **curr_token_ptr, t_token *prev, t_proc **list)
 {
-	bool	err_flg;
+	t_token	*curr;
 	bool	is_new_proc;
 
-	err_flg = false;
-	is_new_proc = false;
-	if (prev == NULL || ft_strcmp(prev->word, "|") == 0)
-		is_new_proc = true;
-	else
-		is_new_proc = false;
-	if (ft_strcmp(curr->word, "|") == 0)
+	curr = *curr_token_ptr;
+	is_new_proc = (prev == NULL
+			|| (prev->word && ft_strcmp(prev->word, "|") == 0));
+	if (*list == NULL && (!curr->word || ft_strcmp(curr->word, "|") != 0))
 	{
-		err_flg = validation_pipe(prev, curr->next, list);
+		if (add_proc_list(list, create_proc_node(NULL)))
+			return (true);
+		is_new_proc = false;
+	}
+	if (curr->word && ft_strcmp(curr->word, "|") == 0)
+		return (handle_pipe_logic(prev, curr));
+	else if (curr->word && is_redirection(curr->word))
+	{
+		if (*list == NULL || get_last_proc(list) == NULL)
+			return (true);
+		return (handle_redirection_token(curr_token_ptr, list));
 	}
 	else
-		err_flg = add_to_cmd(list, curr, is_new_proc);
-	return (err_flg);
+		return (add_to_cmd(list, curr->word, is_new_proc));
 }

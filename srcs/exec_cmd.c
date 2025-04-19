@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/18 17:04:30 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/19 15:54:49 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	exec_cmd(t_minishell *m_shell, \
 
 void	remove_args_quotes(char **cmd_args)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (cmd_args[i] != NULL)

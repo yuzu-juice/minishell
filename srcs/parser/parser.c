@@ -5,14 +5,17 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/07 18:22:31 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/18 16:54:09 by yohatana         ###   ########.fr       */
+/*   Created: 2025/04/19 04:43:30 by takitaga          #+#    #+#             */
+/*   Updated: 2025/04/19 15:53:53 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	count_proc(t_proc *proc);
+static int		count_proc(t_proc *proc);
+static bool		initial_syntax_checks(char *line, t_token **head_ptr);
+static t_proc	*tokenize_expand_and_validate(t_token **head_ptr,
+					t_minishell *m_shell);
 
 bool	parser(char *line, t_minishell *m_shell)
 {
@@ -20,26 +23,62 @@ bool	parser(char *line, t_minishell *m_shell)
 	t_proc	*proc;
 
 	head = NULL;
-	if (has_unclosed_quotes(line))
-	{
-		syntax_error(&head);
+	if (initial_syntax_checks(line, &head))
 		return (true);
-	}
-	head = create_token_list(line);
-	if (!head)
-		return (true);
-	if (expand_dollar(&head, m_shell))
-		return (true);
-	proc = create_process_list(&head);
+	proc = tokenize_expand_and_validate(&head, m_shell);
 	free_token_list(&head);
 	if (!proc)
-	{
-		ft_putendl_fd("syntax_error", 2);
 		return (true);
-	}
 	m_shell->proc = proc;
 	m_shell->proc_count = count_proc(proc);
 	return (false);
+}
+
+static bool	initial_syntax_checks(char *line, t_token **head_ptr)
+{
+	t_token	*tmp;
+
+	if (has_unclosed_quotes(line))
+	{
+		syntax_error(head_ptr);
+		return (true);
+	}
+	*head_ptr = create_token_list(line);
+	if (!*head_ptr)
+		return (true);
+	tmp = *head_ptr;
+	while (tmp)
+	{
+		if (is_redirection(tmp->word))
+		{
+			if ((tmp->next && is_redirection(tmp->next->word)) || !tmp->next)
+			{
+				syntax_error(head_ptr);
+				return (true);
+			}
+		}
+		tmp = tmp->next;
+	}
+	return (false);
+}
+
+static t_proc	*tokenize_expand_and_validate(t_token **head_ptr,
+					t_minishell *m_shell)
+{
+	t_proc	*proc;
+
+	if (expand_dollar(head_ptr, m_shell))
+	{
+		free_token_list(head_ptr);
+		return (NULL);
+	}
+	proc = create_process_list(head_ptr);
+	if (!proc)
+	{
+		ft_putendl_fd("syntax_error", 2);
+		return (NULL);
+	}
+	return (proc);
 }
 
 bool	has_unclosed_quotes(char *line)
@@ -69,12 +108,6 @@ bool	has_unclosed_quotes(char *line)
 		i++;
 	}
 	return (false);
-}
-
-void	syntax_error(t_token **head)
-{
-	ft_putendl_fd("syntax_error", 2);
-	free_token_list(head);
 }
 
 static int	count_proc(t_proc *proc)
