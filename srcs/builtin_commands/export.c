@@ -6,34 +6,44 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 18:42:27 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/13 13:42:20 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/19 19:05:53 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	print_env(t_minishell *m_shell);
+static int	print_env(t_minishell *m_shell);
 
 int	export(int argc, char **argv, t_minishell *m_shell)
 {
+	int		i;
+	bool	err_flg;
+	int		err_count;
+
+	err_flg = false;
+	err_count = 0;
 	if (argc == 1)
+		return (print_env(m_shell));
+	else if (argc > 1)
 	{
-		print_env(m_shell);
+		i = 1;
+		while (argv[i])
+		{
+			if (add_env_node(m_shell->env, argv[i], 1))
+				err_count++;
+			i++;
+		}
+		if (err_count)
+		{
+			perror(NULL);
+			return (1);
+		}
 		return (0);
 	}
-	else if (argc == 2)
-	{
-		add_env_node(m_shell->env, argv[1], 1);
-		return (0);
-	}
-	else
-	{
-		ft_putstr_fd("Usage: export [key=value]\n", 2);
-		return (1);
-	}
+	return (0);
 }
 
-static void	print_env(t_minishell *m_shell)
+static int	print_env(t_minishell *m_shell)
 {
 	t_env	*tmp;
 
@@ -54,4 +64,5 @@ static void	print_env(t_minishell *m_shell)
 		}
 		tmp = tmp->next;
 	}
+	return (0);
 }

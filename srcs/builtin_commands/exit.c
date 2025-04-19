@@ -6,23 +6,29 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 14:57:27 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/13 13:41:51 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/19 19:16:12 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	minishell_exit(int argc, char **argv)
+static bool	is_digit(char *argv);
+
+int	minishell_exit(int argc, char **argv, t_minishell *m_shell)
 {
 	int	status;
 
 	status = 0;
 	if (argc == 1)
-	{
-		exit(0);
-	}
+		exit(m_shell->prev_status);
 	if (argc == 2)
 	{
+		if (is_digit(argv[1]))
+		{
+			ft_putstr_fd("Usage: exit [exit_status]. \
+					numeric argument required\n", 2);
+			return (2);
+		}
 		status = ft_atoi(argv[1]);
 		exit(status);
 	}
@@ -31,4 +37,20 @@ int	minishell_exit(int argc, char **argv)
 		ft_putstr_fd("Usage: exit [exit_status]\n", 2);
 		return (1);
 	}
+}
+
+static bool	is_digit(char *argv)
+{
+	int	i;
+
+	i = 0;
+	while (argv[i])
+	{
+		if (i == 0 && argv[i] == '-')
+			i++;
+		if (argv[i] < '0' || argv[i] > '9')
+			return (true);
+		i++;
+	}
+	return (false);
 }

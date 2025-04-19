@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 12:10:55 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/13 13:43:01 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/19 19:05:07 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	unset(int argc, char **argv, t_minishell *m_shell)
 	t_env	*curr;
 	t_env	*prev;
 
-	if (argc != 2)
+	if (argc < 1)
 	{
 		error();
 		return (1);
@@ -35,7 +35,7 @@ int	unset(int argc, char **argv, t_minishell *m_shell)
 			else
 				prev->next = curr->next;
 			free_env(curr);
-			return (1);
+			return (0);
 		}
 		prev = curr;
 		curr = curr->next;
