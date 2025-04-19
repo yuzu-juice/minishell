@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 18:42:27 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/19 19:05:53 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/20 08:55:34 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ static int	print_env(t_minishell *m_shell);
 int	export(int argc, char **argv, t_minishell *m_shell)
 {
 	int		i;
-	bool	err_flg;
 	int		err_count;
 
-	err_flg = false;
 	err_count = 0;
 	if (argc == 1)
 		return (print_env(m_shell));
