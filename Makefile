@@ -18,6 +18,8 @@ SRCS	= \
 	srcs/builtin_commands/unset.c\
 	srcs/builtin_commands/env.c\
 	srcs/redirections/redirect.c\
+	srcs/redirections/input_utils.c\
+	srcs/redirections/output_utils.c\
 	srcs/builtin_commands/export.c\
 	srcs/builtin_commands/exit.c\
 	srcs/parser/create_normal_token.c\
