@@ -37,7 +37,7 @@ int main() {
 
 		if (setup_redirections(process) != 0)
 			exit(1);
-		exec_cmd(m_shell, process->cmd, 0, NULL);
+		exec_cmd(m_shell, process, NULL);
 		perror("exec_cmd failed");
 		exit(127);
 	}

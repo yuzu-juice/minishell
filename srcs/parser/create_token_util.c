@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:10:32 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/30 18:34:27 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/18 16:34:12 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,19 @@ t_token	*get_last_token(t_token **head)
 	while (temp->next)
 		temp = temp->next;
 	return (temp);
+}
+
+int	count_token(t_token **head)
+{
+	t_token	*token;
+	int		count;
+
+	count = 0;
+	token = *head;
+	while (token)
+	{
+		count++;
+		token = token->next;
+	}
+	return (count);
 }
