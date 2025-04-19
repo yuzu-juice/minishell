@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 11:15:38 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/19 21:00:11 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/19 21:01:43 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void	error(void);
 	yohatana@c6r3s7:~/work/minishell$ echo $?
 	1
 
-	cd .. これ対応する
 	OLDPWD 前のディレクトリを保管できる（めっちゃ使う）
 */
 int	cd(int argc, char **argv)

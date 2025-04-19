@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 14:57:27 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/19 19:16:12 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/19 21:03:23 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ int	minishell_exit(int argc, char **argv, t_minishell *m_shell)
 
 	status = 0;
 	if (argc == 1)
+	{
+		write(1, "exit\n", 5);
 		exit(m_shell->prev_status);
+	}
 	if (argc == 2)
 	{
 		if (is_digit(argv[1]))
@@ -30,6 +33,7 @@ int	minishell_exit(int argc, char **argv, t_minishell *m_shell)
 			return (2);
 		}
 		status = ft_atoi(argv[1]);
+		write(1, "exit\n", 5);
 		exit(status);
 	}
 	else
