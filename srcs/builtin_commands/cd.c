@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 11:15:38 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/19 21:06:30 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/19 21:12:47 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@ static int	return_error(char *argv);
 
 int	cd(int argc, char **argv)
 {
-	char	*relative_path;
-
-	relative_path = NULL;
 	if (argc != 2)
 	{
 		error();
