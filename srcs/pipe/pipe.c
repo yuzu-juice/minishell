@@ -3,51 +3,83 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/01 17:16:50 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/13 14:20:07 by yohatana         ###   ########.fr       */
+/*   Created: 2025/04/19 03:32:08 by takitaga          #+#    #+#             */
+/*   Updated: 2025/04/19 04:42:59 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void		parent_process(int pipe_fd[2][2], \
-							t_proc *proc, \
-							int proc_count);
-static void		chiled_process(t_minishell *m_shell, \
-							t_proc *proc, \
-							int pipe_fd[2][2]);
-static bool		return_prpcess_err(char *str);
-static int		fork_proc(int pipe_fd[2][2], \
-						t_minishell *m_shell, \
-						t_proc *curr);
+static int		fork_proc(
+					int pipe_fd[2][2],
+					t_minishell *m_shell,
+					t_proc *curr
+					);
+static int		execute_pipeline(t_minishell *m_shell, int pipe_fd[2][2]);
+static void		wait_for_processes(t_minishell *m_shell, int last_pid);
 
 bool	minishell_pipe(t_minishell *m_shell)
 {
-	t_proc	*curr;
-	int		pid;
+	int		last_pid;
 	int		pipe_fd[2][2];
 
-	if (exec_parent_bultin_cmd(m_shell, m_shell->proc))
+	if (m_shell->proc_count == 1
+		&& exec_parent_bultin_cmd(m_shell, m_shell->proc))
 		return (false);
+	last_pid = execute_pipeline(m_shell, pipe_fd);
+	if (last_pid < 0)
+		return (true);
+	wait_for_processes(m_shell, last_pid);
+	return (false);
+}
+
+static int	execute_pipeline(t_minishell *m_shell, int pipe_fd[2][2])
+{
+	t_proc	*curr;
+	int		pid;
+	int		last_pid;
+
 	curr = m_shell->proc;
+	last_pid = -1;
 	while (curr)
 	{
-		if (m_shell->proc_count > 1)
+		if (curr->next)
 		{
 			if (pipe(pipe_fd[CURR]) < 0)
-				return_prpcess_err("failed: create pipe\n");
+				return (
+					ft_putendl_fd("failed: create pipe\n", STDERR_FILENO),
+					-1);
 		}
 		pid = fork_proc(pipe_fd, m_shell, curr);
 		if (pid < 0)
-			return_prpcess_err("failed: create process\n");
+			return (
+				ft_putendl_fd("failed: create process\n", STDERR_FILENO),
+				-1);
+		last_pid = pid;
+		parent_process(pipe_fd, curr, m_shell->proc_count);
 		curr = curr->next;
 	}
-	waitpid(pid, &(m_shell->prev_status), 0);
-	wait(0);
-	m_shell->prev_status = WEXITSTATUS(m_shell->prev_status);
-	return (false);
+	return (last_pid);
+}
+
+static void	wait_for_processes(t_minishell *m_shell, int last_pid)
+{
+	int	status;
+
+	if (last_pid > 0)
+	{
+		waitpid(last_pid, &status, 0);
+		if (WIFEXITED(status))
+			m_shell->prev_status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			m_shell->prev_status = 128 + WTERMSIG(status);
+		else
+			m_shell->prev_status = status;
+	}
+	while (wait(NULL) > 0)
+		;
 }
 
 static int	fork_proc(int pipe_fd[2][2], t_minishell *m_shell, t_proc *curr)
@@ -56,46 +88,11 @@ static int	fork_proc(int pipe_fd[2][2], t_minishell *m_shell, t_proc *curr)
 
 	pid = fork();
 	if (pid == 0)
-		chiled_process(m_shell, curr, pipe_fd);
-	else
-		parent_process(pipe_fd, curr, m_shell->proc_count);
+	{
+		child_process(m_shell, curr, pipe_fd);
+		exit(EXIT_FAILURE);
+	}
+	else if (pid < 0)
+		return (-1);
 	return (pid);
-}
-
-static bool	return_prpcess_err(char *str)
-{
-	write(2, str, ft_strlen(str));
-	return (true);
-}
-
-static void	parent_process(int pipe_fd[2][2], \
-						t_proc *proc, \
-						int proc_count)
-{
-	if (proc_count == 1)
-		return ;
-	if (proc->index != 0)
-	{
-		close(pipe_fd[PREV][READ]);
-		close(pipe_fd[PREV][WRITE]);
-	}
-	if (proc->next)
-	{
-		pipe_fd[PREV][READ] = pipe_fd[CURR][READ];
-		pipe_fd[PREV][WRITE] = pipe_fd[CURR][WRITE];
-	}
-	else
-	{
-		close(pipe_fd[PREV][READ]);
-		close(pipe_fd[PREV][WRITE]);
-		close(pipe_fd[CURR][READ]);
-		close(pipe_fd[CURR][WRITE]);
-	}
-}
-
-static void	chiled_process(t_minishell *m_shell, \
-						t_proc *proc, \
-						int pipe_fd[2][2])
-{
-	exec_cmd(m_shell, proc->cmd, proc->index, pipe_fd);
 }

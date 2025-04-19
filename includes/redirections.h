@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:41:51 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/06 14:45:29 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/19 04:19:15 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define REDIRECTIONS_H
 # define HEREDOC_FILE "/tmp/heredoc"
 
+typedef struct s_proc			t_proc;
 typedef struct s_redirection	t_redirection;
 typedef struct s_minishell		t_minishell;
 
@@ -32,6 +33,6 @@ typedef struct s_redirection
 	t_redirection		*next;
 }	t_redirection;
 
-void	redirect(char *cmd, t_redirection *redir, t_minishell *m_shell);
+int	setup_redirections(t_proc *proc);
 
 #endif

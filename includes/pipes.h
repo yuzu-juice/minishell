@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 12:23:12 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/08 17:45:29 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/19 04:40:47 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,7 @@ typedef struct s_minishell	t_minishell;
 
 bool	minishell_pipe(t_minishell *minishell);
 void	change_fds(t_minishell *m_shell, int proc_index, int pipe_fd[2][2]);
+void	parent_process(int pipe_fd[2][2], t_proc *proc, int proc_count);
+void	child_process(t_minishell *m_shell, t_proc *proc, int pipe_fd[2][2]);
 
 #endif

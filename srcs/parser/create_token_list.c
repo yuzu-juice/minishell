@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_token_list.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:48:17 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/11 16:17:47 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/19 05:38:38 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,12 @@ void	free_token_list(t_token **head)
 	t_token	*curr;
 	t_token	*temp;
 
-	if (head == NULL)
+	if (head == NULL || *head == NULL)
 		return ;
 	curr = *head;
 	while (curr)
 	{
-		if (ft_strcmp(curr->word, "|") == 0)
-			free(curr->word);
+		free(curr->word);
 		temp = curr->next;
 		free(curr);
 		curr = temp;
