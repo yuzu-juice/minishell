@@ -6,13 +6,12 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:41:51 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/19 04:19:15 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/19 13:10:24 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef REDIRECTIONS_H
 # define REDIRECTIONS_H
-# define HEREDOC_FILE "/tmp/heredoc"
 
 typedef struct s_proc			t_proc;
 typedef struct s_redirection	t_redirection;
@@ -34,5 +33,10 @@ typedef struct s_redirection
 }	t_redirection;
 
 int	setup_redirections(t_proc *proc);
+int	handle_input_redir(t_redirection *redir);
+int	handle_heredoc_redir(t_redirection *redir);
+int	handle_output_redir(t_redirection *redir);
+int	handle_append_redir(t_redirection *redir);
+int	create_heredoc_file(t_redirection *redir);
 
 #endif
