@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 19:25:30 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/06 14:05:04 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/19 19:00:53 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct s_env
 }	t_env;
 
 t_env	*envp_to_list(char **envp);
-void	add_env_node(t_env *env, char *str, int i);
+bool	add_env_node(t_env *env, char *str, int i);
 char	**list_to_envp(t_env *env);
 int		get_node_count(t_env *env);
 void	free_env(t_env *env);

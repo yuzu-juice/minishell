@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 13:18:47 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/20 10:23:06 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/20 15:34:37 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	exec_builtin(char **cmd_args, \
 	else if (builtin_cmd == EXPORT)
 		status = export(i, cmd_args, m_shell);
 	else if (builtin_cmd == EXIT)
-		status = minishell_exit(i, cmd_args);
+		status = minishell_exit(i, cmd_args, m_shell);
 	free_string_double_array(cmd_args);
 	return (status);
 }

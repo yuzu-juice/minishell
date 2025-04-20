@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 10:51:45 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/13 13:43:22 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/19 19:09:01 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ int	cd(int argc, char **argv);
 int	unset(int argc, char **argv, t_minishell *m_shell);
 int	env(int argc, t_minishell *m_shell);
 int	export(int argc, char **argv, t_minishell *m_shell);
-int	minishell_exit(int argc, char **argv);
+int	minishell_exit(int argc, char **argv, t_minishell *m_shell);
 
 #endif
