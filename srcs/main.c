@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/13 14:15:51 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/20 19:10:57 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static void	minishell_loop(t_minishell *m_shell)
 			add_history(line);
 			if (parser(line, m_shell))
 			{
+				m_shell->prev_status = 1;
 				free(line);
 				free_proc_list(&(m_shell->proc));
 				continue ;
