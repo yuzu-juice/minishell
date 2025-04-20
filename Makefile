@@ -39,7 +39,9 @@ SRCS	= \
 	srcs/pipe/pipe_process_handlers.c\
 	srcs/pipe/change_fds.c\
 	srcs/exec_builtin_cmd.c\
-	srcs/parser/parser_redirection.c
+	srcs/parser/parser_redirection.c\
+	srcs/utils/count_string_array.c\
+	srcs/utils/copy_double_string_array.c
 HEADERS	= \
 	includes/minishell.h\
 	includes/core_feature.h\

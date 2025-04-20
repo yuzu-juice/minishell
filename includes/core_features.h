@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/19 16:16:27 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/20 14:04:42 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_token
 typedef struct s_proc
 {
 	char			*cmd;
-	t_token			*token;
+	char			**cmd_args;
 	t_redirection	*redir;
 	int				index;
 	t_proc			*next;

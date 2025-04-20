@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   count_string_array.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/02 14:57:03 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/20 15:31:05 by yohatana         ###   ########.fr       */
+/*   Created: 2025/04/20 11:10:46 by yohatana          #+#    #+#             */
+/*   Updated: 2025/04/20 15:03:48 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "../../includes/minishell.h"
 
-void	free_string_double_array(char **str);
-char	*add_slash(char *path);
-char	*remove_quotes(char *token);
-t_env	*search_env(char *key, t_env *env);
-int		count_double_string_array(char **str);
-bool	copy_double_string_array(char **src, char **new, char *word);
+int	count_double_string_array(char **str)
+{
+	int	i;
 
-// debug
-void	print_double_string_array(char **str);
-
-#endif
+	i = 0;
+	if (str == NULL)
+		return (0);
+	while (str[i])
+	{
+		i++;
+	}
+	if (str != NULL && i == 0)
+	{
+		return (1);
+	}
+	printf("count i %d\n", i);
+	return (i);
+}

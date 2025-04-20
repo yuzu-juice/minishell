@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 04:43:30 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/19 15:53:53 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/20 14:38:49 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,25 @@ bool	parser(char *line, t_minishell *m_shell)
 		return (true);
 	m_shell->proc = proc;
 	m_shell->proc_count = count_proc(proc);
+
+	printf("=========================\n");
+	t_proc *test = proc;
+	int			i;
+	while (test)
+	{
+		i = 0;
+		printf("test->cmd_args %p\n", test->cmd_args);
+		printf("cmd args count %d\n", count_double_string_array(test->cmd_args));
+		while (test->cmd_args[i])
+		{
+			printf("i %d\n", i);
+			printf("test->cmd_args[i] %s\n", test->cmd_args[i]);
+			i++;
+		}
+		test = test->next;
+	}
+	printf("=========================\n");
+
 	return (false);
 }
 

@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 05:05:14 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/19 16:14:06 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/20 14:29:21 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,7 @@ static bool	token_to_cmd(t_token **curr_token_ptr, t_token *prev, t_proc **list)
 		return (handle_redirection_token(curr_token_ptr, list));
 	}
 	else
+	{
 		return (add_to_cmd(list, curr->word, is_new_proc));
+	}
 }

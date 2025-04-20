@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/19 15:54:49 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/20 10:25:47 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	exec_cmd(t_minishell *m_shell, \
 	t_builtin	builtin_cmd;
 	char		**envp;
 
+	dprintf(2, "cmd %s\n", proc->cmd);
 	if (m_shell->proc_count > 1)
 		change_fds(m_shell, proc->index, pipe_fd);
 	cmd_args = create_cmd_args(proc);
@@ -61,28 +62,8 @@ void	remove_args_quotes(char **cmd_args)
 static char	**create_cmd_args(t_proc *proc)
 {
 	char	**cmd_args;
-	t_token	*token;
-	int		count_word;
-	int		i;
 
-	count_word = count_token(&proc->token);
-	cmd_args = (char **)ft_calloc(sizeof(char *), count_word + 1);
-	if (!cmd_args)
-		return (NULL);
-	token = proc->token;
-	i = 0;
-	while (token)
-	{
-		cmd_args[i] = ft_strdup(token->word);
-		if (!cmd_args[i])
-		{
-			free_string_double_array(cmd_args);
-			return (NULL);
-		}
-		i++;
-		token = token->next;
-	}
-	cmd_args[i] = NULL;
+	cmd_args = ft_split(proc->cmd, ' ');
 	return (cmd_args);
 }
 
