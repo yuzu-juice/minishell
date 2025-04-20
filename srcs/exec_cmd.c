@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/20 18:58:51 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/20 19:32:33 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	exec_cmd(t_minishell *m_shell, \
 	{
 		exit(exec_builtin(proc->cmd_args, builtin_cmd, m_shell));
 	}
-	cmd_path = create_cmd_path(proc->cmd);
+	cmd_path = create_cmd_path(proc->cmd, m_shell);
 	if (cmd_path == NULL)
 	{
 		perror(NULL);
@@ -59,5 +59,5 @@ static void	print_execve_err(char *cmd)
 	write(2, "cmd: ", 5);
 	write(2, cmd, ft_strlen(cmd));
 	write(2, "\n", 1);
-	exit(1);
+	exit(127);
 }

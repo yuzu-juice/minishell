@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:20:30 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/02 19:07:48 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/20 19:29:42 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static char	*serch_exec_cmd_path(char **env_path, char *cmd);
 static char	*get_cmd_only(char *cmd);
 
-char	*create_cmd_path(char *cmd)
+char	*create_cmd_path(char *cmd, t_minishell *m_shell)
 {
 	char	*full_path;
 	char	**env_path;
@@ -23,7 +23,7 @@ char	*create_cmd_path(char *cmd)
 	full_path = NULL;
 	if (cmd[0] == '/' || cmd[0] == '.')
 		return (get_cmd_only(cmd));
-	env_path = get_env_path();
+	env_path = get_env_path(m_shell);
 	full_path = serch_exec_cmd_path(env_path, cmd);
 	free_string_double_array(env_path);
 	return (full_path);

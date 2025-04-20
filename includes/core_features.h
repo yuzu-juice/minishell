@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/20 14:04:42 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/20 19:24:14 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_proc
 
 // from envp
 char				*get_env_pwd(void);
-char				**get_env_path(void);
+char				**get_env_path(t_minishell *m_shell);
 
 // parser
 bool				parser(char *line, t_minishell *m_shell);
