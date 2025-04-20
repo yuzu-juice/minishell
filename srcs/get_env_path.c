@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:01:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/03/08 14:19:18 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/20 19:35:41 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static char	**add_slash_last(char **path);
 
-char	**get_env_path(void)
+char	**get_env_path(t_minishell *m_shell)
 {
 	char	**path;
 	char	*temp;
 	char	**env_path;
 
-	temp = getenv("PATH");
+	temp = search_env("PATH", m_shell->env)->value;
 	if (!temp)
 		return (NULL);
 	path = ft_split(temp, ':');

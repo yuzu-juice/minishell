@@ -5,6 +5,7 @@ int main() {
 	t_redirection *redir1;
 	t_env *env;
 	t_minishell *m_shell;
+	t_env *env2;
 
 	process = ft_calloc(1, sizeof(t_proc));
 	process->cmd = "cat";
@@ -18,6 +19,10 @@ int main() {
 	env = ft_calloc(1, sizeof(t_env));
 	env->key = ft_strdup("HOME");
 	env->value = ft_strdup("/home/user");
+	env2 = ft_calloc(1, sizeof(t_env));
+	env2->key = ft_strdup("PATH");
+	env2->value = ft_strdup("/usr/bin");
+	env->next = env2;
 	m_shell = ft_calloc(sizeof(t_minishell), 1);
 	m_shell->env = env;
 

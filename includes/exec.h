@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 13:26:20 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/18 16:54:22 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/20 19:23:05 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		exec_cmd(t_minishell *m_shell, \
 void		remove_args_quotes(char **cmd_args);
 
 // create cmd_path
-char		*create_cmd_path(char *cmd);
+char		*create_cmd_path(char *cmd, t_minishell *m_shell);
 
 // exec_builtin_cmd
 t_builtin	resolve_builtin_cmd(char *cmd);
