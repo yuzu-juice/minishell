@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:29:28 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/11 17:00:46 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/20 18:56:19 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,22 @@
 
 void	change_fds(t_minishell *m_shell, int proc_index, int pipe_fd[2][2])
 {
+	// dprintf(2, "pipe_fd[PREV][WRITE] %d\n", pipe_fd[PREV][WRITE]);
+	// dprintf(2, "pipe_fd[PREV][READ] %d\n", pipe_fd[PREV][READ]);
+	// dprintf(2, "pipe_fd[CURR][WRITE] %d\n", pipe_fd[CURR][WRITE]);
+	// dprintf(2, "pipe_fd[CURR][READ] %d\n", pipe_fd[CURR][READ]);
 	if (proc_index == 0)
 	{
-		close(pipe_fd[PREV][WRITE]);
-		close(pipe_fd[PREV][READ]);
+		// close(pipe_fd[PREV][WRITE]);
+		// close(pipe_fd[PREV][READ]);
 		close(pipe_fd[CURR][READ]);
 		dup2(pipe_fd[CURR][WRITE], STDOUT_FILENO);
 		close(pipe_fd[CURR][WRITE]);
 	}
 	else if (proc_index == m_shell->proc_count - 1)
 	{
-		close(pipe_fd[CURR][READ]);
-		close(pipe_fd[CURR][WRITE]);
+		// close(pipe_fd[CURR][READ]);
+		// close(pipe_fd[CURR][WRITE]);
 		close(pipe_fd[PREV][WRITE]);
 		dup2(pipe_fd[PREV][READ], STDIN_FILENO);
 		close(pipe_fd[PREV][READ]);
