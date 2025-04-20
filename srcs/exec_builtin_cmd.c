@@ -6,13 +6,11 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 13:18:47 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/20 15:34:37 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/20 16:09:18 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-static char	**create_cmd_args(t_proc *proc);
 
 t_builtin	resolve_builtin_cmd(char *cmd)
 {
@@ -64,29 +62,14 @@ int	exec_builtin(char **cmd_args, \
 
 bool	exec_parent_bultin_cmd(t_minishell *m_shell, t_proc *proc)
 {
-	char	**cmd_args;
-	int		builtin_cmd;
+	int	builtin_cmd;
 
 	if (m_shell->proc_count != 1)
 		return (false);
-	cmd_args = create_cmd_args(proc);
-	if (cmd_args == NULL)
-	{
-		perror(NULL);
-		return (true);
-	}
-	remove_args_quotes(cmd_args);
-	builtin_cmd = resolve_builtin_cmd(cmd_args[0]);
+	remove_args_quotes(proc->cmd_args);
+	builtin_cmd = resolve_builtin_cmd(proc->cmd_args[0]);
 	if (builtin_cmd == NOT_A_BUILTIN_COMMAND)
 		return (false);
-	m_shell->prev_status = exec_builtin(cmd_args, builtin_cmd, m_shell);
+	m_shell->prev_status = exec_builtin(proc->cmd_args, builtin_cmd, m_shell);
 	return (true);
-}
-
-static char	**create_cmd_args(t_proc *proc)
-{
-	char	**cmd_args;
-
-	cmd_args = ft_split(proc->cmd, ' ');
-	return (cmd_args);
 }

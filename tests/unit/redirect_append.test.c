@@ -10,6 +10,11 @@ int	main()
 
 	process = ft_calloc(1, sizeof(t_proc));
 	process->cmd = "echo -n hello";
+	process->cmd_args = ft_calloc(sizeof(char *), 10);
+	process->cmd_args[0] = ft_strdup("echo");
+	process->cmd_args[1] = ft_strdup("-n");
+	process->cmd_args[2] = ft_strdup("hello");
+	process->cmd_args[3] = NULL;
 	redir1 = ft_calloc(1, sizeof(t_redirection));
 	redir1->type = APPEND;
 	redir1->filename = "append1.txt";
@@ -71,6 +76,9 @@ int	main()
 	if (pid == 0) {
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
+		process->cmd_args[0] = ft_strdup("echo");
+		process->cmd_args[1] = ft_strdup("-n");
+		process->cmd_args[2] = ft_strdup("world");
 		if (setup_redirections(process) != 0)
 			exit(1);
 		exec_cmd(m_shell, process, NULL);
@@ -96,6 +104,9 @@ int	main()
 	redir1->next = redir2;
 	process->redir = redir1;
 	process->cmd = "echo -n test";
+	process->cmd_args[0] = ft_strdup("echo");
+	process->cmd_args[1] = ft_strdup("-n");
+	process->cmd_args[2] = ft_strdup("test");
 
 	if (pipe(pipe_fd) == -1) {
 		perror("pipe failed");
@@ -138,6 +149,9 @@ int	main()
 	assert(strcmp(buffer, "test") == 0);
 
 	process->cmd = "echo -n 123";
+	process->cmd_args[0] = ft_strdup("echo");
+	process->cmd_args[1] = ft_strdup("-n");
+	process->cmd_args[2] = ft_strdup("123");
 	redir1->next = NULL;
 	redir1->filename = "append2.txt";
 	process->redir = redir1;
