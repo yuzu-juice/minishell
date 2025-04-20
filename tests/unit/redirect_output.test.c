@@ -10,6 +10,11 @@ int	main()
 
 	process = ft_calloc(1, sizeof(t_proc));
 	process->cmd = "echo -n hello";
+	process->cmd_args = ft_calloc(sizeof(char *), 10);
+	process->cmd_args[0] = ft_strdup("echo");
+	process->cmd_args[1] = ft_strdup("-n");
+	process->cmd_args[2] = ft_strdup("hello");
+	process->cmd_args[3] = NULL;
 	redir1 = ft_calloc(1, sizeof(t_redirection));
 	redir1->type = OUTPUT;
 	redir1->filename = "output1.txt";
@@ -37,7 +42,7 @@ int	main()
 		close(pipe_fd[1]);
 		if (setup_redirections(process) != 0)
 			exit(1);
-		exec_cmd(m_shell, process->cmd, 0, NULL);
+		exec_cmd(m_shell, process, NULL);
 		perror("exec_cmd failed");
 		exit(127);
 	} else {
@@ -77,7 +82,7 @@ int	main()
 		close(pipe_fd[1]);
 		if (setup_redirections(process) != 0)
 			exit(1);
-		exec_cmd(m_shell, process->cmd, 0, NULL);
+		exec_cmd(m_shell, process, NULL);
 		perror("exec_cmd failed");
 		exit(127);
 	} else {
@@ -110,6 +115,10 @@ int	main()
 	redir1->next = NULL;
 	process->redir = redir1;
 	process->cmd = "echo -n overwritten";
+	process->cmd_args[0] = ft_strdup("echo");
+	process->cmd_args[1] = ft_strdup("-n");
+	process->cmd_args[2] = ft_strdup("overwritten");
+	process->cmd_args[3] = NULL;
 
 	if (pipe(pipe_fd) == -1) {
 		perror("pipe failed");
@@ -127,7 +136,7 @@ int	main()
 		close(pipe_fd[1]);
 		if (setup_redirections(process) != 0)
 			exit(1);
-		exec_cmd(m_shell, process->cmd, 0, NULL);
+		exec_cmd(m_shell, process, NULL);
 		perror("exec_cmd failed");
 		exit(127);
 	} else {

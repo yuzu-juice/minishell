@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   core_features.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:31:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/19 05:05:08 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/20 14:04:42 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_token
 typedef struct s_proc
 {
 	char			*cmd;
+	char			**cmd_args;
 	t_redirection	*redir;
 	int				index;
 	t_proc			*next;
@@ -76,12 +77,15 @@ t_token				*create_token_node(char *word);
 bool				add_token_node(t_token **head, t_token *new);
 bool				is_split_char(char c);
 bool				is_quote(char c);
+int					count_token(t_token **head);
 
 // create_process_list
 t_proc				*create_process_list(t_token **head);
 
 // create_process_list_util
-bool				validation_pipe(t_token *prev, t_token *next);
+bool				validation_pipe(t_token *prev, \
+									t_token *next, \
+									t_proc **list);
 t_proc				*get_last_proc(t_proc **list);
 bool				add_space(t_proc *curr);
 void				*free_proc_list(t_proc **list);

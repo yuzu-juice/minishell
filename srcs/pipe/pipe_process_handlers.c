@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_process_handlers.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 04:57:30 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/19 04:57:31 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/19 16:15:25 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	child_process(t_minishell *m_shell, t_proc *proc, int pipe_fd[2][2])
 	redir_status = setup_redirections(proc);
 	if (redir_status != 0)
 		exit(redir_status);
-	exec_cmd(m_shell, proc->cmd, proc->index, pipe_fd);
+	exec_cmd(m_shell, proc, pipe_fd);
 	perror("minishell: exec_cmd error");
 	exit(127);
 }

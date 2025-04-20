@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_process_list.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 05:05:14 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/19 05:10:30 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/20 14:29:21 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static bool		token_to_cmd(
 					t_token **curr_token_ptr,
 					t_token *prev,
 					t_proc **list);
-static bool		handle_pipe_logic(t_token *prev, t_token *curr);
+static bool		handle_pipe_logic(t_token *prev, t_token *curr, t_proc **list);
 
 t_proc	*create_process_list(t_token **head)
 {
@@ -71,9 +71,9 @@ static bool	handle_redirection_token(t_token **curr_token_ptr, t_proc **list)
 	return (false);
 }
 
-static bool	handle_pipe_logic(t_token *prev, t_token *curr)
+static bool	handle_pipe_logic(t_token *prev, t_token *curr, t_proc **list)
 {
-	if (validation_pipe(prev, curr->next))
+	if (validation_pipe(prev, curr->next, list))
 	{
 		syntax_error(NULL);
 		return (true);
@@ -96,7 +96,7 @@ static bool	token_to_cmd(t_token **curr_token_ptr, t_token *prev, t_proc **list)
 		is_new_proc = false;
 	}
 	if (curr->word && ft_strcmp(curr->word, "|") == 0)
-		return (handle_pipe_logic(prev, curr));
+		return (handle_pipe_logic(prev, curr, list));
 	else if (curr->word && is_redirection(curr->word))
 	{
 		if (*list == NULL || get_last_proc(list) == NULL)
@@ -104,5 +104,7 @@ static bool	token_to_cmd(t_token **curr_token_ptr, t_token *prev, t_proc **list)
 		return (handle_redirection_token(curr_token_ptr, list));
 	}
 	else
+	{
 		return (add_to_cmd(list, curr->word, is_new_proc));
+	}
 }

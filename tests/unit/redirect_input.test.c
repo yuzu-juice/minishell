@@ -8,6 +8,9 @@ int main() {
 
 	process = ft_calloc(1, sizeof(t_proc));
 	process->cmd = "cat";
+	process->cmd_args = ft_calloc(sizeof(char *), 10);
+	process->cmd_args[0] = ft_strdup("cat");
+	process->cmd_args[1] = NULL;
 	redir1 = ft_calloc(1, sizeof(t_redirection));
 	redir1->type = INPUT;
 	redir1->filename = "input.txt";
@@ -37,7 +40,7 @@ int main() {
 
 		if (setup_redirections(process) != 0)
 			exit(1);
-		exec_cmd(m_shell, process->cmd, 0, NULL);
+		exec_cmd(m_shell, process, NULL);
 		perror("exec_cmd failed");
 		exit(127);
 	}
