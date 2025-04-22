@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 05:05:14 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/20 14:29:21 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:44:13 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ static bool	handle_pipe_logic(t_token *prev, t_token *curr, t_proc **list)
 {
 	if (validation_pipe(prev, curr->next, list))
 	{
-		syntax_error(NULL);
 		return (true);
 	}
 	return (false);
