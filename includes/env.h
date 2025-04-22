@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 19:25:30 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/22 16:50:23 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/22 17:49:55 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ int		get_node_count(t_env *env);
 void	free_env(t_env *env);
 void	free_all_env(t_env *env);
 bool	cahnge_env_values(t_env *env, char **key_values);
+bool	validation_env_key(char *key);
 
 #endif
