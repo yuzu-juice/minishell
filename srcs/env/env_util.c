@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   env_util.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/19 19:25:30 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/22 16:50:23 by yohatana         ###   ########.fr       */
+/*   Created: 2025/04/22 16:37:48 by yohatana          #+#    #+#             */
+/*   Updated: 2025/04/22 16:49:59 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#include "../../includes/minishell.h"
 
-typedef struct s_env	t_env;
-
-typedef struct s_env
+bool	cahnge_env_values(t_env *env, char **key_values)
 {
-	char	*key;
-	char	*value;
-	t_env	*next;
-}	t_env;
+	t_env	*old_env;
 
-t_env	*envp_to_list(char **envp);
-bool	add_env_node(t_env *env, char *str, int i);
-char	**list_to_envp(t_env *env);
-int		get_node_count(t_env *env);
-void	free_env(t_env *env);
-void	free_all_env(t_env *env);
-bool	cahnge_env_values(t_env *env, char **key_values);
-
-#endif
+	old_env = search_env(key_values[0], env);
+	free(old_env->value);
+	old_env->value = key_values[1];
+	return (false);
+}
