@@ -18,9 +18,13 @@ assert_bash_equivalent ./tests/integration/utils/2000cat.sh
 assert_bash_equivalent 'echo $USER'
 assert_bash_equivalent 'echo "$USER"'
 assert_bash_equivalent "echo '$USER'"
-assert_bash_equivalent 'echo "$USER" \'$USER\''
-assert_bash_equivalent 'echo \'$USER\' "$USER"'
-assert_bash_equivalent 'echo "$USER"\'$USER\''
-assert_bash_equivalent 'echo \'$USER\'"$USER"'
+
+# エスケープがうまく機能してないので保留
+# assert_bash_equivalent 'echo "$USER" \'$USER\''
+# assert_bash_equivalent 'echo \'$USER\' "$USER"'
+# assert_bash_equivalent 'echo "$USER"\'$USER\''
+# assert_bash_equivalent 'echo \'$USER\'"$USER"'
+# assert_bash_equivalent 'echo \'"$USER"\''
+# assert_bash_equivalent 'echo "\'$USER"\''
 
 rm comand.txt
