@@ -14,4 +14,13 @@ assert_bash_equivalent ls > comand.txt
 # 2000cat
 assert_bash_equivalent ./tests/integration/utils/2000cat.sh
 
+# expand dollar->env
+assert_bash_equivalent 'echo $USER'
+assert_bash_equivalent 'echo "$USER"'
+assert_bash_equivalent "echo '$USER'"
+assert_bash_equivalent 'echo "$USER" \'$USER\''
+assert_bash_equivalent 'echo \'$USER\' "$USER"'
+assert_bash_equivalent 'echo "$USER"\'$USER\''
+assert_bash_equivalent 'echo \'$USER\'"$USER"'
+
 rm comand.txt

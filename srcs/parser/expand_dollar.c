@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 20:33:45 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/21 18:34:39 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:29:40 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,11 @@ bool	expand_dollar(t_token **head, t_minishell *m_shell)
 		i = 0;
 		while (curr->word[i])
 		{
-			printf("i %d curr->word[i] %c\n", i, curr->word[i]);
 			if (is_quote(curr->word[i]) || curr->word[i] == '$')
 				err_flg = expand_exec(curr, &i, m_shell);
 			if (err_flg)
 				break ;
-			i++;// echo ""'$USER'""
+			i++;
 		}
 		if (err_flg)
 			break ;
@@ -64,9 +63,11 @@ static bool	expand_exec(t_token *curr, int *index, t_minishell *m_shell)
 				*index = i;
 				err_flg = replace_env_word(curr, index, m_shell);
 			}
-			// elseのときにindexが更新されない　byなぎさ神
+			if (curr->word[i] == '\"')
+				break ;
 			i++;
 		}
+		*index = i;
 	}
 	else
 		err_flg = replace_env_word(curr, index, m_shell);
@@ -120,8 +121,6 @@ static char	*split_env_key(t_token *curr, int *index)
 	while (curr->word[i] && curr->word[i] != ' ' && \
 		!is_quote(curr->word[i]) && curr->word[i] != '$')
 	{
-		printf("i %d\n", i);
-		printf("curr->word[i] %c\n", curr->word[i]);
 		i++;
 	}
 	key = ft_substr(curr->word, *index, i - *index);
