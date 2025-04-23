@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 14:54:52 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/19 18:58:49 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:55:48 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ void	free_string_double_array(char **str)
 		free(str[i]);
 		i++;
 	}
+	str = NULL;
 	free (str);
 }

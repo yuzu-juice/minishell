@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 20:33:45 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/15 14:45:58 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:29:40 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,11 @@ static bool	expand_exec(t_token *curr, int *index, t_minishell *m_shell)
 				*index = i;
 				err_flg = replace_env_word(curr, index, m_shell);
 			}
+			if (curr->word[i] == '\"')
+				break ;
 			i++;
 		}
+		*index = i;
 	}
 	else
 		err_flg = replace_env_word(curr, index, m_shell);
@@ -117,7 +120,9 @@ static char	*split_env_key(t_token *curr, int *index)
 		return (ft_strdup("$?"));
 	while (curr->word[i] && curr->word[i] != ' ' && \
 		!is_quote(curr->word[i]) && curr->word[i] != '$')
+	{
 		i++;
+	}
 	key = ft_substr(curr->word, *index, i - *index);
 	if (!key)
 		return (NULL);
