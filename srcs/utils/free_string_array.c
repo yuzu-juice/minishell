@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_string_array.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 14:54:52 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/22 15:55:48 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/23 13:42:31 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,5 @@ void	free_string_double_array(char **str)
 		free(str[i]);
 		i++;
 	}
-	str = NULL;
-	free (str);
+	free(str);
 }
