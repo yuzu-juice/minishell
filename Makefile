@@ -42,7 +42,8 @@ SRCS	= \
 	srcs/exec_builtin_cmd.c\
 	srcs/parser/parser_redirection.c\
 	srcs/utils/count_string_array.c\
-	srcs/utils/copy_double_string_array.c
+	srcs/utils/copy_double_string_array.c\
+	srcs/env/env_util.c
 HEADERS	= \
 	includes/minishell.h\
 	includes/core_feature.h\

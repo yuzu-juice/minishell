@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:58:23 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/19 19:00:41 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/22 17:57:54 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ bool	add_env_node(t_env *env, char *str, int i)
 		new_node = env;
 	else
 	{
+		if (validation_env_key(key_values[0]))
+			return (return_error(key_values));
+		if (search_env(key_values[0], env))
+			return (cahnge_env_values(env, key_values));
 		new_node = ft_calloc(1, sizeof(t_env));
 		if (new_node == NULL)
 			return (return_error(key_values));

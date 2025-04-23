@@ -6,13 +6,14 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 18:42:27 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/20 08:55:34 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:01:23 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 static int	print_env(t_minishell *m_shell);
+static void	write_error(char *str);
 
 int	export(int argc, char **argv, t_minishell *m_shell)
 {
@@ -33,7 +34,7 @@ int	export(int argc, char **argv, t_minishell *m_shell)
 		}
 		if (err_count)
 		{
-			perror(NULL);
+			write_error("export failed");
 			return (1);
 		}
 		return (0);
@@ -63,4 +64,10 @@ static int	print_env(t_minishell *m_shell)
 		tmp = tmp->next;
 	}
 	return (0);
+}
+
+static void	write_error(char *str)
+{
+	write(2, str, ft_strlen(str));
+	write(2, "\n", 1);
 }
