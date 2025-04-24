@@ -35,4 +35,3 @@ assert_bash_equivalent "echo '$USER'"
 # assert_bash_equivalent 'echo \'$USER\'"$USER"'
 # assert_bash_equivalent 'echo \'"$USER"\''
 # assert_bash_equivalent 'echo "\'$USER"\''
-
