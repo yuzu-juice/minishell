@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:16:44 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/20 19:10:57 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/22 12:41:04 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-volatile sig_atomic_t	g_sig_flag;
 
 static void			minishell(t_env *env);
 static void			minishell_loop(t_minishell *m_shell);
@@ -39,13 +37,7 @@ static void	minishell(t_env *env)
 {
 	t_minishell	*m_shell;
 
-	if (signal(SIGINT, handle_sigint) == SIG_ERR)
-	{
-		perror(NULL);
-		free_all_env(env);
-		rl_clear_history();
-		exit(EXIT_FAILURE);
-	}
+	set_handle_sigint(env);
 	m_shell = create_minishell_struct(env);
 	if (!m_shell)
 		return ;

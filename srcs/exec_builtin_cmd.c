@@ -56,7 +56,6 @@ int	exec_builtin(char **cmd_args, \
 		status = export(i, cmd_args, m_shell);
 	else if (builtin_cmd == EXIT)
 		status = minishell_exit(i, cmd_args, m_shell);
-	free_string_double_array(cmd_args);
 	return (status);
 }
 

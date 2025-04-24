@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_process_list_util.c                         :+:      :+:    :+:   */
+/*   create_process_list_utils1.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 20:28:04 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/18 15:52:14 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:42:25 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	*free_proc_list(t_proc **list)
 	curr = *list;
 	while (curr)
 	{
+		free_string_double_array(curr->cmd_args);
 		free(curr->cmd);
 		free(curr->redir);
 		temp = curr->next;
