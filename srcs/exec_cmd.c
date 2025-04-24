@@ -27,7 +27,6 @@ void	exec_cmd(t_minishell *m_shell, \
 	remove_args_quotes(proc->cmd_args);
 	builtin_cmd = resolve_builtin_cmd(proc->cmd_args[0]);
 	if (builtin_cmd != NOT_A_BUILTIN_COMMAND)
-	{
 		exit(exec_builtin(proc->cmd_args, builtin_cmd, m_shell));
 	}
 	cmd_path = create_cmd_path(proc->cmd_args[0], m_shell);
