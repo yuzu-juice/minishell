@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/20 19:32:33 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:22:45 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ void	exec_cmd(t_minishell *m_shell, \
 	remove_args_quotes(proc->cmd_args);
 	builtin_cmd = resolve_builtin_cmd(proc->cmd_args[0]);
 	if (builtin_cmd != NOT_A_BUILTIN_COMMAND)
-	{
 		exit(exec_builtin(proc->cmd_args, builtin_cmd, m_shell));
-	}
 	cmd_path = create_cmd_path(proc->cmd, m_shell);
 	if (cmd_path == NULL)
 	{
