@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yoshiko <yoshiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/23 14:16:38 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/25 01:53:31 by yoshiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	exec_cmd(t_minishell *m_shell, \
 	builtin_cmd = resolve_builtin_cmd(proc->cmd_args[0]);
 	if (builtin_cmd != NOT_A_BUILTIN_COMMAND)
 		exit(exec_builtin(proc->cmd_args, builtin_cmd, m_shell));
-	}
 	cmd_path = create_cmd_path(proc->cmd_args[0], m_shell);
 	if (cmd_path == NULL)
 	{
