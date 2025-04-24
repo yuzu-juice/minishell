@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_process_handlers.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 04:57:30 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/20 17:57:24 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/22 12:32:09 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ void	parent_process(int pipe_fd[2][2], t_proc *proc, int proc_count)
 	if (proc_count == 1)
 		return ;
 	if (proc->index != 0)
-	{
-		close(pipe_fd[PREV][READ]);
-		close(pipe_fd[PREV][WRITE]);
-	}
+		close_pipe_fd(pipe_fd[PREV]);
 	if (proc->next)
 	{
 		pipe_fd[PREV][READ] = pipe_fd[CURR][READ];

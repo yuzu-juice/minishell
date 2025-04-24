@@ -36,6 +36,7 @@ SRCS	= \
 	srcs/get_input_line.c\
 	srcs/create_minishell_struct.c\
 	srcs/pipe/pipe.c\
+	srcs/pipe/pipe_utils.c\
 	srcs/pipe/pipe_process_handlers.c\
 	srcs/pipe/change_fds.c\
 	srcs/exec_builtin_cmd.c\
