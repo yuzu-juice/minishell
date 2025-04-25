@@ -63,6 +63,8 @@ bool	exec_parent_bultin_cmd(t_minishell *m_shell, t_proc *proc)
 {
 	int	builtin_cmd;
 
+	if (proc->cmd_args == NULL)
+		return (false);
 	if (m_shell->proc_count != 1)
 		return (false);
 	remove_args_quotes(proc->cmd_args);

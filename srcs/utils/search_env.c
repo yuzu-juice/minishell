@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   search_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 19:43:53 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/23 16:22:53 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:14:19 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,24 @@ t_env	*search_env(char *key, t_env *env)
 {
 	t_env	*temp;
 	char	*trim_dollar;
+	t_env	*result;
 
-	temp = env;
-	trim_dollar = ft_strtrim(key, "$");
 	if (!key)
 		return (NULL);
+	temp = env;
+	trim_dollar = ft_strtrim(key, "$");
+	if (!trim_dollar)
+		return (NULL);
+	result = NULL;
 	while (temp)
 	{
 		if (ft_strcmp(trim_dollar, temp->key) == 0)
-			return (temp);
+		{
+			result = temp;
+			break ;
+		}
 		temp = temp->next;
 	}
-	return (NULL);
+	free(trim_dollar);
+	return (result);
 }
