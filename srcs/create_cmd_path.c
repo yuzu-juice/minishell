@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:20:30 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/23 16:22:39 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/25 19:14:11 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static char	*serch_exec_cmd_path(char **env_path, char *cmd)
 	while (env_path[i])
 	{
 		full_path = ft_strjoin(env_path[i], cmd_only);
+		free(cmd_only);
 		if (!full_path)
 			return (NULL);
 		if (access(full_path, F_OK) == 0)
