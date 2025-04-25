@@ -55,7 +55,7 @@ MAIN_OBJ = $(MAIN:.c=.o)
 OBJS	= $(SRCS:.c=.o)
 
 CC	= cc
-CFLAGS	= -Wall -Wextra -Werror -I includes/ -g
+CFLAGS	= -Wall -Wextra -Werror -I includes/
 
 .DEFAULT:	all
 
