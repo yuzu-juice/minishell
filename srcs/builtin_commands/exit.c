@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 14:57:27 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/23 15:04:57 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/25 13:58:56 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int	minishell_exit(int argc, char **argv, t_minishell *m_shell)
 	{
 		if (is_digit(argv[1]))
 		{
-			ft_putstr_fd("Usage: exit [exit_status]. \
-				numeric argument required\n", 2);
+			ft_putstr_fd("Usage: exit [exit_status].\n", 2);
 			return (2);
 		}
 		status = ft_atoi(argv[1]);
