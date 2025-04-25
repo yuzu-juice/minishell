@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 13:18:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/25 16:27:01 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/25 16:30:44 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ bool	replace_word(t_token *curr, int *index, t_env replace)
 	free(after_token_word);
 	dollar_after_word = split_after_word(curr, index, replace);
 	if (!dollar_after_word)
-	{
-		free(after_token_word);
 		return (true);
-	}
 	after_token_word = ft_strjoin(temp, dollar_after_word);
 	free(curr->word);
 	free(temp);
