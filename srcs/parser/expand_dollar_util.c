@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 13:18:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/21 18:22:52 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/25 16:27:01 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,22 @@ bool	replace_word(t_token *curr, int *index, t_env replace)
 	char	*temp;
 	char	*dollar_after_word;
 
-	after_token_word = ft_calloc(ft_strlen(curr->word) - \
-						ft_strlen(replace.key) + ft_strlen(replace.value), \
-						sizeof(char));
-	if (!after_token_word)
-		return (true);
 	after_token_word = ft_substr(curr->word, 0, *index);
 	temp = ft_strjoin(after_token_word, replace.value);
 	free(after_token_word);
 	dollar_after_word = split_after_word(curr, index, replace);
 	if (!dollar_after_word)
+	{
+		free(after_token_word);
 		return (true);
+	}
 	after_token_word = ft_strjoin(temp, dollar_after_word);
 	free(curr->word);
 	free(temp);
 	if (!after_token_word)
 		return (true);
 	curr->word = after_token_word;
+	free(dollar_after_word);
 	return (false);
 }
 
