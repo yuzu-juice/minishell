@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshiko <yoshiko@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/25 01:53:31 by yoshiko          ###   ########.fr       */
+/*   Updated: 2025/04/25 18:40:53 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 static void	print_execve_err(char *cmd);
+static void	print_permission_err(char *cmd);
 
 void	exec_cmd(t_minishell *m_shell, \
 	t_proc *proc, \
@@ -34,6 +35,8 @@ void	exec_cmd(t_minishell *m_shell, \
 		perror(NULL);
 		exit(1);
 	}
+	if (access(cmd_path, X_OK) != 0)
+		print_permission_err(cmd_path);
 	envp = list_to_envp(m_shell->env);
 	if (execve(cmd_path, proc->cmd_args, envp) < 0)
 		print_execve_err(proc->cmd);
@@ -58,4 +61,13 @@ static void	print_execve_err(char *cmd)
 	write(2, cmd, ft_strlen(cmd));
 	write(2, "\n", 1);
 	exit(127);
+}
+
+static void	print_permission_err(char *cmd)
+{
+	write(2, "permission denied\n", 19);
+	write(2, "cmd: ", 5);
+	write(2, cmd, ft_strlen(cmd));
+	write(2, "\n", 1);
+	exit(126);
 }
