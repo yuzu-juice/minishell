@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_process_list_utils1.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 20:28:04 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/23 14:12:02 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/26 14:10:58 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	*free_proc_list(t_proc **list)
 	{
 		free_string_double_array(curr->cmd_args);
 		free(curr->cmd);
-		free(curr->redir);
+		free_redirection_list(&curr->redir);
 		temp = curr->next;
 		free(curr);
 		curr = temp;

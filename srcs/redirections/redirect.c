@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:45:26 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/20 17:56:30 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/26 14:09:22 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,22 @@ static int	process_all_heredocs(t_proc *proc)
 		redir = redir->next;
 	}
 	return (0);
+}
+
+void	free_redirection_list(t_redirection **list)
+{
+	t_redirection	*temp;
+	t_redirection	*curr;
+
+	if (!list || !*list)
+		return ;
+	curr = *list;
+	while (curr)
+	{
+		free(curr->filename);
+		temp = curr->next;
+		free(curr);
+		curr = temp;
+	}
+	*list = NULL;
 }

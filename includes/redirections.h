@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:41:51 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/19 13:10:24 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/26 14:11:11 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@ typedef struct s_redirection
 	t_redirection		*next;
 }	t_redirection;
 
-int	setup_redirections(t_proc *proc);
-int	handle_input_redir(t_redirection *redir);
-int	handle_heredoc_redir(t_redirection *redir);
-int	handle_output_redir(t_redirection *redir);
-int	handle_append_redir(t_redirection *redir);
-int	create_heredoc_file(t_redirection *redir);
+int		setup_redirections(t_proc *proc);
+int		handle_input_redir(t_redirection *redir);
+int		handle_heredoc_redir(t_redirection *redir);
+int		handle_output_redir(t_redirection *redir);
+int		handle_append_redir(t_redirection *redir);
+int		create_heredoc_file(t_redirection *redir);
+void	free_redirection_list(t_redirection **list);
 
 #endif

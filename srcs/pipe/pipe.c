@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 03:32:08 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/23 14:54:39 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/26 14:05:16 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool	minishell_pipe(t_minishell *m_shell)
 	m_shell->created_child_proc_count = 0;
 	g_sig_flag = 0;
 	if (set_handle_sigint_pipe(m_shell))
-		return (true);
+		return (free(m_shell->child_pids), true);
 	last_pid = execute_pipeline(m_shell, pipe_fd);
 	error_occurred = (last_pid < 0);
 	wait_for_processes(m_shell, last_pid);
