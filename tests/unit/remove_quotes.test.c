@@ -2,31 +2,44 @@
 
 int	main(void)
 {
-	char	*removed_quotes;
+    char	*input;
+    char	*removed_quotes;
 
-	// "ls"
-	removed_quotes = remove_quotes("\"ls\"");
-	assert(strcmp(removed_quotes, "ls") == 0);
+    // "ls"
+    input = strdup("\"ls\"");
+    removed_quotes = remove_quotes(input);
+    assert(strcmp(removed_quotes, "ls") == 0);
+    free(removed_quotes);
 
-	// "'ls'"
-	removed_quotes = remove_quotes("\"\'ls\'\"");
-	assert(strcmp(removed_quotes, "\'ls\'") == 0);
+    // "'ls'"
+    input = strdup("\"\'ls\'\"");
+    removed_quotes = remove_quotes(input);
+    assert(strcmp(removed_quotes, "\'ls\'") == 0);
+    free(removed_quotes);
 
     // ls
-	removed_quotes = remove_quotes("ls");
-	assert(strcmp(removed_quotes, "ls") == 0);
+    input = strdup("ls");
+    removed_quotes = remove_quotes(input);
+    assert(strcmp(removed_quotes, "ls") == 0);
+    free(removed_quotes);
 
     // "ls"'ls'
-	removed_quotes = remove_quotes("\"ls\"\'ls\'");
-	assert(strcmp(removed_quotes, "lsls") == 0);
+    input = strdup("\"ls\"\'ls\'");
+    removed_quotes = remove_quotes(input);
+    assert(strcmp(removed_quotes, "lsls") == 0);
+    free(removed_quotes);
 
     // "ls"'ls'"ls"
-	removed_quotes = remove_quotes("\"ls\"\'ls\'\"ls\"");
-	assert(strcmp(removed_quotes, "lslsls") == 0);
+    input = strdup("\"ls\"\'ls\'\"ls\"");
+    removed_quotes = remove_quotes(input);
+    assert(strcmp(removed_quotes, "lslsls") == 0);
+    free(removed_quotes);
 
     // 'ls'"ls"'ls'
-	removed_quotes = remove_quotes("\'ls\'\"ls\"\'ls\'");
-	assert(strcmp(removed_quotes, "lslsls") == 0);
+    input = strdup("\'ls\'\"ls\"\'ls\'");
+    removed_quotes = remove_quotes(input);
+    assert(strcmp(removed_quotes, "lslsls") == 0);
+    free(removed_quotes);
 
-	return (0);
+    return (0);
 }
