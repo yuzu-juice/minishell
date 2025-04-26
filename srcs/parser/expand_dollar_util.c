@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_dollar_util.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 13:18:13 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/25 16:30:44 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/26 14:33:40 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,17 @@ static char	*split_after_word(t_token *curr, int *index, t_env replace)
 char	*search_env_value(char *key, t_minishell *m_shell)
 {
 	t_env	*find;
-	char	*status;
+	char	*value_str;
 
 	if (ft_strcmp(key, "$?") == 0)
 	{
-		status = ft_itoa(m_shell->prev_status);
-		return (status);
+		value_str = ft_itoa(m_shell->prev_status);
+		return (value_str);
 	}
 	find = search_env(key, m_shell->env);
 	if (find == NULL)
-		return ("");
-	return (find->value);
+		value_str = ft_strdup("");
+	else
+		value_str = ft_strdup(find->value);
+	return (value_str);
 }
