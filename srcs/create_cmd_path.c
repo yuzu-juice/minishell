@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:20:30 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/26 13:09:16 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/26 13:43:20 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,22 @@ static char	*search_exec_cmd_path(char **env_path, char *cmd)
 	char	*cmd_only;
 
 	cmd_only = get_cmd_only(cmd);
+	if (!cmd_only)
+		return (NULL);
 	i = 0;
 	while (env_path[i])
 	{
 		full_path = ft_strjoin(env_path[i], cmd_only);
 		if (!full_path)
+		{
+			free(cmd_only);
 			return (NULL);
+		}
 		if (access(full_path, F_OK) == 0)
+		{
+			free(cmd_only);
 			return (full_path);
+		}
 		free(full_path);
 		i++;
 	}
@@ -54,27 +62,27 @@ static char	*search_exec_cmd_path(char **env_path, char *cmd)
 
 static char	*get_cmd_only(char *cmd)
 {
-	int		space_flg;
+	bool	has_space;
 	int		i;
 	char	**temp;
 	char	*result;
 
-	space_flg = 0;
+	has_space = false;
 	i = 0;
 	while (cmd[i])
 	{
 		if (cmd[i] == ' ')
-			space_flg = 1;
+			has_space = true;
 		i++;
 	}
-	if (space_flg == 0)
+	if (!has_space)
 		return (ft_strdup(cmd));
 	temp = ft_split(cmd, ' ');
 	if (!temp)
 		return (NULL);
 	result = ft_strdup(temp[0]);
 	if (!result)
-		return (NULL);
+		return (free_string_double_array(temp), NULL);
 	free_string_double_array(temp);
 	return (result);
 }
