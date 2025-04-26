@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_dollar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 20:33:45 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/25 16:19:36 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/26 14:29:59 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static bool	replace_env_word(t_token *curr, int *index, t_minishell *m_shell)
 		*index = *index + 1;
 		return (false);
 	}
-	replace.value = ft_strdup(search_env_value(replace.key, m_shell));
+	replace.value = search_env_value(replace.key, m_shell);
 	if (replace_word(curr, index, replace))
 	{
 		free(replace.key);
