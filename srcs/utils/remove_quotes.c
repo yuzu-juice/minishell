@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 11:33:20 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/18 15:11:20 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/26 13:10:25 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ char	*remove_quotes(char *token)
 	remove_char_count = count_quotes(token);
 	if (remove_char_count == 0)
 		return (token);
-	ret = ft_calloc(ft_strlen(token) - remove_char_count, sizeof(char));
+	ret = ft_calloc(ft_strlen(token) - remove_char_count + 1, sizeof(char));
 	if (ret == NULL)
 		return (NULL);
 	ret = copy_token(token, ret);
+	free(token);
 	return (ret);
 }
 
