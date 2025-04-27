@@ -124,6 +124,9 @@ integration: all
 test: norm unit integration
 
 valgrind: all
-	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --gen-suppressions=all ./minishell
+	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-fds=yes --gen-suppressions=all ./minishell
 
-.PHONY: all clean fclean re norm integration system unit
+valgrind-fds: all
+	valgrind --track-fds=yes ./minishell
+
+.PHONY: all clean fclean re norm integration system unit valgrind valgrind-fds
