@@ -124,7 +124,7 @@ integration: all
 test: norm unit integration
 
 valgrind: all
-	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-fds=yes ./minishell
+	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --gen-suppressions=all ./minishell
 
 valgrind-fds: all
 	valgrind --track-fds=yes ./minishell
