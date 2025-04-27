@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/27 12:00:24 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/27 12:04:31 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,6 @@ static void	print_execve_err(char *cmd, t_proc *proc, t_minishell *m_shell)
 	write(2, cmd, ft_strlen(cmd));
 	write(2, ":", 1);
 	perror(NULL);
-	free_string_double_array(proc->cmd_args);
-	free_redirection_list(&proc->redir);
-	free(proc);
 	free_minishell_struct(m_shell);
 	exit(127);
 }
@@ -80,9 +77,6 @@ static void	print_permission_err(char *cmd, t_proc *proc, t_minishell *m_shell)
 	write(2, cmd, ft_strlen(cmd));
 	write(2, ":", 1);
 	write(2, "permission denied\n", 19);
-	free_string_double_array(proc->cmd_args);
-	free_redirection_list(&proc->redir);
-	free(proc);
 	free_minishell_struct(m_shell);
 	exit(126);
 }
