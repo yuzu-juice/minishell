@@ -6,22 +6,17 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:45:26 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/26 14:09:22 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/27 00:08:02 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	process_all_heredocs(t_proc *proc);
 
 int	setup_redirections(t_proc *proc)
 {
 	t_redirection	*redir;
 	int				status;
 
-	status = process_all_heredocs(proc);
-	if (status != 0)
-		return (status);
 	redir = proc->redir;
 	status = 0;
 	while (redir && status == 0)
@@ -37,28 +32,6 @@ int	setup_redirections(t_proc *proc)
 		redir = redir->next;
 	}
 	return (status);
-}
-
-static int	process_all_heredocs(t_proc *proc)
-{
-	t_redirection	*redir;
-	int				status;
-
-	redir = proc->redir;
-	status = 0;
-	while (redir)
-	{
-		if (redir->type == HEREDOC)
-		{
-			status = create_heredoc_file(redir);
-			if (status != 0)
-			{
-				return (status);
-			}
-		}
-		redir = redir->next;
-	}
-	return (0);
 }
 
 void	free_redirection_list(t_redirection **list)

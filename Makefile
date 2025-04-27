@@ -39,6 +39,7 @@ SRCS	= \
 	srcs/pipe/pipe_utils.c\
 	srcs/pipe/pipe_process_handlers.c\
 	srcs/pipe/change_fds.c\
+	srcs/pipe/pipe_heredoc_preprocess.c\
 	srcs/exec_builtin_cmd.c\
 	srcs/parser/parser_redirection.c\
 	srcs/utils/count_string_array.c\
