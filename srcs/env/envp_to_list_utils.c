@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp_to_list_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:58:23 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/27 11:46:45 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/27 18:00:30 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static t_env	*get_last_env_node(t_env *env);
 static char		**split_string(char *str, char delimiter);
 static bool		return_error(char **key_values);
+static void		copy_key_value(t_env *new_node, char **key_values);
 
 bool	add_env_node(t_env *env, char *str, int i)
 {
@@ -39,8 +40,7 @@ bool	add_env_node(t_env *env, char *str, int i)
 			return (return_error(key_values));
 		get_last_env_node(env)->next = new_node;
 	}
-	new_node->key = ft_strdup(key_values[0]);
-	new_node->value = ft_strdup(key_values[1]);
+	copy_key_value(new_node, key_values);
 	free_string_double_array(key_values);
 	return (false);
 }
@@ -87,4 +87,13 @@ static bool	return_error(char **key_values)
 {
 	free_string_double_array(key_values);
 	return (true);
+}
+
+static void	copy_key_value(t_env *new_node, char **key_values)
+{
+	new_node->key = ft_strdup(key_values[0]);
+	if (key_values[1])
+		new_node->value = ft_strdup(key_values[1]);
+	else
+		new_node->value = NULL;
 }
