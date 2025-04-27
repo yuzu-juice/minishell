@@ -42,7 +42,7 @@ int	main()
 		close(pipe_fd[1]);
 		if (setup_redirections(process) != 0)
 			exit(1);
-		exec_cmd(m_shell, process, NULL);
+		exec_cmd(m_shell, process);
 		perror("exec_cmd failed");
 		exit(127);
 	} else {
@@ -81,7 +81,7 @@ int	main()
 		process->cmd_args[2] = ft_strdup("world");
 		if (setup_redirections(process) != 0)
 			exit(1);
-		exec_cmd(m_shell, process, NULL);
+		exec_cmd(m_shell, process);
 		perror("exec_cmd failed");
 		exit(127);
 	} else {
@@ -124,7 +124,7 @@ int	main()
 		close(pipe_fd[1]);
 		if (setup_redirections(process) != 0)
 			exit(1);
-		exec_cmd(m_shell, process, NULL);
+		exec_cmd(m_shell, process);
 		perror("exec_cmd failed");
 		exit(127);
 	} else {
@@ -172,7 +172,7 @@ int	main()
 		close(pipe_fd[1]);
 		if (setup_redirections(process) != 0)
 			exit(1);
-		exec_cmd(m_shell, process, NULL);
+		exec_cmd(m_shell, process);
 		perror("exec_cmd failed");
 		exit(127);
 	} else {

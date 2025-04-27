@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 13:26:20 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/20 19:23:05 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/27 00:38:24 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ typedef struct s_minishell	t_minishell;
 typedef enum e_builtin		t_builtin;
 
 // exec_cmd
-void		exec_cmd(t_minishell *m_shell, \
-					t_proc	*proc, \
-					int pipe_fd[2][2]);
+void		exec_cmd(t_minishell *m_shell, t_proc *proc);
 void		remove_args_quotes(char **cmd_args);
 
 // create cmd_path
