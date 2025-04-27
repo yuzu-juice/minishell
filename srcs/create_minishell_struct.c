@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 14:28:21 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/22 11:58:13 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/27 11:58:29 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ t_minishell	*create_minishell_struct(t_env *env)
 void	free_minishell_struct(t_minishell *m_shell)
 {
 	free_all_env(m_shell->env);
+	free(m_shell->child_pids);
+	free_proc_list(&m_shell->proc);
 	free(m_shell);
 	m_shell = NULL;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp_to_list_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:58:23 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/22 17:57:54 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/27 11:46:45 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ bool	add_env_node(t_env *env, char *str, int i)
 		if (validation_env_key(key_values[0]))
 			return (return_error(key_values));
 		if (search_env(key_values[0], env))
-			return (cahnge_env_values(env, key_values));
+			return (change_env_values(env, key_values));
 		new_node = ft_calloc(1, sizeof(t_env));
 		if (new_node == NULL)
 			return (return_error(key_values));
 		get_last_env_node(env)->next = new_node;
 	}
-	new_node->key = key_values[0];
-	new_node->value = key_values[1];
-	free(key_values);
+	new_node->key = ft_strdup(key_values[0]);
+	new_node->value = ft_strdup(key_values[1]);
+	free_string_double_array(key_values);
 	return (false);
 }
 
