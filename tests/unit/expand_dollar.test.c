@@ -183,5 +183,18 @@ int main(int argc, char **argv, char **envp)
 		temp = temp->next;
 		i++;
 	}
+
+	char	*array13[] = {ft_strjoin(getenv("PWD"), ft_strjoin("::::A", getenv("PWD")))};
+	head = create_token_list("$PWD::::A$PWD");
+	err = expand_dollar(&head, m_shell);
+	assert(err == false);
+	temp = head;
+	i = 0;
+	while (temp)
+	{
+		assert(strcmp(temp->word, array13[i]) == 0);
+		temp = temp->next;
+		i++;
+	}
 	return (0);
 }
