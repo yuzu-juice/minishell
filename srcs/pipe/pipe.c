@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 03:32:08 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/26 14:05:16 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/27 00:11:56 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,11 @@ bool	minishell_pipe(t_minishell *m_shell)
 		return (false);
 	m_shell->child_pids = ft_calloc(m_shell->proc_count, sizeof(pid_t));
 	if (!m_shell->child_pids)
-	{
-		ft_putendl_fd("failed: malloc\n", 2);
-		return (true);
-	}
+		return (ft_putendl_fd("failed: malloc\n", 2), true);
 	m_shell->created_child_proc_count = 0;
 	g_sig_flag = 0;
+	if (preprocess_all_heredocs_in_pipeline(m_shell->proc))
+		return (free_minishell_struct(m_shell), true);
 	if (set_handle_sigint_pipe(m_shell))
 		return (free(m_shell->child_pids), true);
 	last_pid = execute_pipeline(m_shell, pipe_fd);

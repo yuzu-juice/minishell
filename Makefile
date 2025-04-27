@@ -39,6 +39,7 @@ SRCS	= \
 	srcs/pipe/pipe_utils.c\
 	srcs/pipe/pipe_process_handlers.c\
 	srcs/pipe/change_fds.c\
+	srcs/pipe/pipe_heredoc_preprocess.c\
 	srcs/exec_builtin_cmd.c\
 	srcs/parser/parser_redirection.c\
 	srcs/utils/count_string_array.c\
@@ -125,4 +126,7 @@ test: norm unit integration
 valgrind: all
 	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --gen-suppressions=all ./minishell
 
-.PHONY: all clean fclean re norm integration system unit
+valgrind-fds: all
+	valgrind --track-fds=yes ./minishell
+
+.PHONY: all clean fclean re norm integration system unit valgrind valgrind-fds
