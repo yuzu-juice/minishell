@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 20:33:45 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/27 17:30:11 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/27 17:34:23 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@ bool	expand_dollar(t_token **head, t_minishell *m_shell)
 			if (ft_strcmp(curr->word, "$") == 0)
 				break ;
 			if (is_quote(curr->word[i]) || curr->word[i] == '$')
-				err_flg = expand_exec(curr, &i, m_shell);
-			if (err_flg)
-				break ;
+				if (expand_exec(curr, &i, m_shell))
+					break ;
 			i++;
 		}
 		if (err_flg)
