@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 20:33:45 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/27 17:34:23 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/27 18:05:38 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ bool	expand_dollar(t_token **head, t_minishell *m_shell)
 	while (curr)
 	{
 		i = 0;
+		if (ft_strcmp(curr->word, "$") == 0)
+			break ;
 		while (curr->word[i])
 		{
-			if (ft_strcmp(curr->word, "$") == 0)
-				break ;
 			if (is_quote(curr->word[i]) || curr->word[i] == '$')
 				if (expand_exec(curr, &i, m_shell))
 					break ;
@@ -123,7 +123,8 @@ static char	*split_env_key(t_token *curr, int *index)
 	if (ft_strncmp(&curr->word[*index], "$?", 2) == 0)
 		return (ft_strdup("$?"));
 	while (curr->word[i] && curr->word[i] != ' ' && \
-		!is_quote(curr->word[i]) && curr->word[i] != '$')
+		!is_quote(curr->word[i]) && curr->word[i] != '$' && \
+		ft_isalnum(curr->word[i]))
 	{
 		i++;
 	}
