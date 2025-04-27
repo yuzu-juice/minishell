@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 21:12:57 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/22 12:41:10 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/27 13:15:48 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	handle_sigint_pipe(int sig)
 
 void	set_handle_sigint(t_env *env)
 {
+	signal(SIGQUIT, SIG_IGN);
 	if (signal(SIGINT, handle_sigint) == SIG_ERR)
 	{
 		perror(NULL);
@@ -43,6 +44,7 @@ void	set_handle_sigint(t_env *env)
 
 bool	set_handle_sigint_pipe(t_minishell *m_shell)
 {
+	signal(SIGQUIT, SIG_IGN);
 	if (signal(SIGINT, handle_sigint_pipe) == SIG_ERR)
 	{
 		perror("signal failed");
