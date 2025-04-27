@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:11:36 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/25 18:40:53 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/27 10:09:50 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	print_execve_err(char *cmd);
 static void	print_permission_err(char *cmd);
+static void	print_no_such_file_error(char *cmd);
 
 void	exec_cmd(t_minishell *m_shell, \
 	t_proc *proc, \
@@ -29,12 +30,16 @@ void	exec_cmd(t_minishell *m_shell, \
 	builtin_cmd = resolve_builtin_cmd(proc->cmd_args[0]);
 	if (builtin_cmd != NOT_A_BUILTIN_COMMAND)
 		exit(exec_builtin(proc->cmd_args, builtin_cmd, m_shell));
+	if (ft_strcmp(proc->cmd_args[0], "") == 0)
+		print_no_such_file_error("");
 	cmd_path = create_cmd_path(proc->cmd_args[0], m_shell);
 	if (cmd_path == NULL)
 	{
 		perror(NULL);
 		exit(1);
 	}
+	if (access(cmd_path, F_OK) != 0)
+		print_no_such_file_error(cmd_path);
 	if (access(cmd_path, X_OK) != 0)
 		print_permission_err(cmd_path);
 	envp = list_to_envp(m_shell->env);
@@ -56,18 +61,27 @@ void	remove_args_quotes(char **cmd_args)
 
 static void	print_execve_err(char *cmd)
 {
-	perror(NULL);
 	write(2, "cmd: ", 5);
 	write(2, cmd, ft_strlen(cmd));
-	write(2, "\n", 1);
+	write(2, ":", 1);
+	perror(NULL);
 	exit(127);
 }
 
 static void	print_permission_err(char *cmd)
 {
-	write(2, "permission denied\n", 19);
 	write(2, "cmd: ", 5);
 	write(2, cmd, ft_strlen(cmd));
-	write(2, "\n", 1);
+	write(2, ":", 1);
+	write(2, "permission denied\n", 19);
 	exit(126);
+}
+
+static void	print_no_such_file_error(char *cmd)
+{
+	write(2, "cmd: ", 5);
+	write(2, cmd, ft_strlen(cmd));
+	write(2, ":", 1);
+	write(2, "not found\n", 11);
+	exit(127);
 }
