@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env_util.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:37:48 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/27 11:35:52 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/27 11:46:56 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	cahnge_env_values(t_env *env, char **key_values)
+bool	change_env_values(t_env *env, char **key_values)
 {
 	t_env	*old_env;
 
