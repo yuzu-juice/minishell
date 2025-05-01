@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_process_handlers.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 04:57:30 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/27 11:19:30 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/04/27 12:25:56 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	child_process(t_minishell *m_shell, t_proc *proc, int pipe_fd[2][2])
 {
 	int	redir_status;
 
+	signal(SIGQUIT, SIG_DFL);
 	setup_child_pipe_input(proc, pipe_fd);
 	setup_child_pipe_output(proc, pipe_fd);
 	redir_status = setup_redirections(proc);

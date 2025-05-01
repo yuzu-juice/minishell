@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 03:32:08 by takitaga          #+#    #+#             */
-/*   Updated: 2025/04/27 00:11:56 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/27 12:25:30 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,11 @@ static void	wait_for_processes(t_minishell *m_shell, int last_pid)
 		if (WIFEXITED(status))
 			m_shell->prev_status = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
+		{
+			if (WTERMSIG(status) == SIGQUIT)
+				ft_putendl_fd("Quit (core dumped)", STDERR_FILENO);
 			m_shell->prev_status = 128 + WTERMSIG(status);
+		}
 		else
 			m_shell->prev_status = status;
 	}
