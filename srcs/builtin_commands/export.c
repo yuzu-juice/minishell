@@ -6,7 +6,7 @@
 /*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 18:42:27 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/22 18:01:23 by yohatana         ###   ########.fr       */
+/*   Updated: 2025/05/02 15:03:03 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static int	print_env(t_minishell *m_shell)
 	tmp = m_shell->env;
 	while (tmp)
 	{
+		printf("%s\n", tmp->value);
 		if (tmp->value == NULL)
 		{
 			write(1, tmp->key, ft_strlen(tmp->key));
@@ -58,7 +59,7 @@ static int	print_env(t_minishell *m_shell)
 		{
 			write(1, tmp->key, ft_strlen(tmp->key));
 			write(1, "=", 1);
-			write(1, tmp->value, ft_strlen(tmp->value));
+			ft_putstr_fd(tmp->value, 1);
 			write(1, "\n", 1);
 		}
 		tmp = tmp->next;
