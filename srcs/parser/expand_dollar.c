@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_dollar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 20:33:45 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/27 18:05:38 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/02 20:05:50 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,11 @@ bool	expand_dollar(t_token **head, t_minishell *m_shell)
 		{
 			if (is_quote(curr->word[i]) || curr->word[i] == '$')
 				if (expand_exec(curr, &i, m_shell))
+				{
+					printf("expand_exec failed\n");
+					err_flg = true;
 					break ;
+				}
 			i++;
 		}
 		if (err_flg)
@@ -42,7 +46,10 @@ bool	expand_dollar(t_token **head, t_minishell *m_shell)
 		curr = curr->next;
 	}
 	if (err_flg)
+	{
+		printf("err_flg on\n");
 		return (true);
+	}
 	return (false);
 }
 
@@ -63,6 +70,7 @@ static bool	expand_exec(t_token *curr, int *index, t_minishell *m_shell)
 			{
 				*index = i;
 				err_flg = replace_env_word(curr, index, m_shell);
+				printf("err_flg %d\n", err_flg);
 			}
 			if (curr->word[i] == '\"')
 				break ;
@@ -71,7 +79,10 @@ static bool	expand_exec(t_token *curr, int *index, t_minishell *m_shell)
 		*index = i;
 	}
 	else
+	{
 		err_flg = replace_env_word(curr, index, m_shell);
+		printf("err_flg_2 %d\n", err_flg);
+	}
 	return (err_flg);
 }
 
@@ -102,10 +113,12 @@ static bool	replace_env_word(t_token *curr, int *index, t_minishell *m_shell)
 		return (false);
 	}
 	replace.value = search_env_value(replace.key, m_shell);
+	printf("replace.value %s\n", replace.value);
 	if (replace_word(curr, index, replace))
 	{
 		free(replace.key);
 		free(replace.value);
+		printf("replace_word is failed\n");
 		return (true);
 	}
 	*index = *index + ft_strlen(replace.value) - 1;
