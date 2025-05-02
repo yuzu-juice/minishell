@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_util.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yohatana <yohatana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:37:48 by yohatana          #+#    #+#             */
-/*   Updated: 2025/04/27 11:46:56 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/04/27 18:39:30 by yohatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ bool	change_env_values(t_env *env, char **key_values)
 
 	old_env = search_env(key_values[0], env);
 	free(old_env->value);
-	old_env->value = ft_strdup(key_values[1]);
+	if (key_values[1])
+		old_env->value = ft_strdup(key_values[1]);
+	else
+		old_env->value = NULL;
 	free_string_double_array(key_values);
 	return (false);
 }
